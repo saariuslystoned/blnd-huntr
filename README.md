@@ -24,7 +24,6 @@ This workspace tracks the **February 2026 Blend Protocol (YieldBlox Pool) Exploi
 - [EVM Chain #3 — BSC ($38.7K)](#evm-chain-3--bsc-387k)
 - [The Phishing Network](#the-phishing-network)
 - [Complete Address Registry](#complete-address-registry)
-- [Open Questions](#open-questions)
 - [Agent Playbook](#agent-playbook)
 
 ---
@@ -727,17 +726,6 @@ PHISH_1064860:    0x8d8210a0252a706cb5de0c6f8e46b6d3692afc19
 PHISH_1674496:    0x1ae0e997216f7a354eda202b5cb3352b9dafadff
 PHISH_1648144:    0x2393d38400cad1d0ffae85b37d76de05bb7eddc6
 ```
-
----
-
-## Open Questions
-
-1. **How exactly did the oracle get manipulated?** Update : The price manipulation is specific to the Reflector on-chain oracle (CALI..), and only a few assets can be exploited, one of them being USTRY.YieldBlox was the pool targeted with the manipulation, other pools that use this oracle confirmed a response was put in place, and nothing was at risk.The other large pools, namely the fixed pool, uses a different reflector oracle that prices things from a collection of CEXs, so is not impacted in this way. Update 2: yieldblox pool oracle aggregator required 2 consecutive price reports within 10%, so yes, it was manipulated for 2 consecutive reflector reports
-
-2. **Where is the remaining ~45M XLM on Stellar going?** Only ~$1M has been bridged so far out of ~$10M total stolen. UPDATE : If they wash it all through a CEX they will get flagged / banned / lose the stolen funds, It's common to see these attackers move funds slowly.And yes, we have notified stellar bridges and CEXs.
-3. **What will the accumulator wallet do next?** Monitor `0x0b2B16E1...3eC6` for any outgoing movement.
-4. **Is `Fake_Phishing1701177` a known entity?** Cross-reference with other exploit databases and Etherscan labels.
-5. **Are there more bridge transactions incoming?** The attacker batches ~50K USDC per Allbridge call. Watch the Allbridge contracts for new incoming packets from Stellar.
 
 ---
 
