@@ -732,9 +732,9 @@ PHISH_1648144:    0x2393d38400cad1d0ffae85b37d76de05bb7eddc6
 ## Agent Playbook
 
 ### Priority Monitoring (Check These First)
-1. **🔴 Accumulator Wallet** — `0x0b2B16E1...3eC6` on Ethereum. If this moves, DROP EVERYTHING and trace the output.
-2. **🟠 BSC USDC** — `0x2d1ce29b...6482` on BSC. 38.7K USDC sitting untouched. Watch for swaps or transfers.
-3. **🟡 Stellar XLM** — `GBO7VUL2...2WXC`. ~45M XLM still here. Watch for new `swap_and_bridge` calls.
+1. **🔴 Accumulator Wallet** — `0x0b2B16E1...3eC6` 
+2. **🟠 BSC USDC** — `0x2d1ce29b...6482` 
+3. **🟡 Stellar XLM** — `GBO7VUL2...2WXC` 
 
 ### Tools & APIs
 - **Stellar:** `https://horizon.stellar.org/accounts/{address}/operations?limit=50&order=desc`
@@ -748,11 +748,3 @@ When new `swap_and_bridge` TXs appear, use the Python script above to decode the
 - **Chain ID 9** = Base
 - **Chain ID 1** = Ethereum (likely)
 - **Chain ID 2** = BSC (likely)
-
-
----
-
-*Investigation initiated Feb 22, 2026 by Antigravity AI*  
-*Community contributor: Markus (corrected oracle trade assumption)*  
-*Auction data verified Feb 22, 2026 via Soroban RPC event scan (60 fills confirmed on-chain)*  
-*SDF funding network mapped Feb 22, 2026 — GCA34H, GDDUETSYD, GCAI54X, PZNP, GCUIXCR cluster confirmed via Horizon API*
