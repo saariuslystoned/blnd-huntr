@@ -4,6 +4,7 @@
 > **Last Updated:** February 22, 2026, 01:00 AM EST  
 > **Estimated Total Stolen:** ~$10M USD equivalent  
 > **Recovered:** $0  
+> **Dashboard:** [www.ztripperz.com](https://www.ztripperz.com)
 
 This workspace tracks the **February 2026 Blend Protocol (YieldBlox Pool) Exploit** on the Stellar network. The attacker manipulated an oracle price feed to borrow ~61.2 Million XLM against inflated USTRY collateral, then began laundering proceeds across multiple EVM chains.
 
