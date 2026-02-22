@@ -10,7 +10,6 @@ const PAGE_TITLES = {
     ethereum: 'Ethereum Accumulator Status',
     base: 'Base Network Activity',
     bsc: 'BSC Parked Funds',
-    network: 'Phishing Network Map',
     registry: 'Complete Address Registry',
 };
 

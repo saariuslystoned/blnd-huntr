@@ -9,7 +9,7 @@ import Bridge from './pages/Bridge';
 import Ethereum from './pages/Ethereum';
 import Base from './pages/Base';
 import BSC from './pages/BSC';
-import PhishingNetwork from './pages/PhishingNetwork';
+
 import Registry from './pages/Registry';
 import Auctions from './pages/Auctions';
 
@@ -23,7 +23,7 @@ const PAGES = {
     ethereum: Ethereum,
     base: Base,
     bsc: BSC,
-    network: PhishingNetwork,
+
     registry: Registry,
 };
 

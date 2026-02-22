@@ -26,7 +26,6 @@ const NAV_SECTIONS = [
     {
         label: 'Intelligence',
         items: [
-            { id: 'network', name: 'Phishing Network' },
             { id: 'registry', name: 'Address Registry' },
         ],
     },

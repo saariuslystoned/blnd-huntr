@@ -133,6 +133,49 @@ export const BRIDGE_BATCHES = {
     batchSize: '~50,000 USDC',
 };
 
+export const BRIDGE_STATUS = {
+    lastUpdate: 'Feb 22, 2026 ~5:25 PM EST',
+    source: 'mootz12 (Blend core team)',
+    xlmFrozen: '48M XLM',
+    xlmBridgedOut: '13M XLM',
+    usdcBridgedOut: '1M USDC',
+    negotiations: true,
+    negotiationsNote: 'Negotiations are in progress.',
+};
+
+export const BRIDGE_OUT_TXS = [
+    // Base chain — ~$787K total (~16 batches of ~50K USDC)
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 1 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 2 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 3 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 4 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 5 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 6 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 7 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 8 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 9 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 10 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 11 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 12 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 13 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 14 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 15 },
+    { chain: 'Base', chainId: 9, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~37,000 USDC', method: 'swap_and_bridge', allbridgeContract: 'Allbridge Core (Base)', status: 'RECEIVED', batch: 16 },
+    // Ethereum — ~$172K total (~3 batches)
+    { chain: 'Ethereum', chainId: 1, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: '0x609c690e8f7d68a59885c9132e812eebdaaf0c9e', status: 'RECEIVED', batch: 1 },
+    { chain: 'Ethereum', chainId: 1, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: '0x609c690e8f7d68a59885c9132e812eebdaaf0c9e', status: 'RECEIVED', batch: 2 },
+    { chain: 'Ethereum', chainId: 1, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~50,000 USDC', method: 'swap_and_bridge', allbridgeContract: '0x609c690e8f7d68a59885c9132e812eebdaaf0c9e', status: 'RECEIVED', batch: 3 },
+    { chain: 'Ethereum', chainId: 1, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '~22,000 USDC', method: 'swap_and_bridge', allbridgeContract: '0x609c690e8f7d68a59885c9132e812eebdaaf0c9e', status: 'RECEIVED', batch: 4 },
+    // BSC — ~$38.7K (1 batch)
+    { chain: 'BSC', chainId: 2, dest: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', amount: '38,746.50 USDC', method: 'swap_and_bridge', allbridgeContract: '0x3c4fa639c8d7e65c603145adad8bd12f2358312f', status: 'RECEIVED', batch: 1 },
+];
+
+export const BRIDGE_CHAIN_SUMMARY = [
+    { chain: 'Base', chainId: 9, totalBridged: '~$787,000', batches: 16, destAddress: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', destStatus: 'ACTIVE Swapping', swapRouter: 'UniswapX Priority Orders', note: 'Swapping USDC → ETH/WETH via UniswapX' },
+    { chain: 'Ethereum', chainId: 1, totalBridged: '~$172,000', batches: 4, destAddress: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', destStatus: 'SWAPPED → Accumulator', swapRouter: 'Uniswap V4 Router', note: 'Swapped to ETH, forwarded to accumulator 0x0b2B...3eC6 ($591K parked)' },
+    { chain: 'BSC', chainId: 2, totalBridged: '~$38,700', batches: 1, destAddress: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', destStatus: 'UNTOUCHED', swapRouter: 'None', note: '38,746.50 Binance-Peg USDC parked, zero activity' },
+];
+
 export const EVM_CHAINS = {
     ethereum: {
         accumulator: {
