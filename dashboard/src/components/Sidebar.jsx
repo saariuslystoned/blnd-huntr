@@ -4,6 +4,7 @@ const NAV_SECTIONS = [
         items: [
             { id: 'overview', name: 'Overview' },
             { id: 'mechanics', name: 'Exploit Mechanics' },
+            { id: 'auctions', name: 'Auction Fills', badge: '60' },
             { id: 'liquidators', name: 'Liquidators' },
         ],
     },

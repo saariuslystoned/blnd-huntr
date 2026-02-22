@@ -1,5 +1,6 @@
 import { EXPLOIT } from '../data/investigation';
 import AddrChip from '../components/AddrChip';
+import LivePayments from '../components/LivePayments';
 
 export default function Stellar() {
     return (
@@ -74,6 +75,9 @@ export default function Stellar() {
                     </div>
                 </div>
             </div>
+
+            <LivePayments accountKey="attacker" label="Attacker Recent Payments (Live)" limit={10} />
+            <LivePayments accountKey="attackerFunder" label="Attacker Funder Recent Payments (Live)" limit={5} />
         </section>
     );
 }

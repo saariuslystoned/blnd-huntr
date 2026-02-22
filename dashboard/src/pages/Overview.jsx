@@ -1,4 +1,5 @@
 import { STATS, TIMELINE } from '../data/investigation';
+import LiveBalances from '../components/LiveBalances';
 
 export default function Overview() {
     return (
@@ -45,6 +46,8 @@ export default function Overview() {
                     <div className="stat-detail">{STATS.recoveredPct} Recovered</div>
                 </div>
             </div>
+
+            <LiveBalances />
 
             <div className="cols-2">
                 <div className="card">

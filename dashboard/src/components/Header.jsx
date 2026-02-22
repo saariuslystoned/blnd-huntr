@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 const PAGE_TITLES = {
     overview: 'Investigation Overview',
     mechanics: 'Exploit Mechanics & Oracle Trace',
+    auctions: 'Auction Fill Report (60 Fills)',
     liquidators: 'Liquidator Deep Dives',
     stellar: 'Stellar Infrastructure Tracking',
     bridge: 'Cross-Chain Bridge Analytics',

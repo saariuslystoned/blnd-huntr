@@ -1097,3 +1097,67 @@ td {
         font-size: 1.4rem;
     }
 }
+
+/* ═══ Live Data Components ═══ */
+.live-card {
+    border-color: var(--green);
+    border-left: 3px solid var(--green);
+}
+
+.live-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.live-loading {
+    font-size: 0.7rem;
+    color: var(--cyan);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.live-timestamp {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.live-error {
+    padding: 8px 12px;
+    background: var(--red-bg);
+    border: 1px solid var(--red);
+    border-radius: var(--radius-sm);
+    color: var(--red);
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+}
+
+.refresh-btn {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+
+.refresh-btn:hover {
+    border-color: var(--green);
+    color: var(--green);
+    background: var(--green-bg);
+}
+
+.refresh-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.balance-row.error td {
+    opacity: 0.5;
+}

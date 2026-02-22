@@ -11,10 +11,12 @@ import Base from './pages/Base';
 import BSC from './pages/BSC';
 import PhishingNetwork from './pages/PhishingNetwork';
 import Registry from './pages/Registry';
+import Auctions from './pages/Auctions';
 
 const PAGES = {
     overview: Overview,
     mechanics: Mechanics,
+    auctions: Auctions,
     liquidators: Liquidators,
     stellar: Stellar,
     bridge: Bridge,
