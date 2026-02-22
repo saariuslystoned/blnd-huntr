@@ -749,11 +749,6 @@ When new `swap_and_bridge` TXs appear, use the Python script above to decode the
 - **Chain ID 1** = Ethereum (likely)
 - **Chain ID 2** = BSC (likely)
 
-### Don't Fall For These Traps
-1. **The vanity addresses are NOT splitting wallets** — they're gas station wallets funded by phishing accounts. The actual value flows through the main attacker wallet.
-2. **UniswapX is NOT a mixer** — it's Uniswap's advanced order routing. Don't waste time investigating it as a privacy tool.
-3. **The 501x USTRY offer was never filled** — don't cite it as a trade. It was an offer creation only (confirmed by Markus and verified via Horizon API).
-4. **Token transfers marked "FlashLoan" or "ROBO" are junk airdrops** — $0 value scam tokens, not real activity.
 
 ---
 
