@@ -358,7 +358,7 @@ The largest liquidated position — `GCA34HBKNLWN3AOXWBRW5Y3HSGHCWF3UDBRJ5YHGU6H
 
 **Why this is the Blend Protocol Treasury:**
 1. Created by a BLND-holding insider account (`G...QSRR`)
-2. SDF directly funded it with ~55.8M XLM across 8 wires
+2. SDF directly funded it with ~511.8M XLM across 17 wires
 3. 11-signer institutional multisig — matches a protocol treasury governance structure
 4. $11M in stablecoins + yield assets (USDC, CETES, EURC) — a lending pool reserve
 5. Held the largest Blend pool collateral position by far
@@ -383,7 +383,7 @@ GAKGC35HMNB7A3Q2V5SQU6VJC2JFTZB6I7ZW77SJSMRCOX2ZFBGJOCHH
   ▼
 GDDUETSYDSHJMU5J73WHR4SQOAWRUM5SNLHXBQKM36EQ244GHSRS5AHF  [SDF Conduit]
   │
-  ├─► 55.8M XLM (8 wires, Apr–Aug 2025) ──────────────────────────────────────────────┐
+  ├─► 511.8M XLM (17 wires, Apr 2025–Feb 2026) ───────────────────────────────────────┐
   │                                                                                   │
   └─► GCAI54XEZIEABT7KBVQ2BR7RNWYCFBA3DMFHW6U4KWRJAX4IJTHZQSRR  [Blend Operator]      │
         │  (36,702 BLND holder; created GCA34H; received 48.15M XLM from SDF conduit) │
@@ -415,7 +415,7 @@ GDDUETSYDSHJMU5J73WHR4SQOAWRUM5SNLHXBQKM36EQ244GHSRS5AHF  [SDF Conduit]
 
 ### GDDUETSYD → GCA34H Direct XLM Wire History (Full Audit)
 
-> **Note:** Previous estimate of 55.8M was only the first 7 wires. Full inflow scan confirmed 17 wires totaling 511.8M XLM from the SDF conduit alone.
+> **511.8M XLM** confirmed across 17 wires from the SDF conduit alone.
 
 | Date | Amount | Running Total |
 |------|--------|---------------|
