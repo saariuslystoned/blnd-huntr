@@ -28,9 +28,9 @@ This workspace tracks the **February 2026 USTRY oracle manipulation** that drain
 - [Stellar — Attacker Infrastructure](#stellar--attacker-infrastructure)
 - [XLM Laundering Network](#xlm-laundering-network)
 - [Cross-Chain Bridge (Allbridge)](#cross-chain-bridge-allbridge)
-- [EVM Chain #1 — Base ($787K)](#evm-chain-1--base-787k)
-- [EVM Chain #2 — Ethereum ($172K)](#evm-chain-2--ethereum-172k)
-- [EVM Chain #3 — BSC ($38.7K)](#evm-chain-3--bsc-387k)
+- [EVM Chain #1 — Base (19.23 ETH)](#evm-chain-1--base-1923-eth)
+- [EVM Chain #2 — Ethereum (467.29 ETH)](#evm-chain-2--ethereum-46729-eth)
+- [EVM Chain #3 — BSC (38,746 USDC)](#evm-chain-3--bsc-38746-usdc)
 - [The Phishing Network](#the-phishing-network)
 - [Complete Address Registry](#complete-address-registry)
 
@@ -581,28 +581,32 @@ amount = ((hi << 64) | lo) / 10**7  # → 50,000.0 USDC
 
 ---
 
-## EVM Chain #1 — Base ($787K)
+## EVM Chain #1 — Base (19.23 ETH)
 
 | Field | Value |
 |-------|-------|
 | **Address** | `0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482` |
-| **Balance** | ~$787,000 |
+| **ETH Balance** | **19.230867300554960522 ETH** (~$35.5K) |
+| **Tokens** | 7 spam/dust tokens ($0 value): BINDER, INV, LGNS, Plankton, ROBO, TBA, US_POOL |
+| **Total TXs** | 28 |
 | **Activity** | UniswapX Priority Order swaps (USDC → ETH/WETH) |
 | **Key Contract** | UniswapX Priority Order Reactor: `0x000000001ec5656dcdb24d90dfa42742738de729` |
 | **USDC Contract** | `0x833589fcd6edb6e08f4c7c32d4f71b54bda02913` (Circle USDC on Base) |
 | **Incoming** | 8+ separate Allbridge USDC transfers (~50K each) |
+| **Status** | ⚠️ **Mostly drained** — ~380 ETH bridged to Ethereum via Relay + Across on Feb 22 |
 
 **Note:** UniswapX is NOT a mixer — it's Uniswap's advanced order routing for large trades with minimal slippage. The attacker chose this for efficiency, not privacy.
 
 ---
 
-## EVM Chain #2 — Ethereum ($886K)
+## EVM Chain #2 — Ethereum (467.29 ETH)
 
 | Field | Value |
 |-------|-------|
 | **Address** | `0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482` |
-| **Etherscan Label** | **YieldBlox Exploiter 2** |
-| **Balance** | ~$886,239 (92% of multichain total) |
+| **Etherscan Label** | **YieldBlox Exploiter 2** (tagged `Exploit`) |
+| **ETH Balance** | **467.293506693636236063 ETH** (~$863K) |
+| **Tokens** | 2 spam tokens ($0 value): FlashLoan, ROBO |
 | **Total TXs** | 45 |
 | **Funded By** | Allbridge Core Bridge |
 | **Swaps** | 9x Uniswap V4 Universal Router (`0x66a9893cc07d91d95644aedd05d03f95e1dba8af`) |
@@ -618,7 +622,7 @@ These wallets received gas from phishing wallets and returned dust to the main a
 | 1 | `0x0B2bC0c2bd171c4701cfad713172c4b5b0053EC6` | $0 | 3 | 🚩 Fake_Phishing1064860 |
 | 2 | `0x0b2081a0d5515485d51606ba41d8ee186f303eC6` | $0 | 3 | 🚩 Fake_Phishing1701177 |
 | 3 | `0x0b2ce35351ecf2b36a2e965c394683d47a563eC6` | $0 | 2 | 🚩 Fake_Phishing1674496 |
-| 4 | `0x0b2B16E1a9e2e9b15027ae46fa5ec547f5ef3eC6` | **$591,808** | 5 | Main Attacker |
+| 4 | `0x0b2B16E1a9e2e9b15027ae46fa5ec547f5ef3eC6` | **300 ETH** (~$554K) | 6 | Main Attacker |
 | 5 | `0x0b29aB4525acc3fed709b86fe5612734c6ef3eC6` | $0 | 1 | 🚩 Fake_Phishing1648144 |
 | 6 | `0x0b20E28bf0012a52e52f969fb6a0865854e93eC6` | $0 | 1 | 🚩 Fake_Phishing1701177 |
 | 7 | `0x0b2b400Bb655da6aeaaedd3a23260957c5bc3ec6` | $0 | 1 | `0xc3CbB870...22702b7F9` |
@@ -638,12 +642,12 @@ These fed dust into Wallet #4 (the accumulator):
 | Field | Value |
 |-------|-------|
 | **Address** | `0x0b2B16E1a9e2e9b15027ae46fa5ec547f5ef3eC6` |
-| **Etherscan Label** | **YieldBlox Exploiter 3** |
-| **Balance** | **$565,483 in ETH** (100% on Ethereum) |
+| **Etherscan Label** | **YieldBlox Exploiter 3** (tagged `Exploit`) |
+| **ETH Balance** | **300.000000021 ETH** (~$554K) |
+| **Tokens** | 1 spam token ($0 value): FlashLoan |
 | **Total TXs** | 6 |
 | **Funded By** | **YieldBlox Exploiter 2** (`0x2D1C...6482`) |
 | **Outgoing TXs** | **ZERO** |
-| **Token Holdings** | Only junk FlashLoan spam token ($0 value) |
 | **Status** | 💤 DORMANT — parked funds, no movement since deposit |
 
 ---
@@ -653,8 +657,9 @@ These fed dust into Wallet #4 (the accumulator):
 | Field | Value |
 |-------|-------|
 | **Address** | `0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482` |
-| **Balance** | 38,746.50 Binance-Peg USDC |
-| **TXs** | 0 external, 1 internal (Allbridge incoming) |
+| **BNB Balance** | 0.001840000039944935 BNB (~$1.09) |
+| **Token Balance** | **38,746.50073 Binance-Peg USDC** (~$38.7K) |
+| **TXs** | 0 external, 1 internal, 2 token transfers |
 | **Funded By** | Allbridge Core Bridge (`0x3c4fa639...312f`) |
 | **Status** | **UNTOUCHED** — parked USDC, no swaps or transfers yet |
 
@@ -664,12 +669,12 @@ These fed dust into Wallet #4 (the accumulator):
 
 Etherscan has officially tagged **three** attacker wallets. All are EOAs (not multisigs):
 
-| Etherscan Label | Address | Balance | Chains | Funded By | Status |
-|-----------------|---------|---------|--------|-----------|--------|
-| **YieldBlox Exploiter 1** | `0xE69f6d77DB6Ff493FDD15D8A0B390c36E18E5b21` | **$710,177** | ETH ($686K) + Base ($24K) | **Binance 14** | ⚠️ Active 1 day ago |
-| **YieldBlox Exploiter 2** | `0x2D1CE29b4aF15fb6e76Ba9995BbE1421E8546482` | **$961,471** | ETH ($886K) + BNB ($38K) + Base ($36K) | Allbridge Core Bridge | 🔴 **Active — laundering** |
-| **YieldBlox Exploiter 3** | `0x0b2B16E1a9E2e9b15027AE46Fa5eC547f5ef3eC6` | **$565,483** | ETH only (100%) | Exploiter 2 | 💤 Dormant |
-| | | **$2,237,131** | | | **TOTAL EVM-side** |
+| Etherscan Label | Address | Holdings (exact) | Chains | Funded By | Status |
+|-----------------|---------|------------------|--------|-----------|--------|
+| **YieldBlox Exploiter 1** | `0xE69f6d77DB6Ff493FDD15D8A0B390c36E18E5b21` | **363.98 ETH** + **12.78 ETH** (Base) | ETH + Base | **Binance 14** | ⚠️ Active 1 day ago |
+| **YieldBlox Exploiter 2** | `0x2D1CE29b4aF15fb6e76Ba9995BbE1421E8546482` | **467.29 ETH** + **19.23 ETH** (Base) + **38,746 USDC** (BSC) | ETH + Base + BSC | Allbridge Core Bridge | 🔴 **Active — laundering** |
+| **YieldBlox Exploiter 3** | `0x0b2B16E1a9E2e9b15027AE46Fa5eC547f5ef3eC6` | **300 ETH** | ETH only | Exploiter 2 | 💤 Dormant |
+| | | **1,163.28 ETH + 38,746 USDC** | | | **TOTAL EVM-side** |
 
 **Key findings:**
 - **Exploiter 1 was funded by Binance 14** — a major exchange hot wallet. This implies either a KYC'd withdrawal or a Binance bridge conversion. Potentially traceable.
