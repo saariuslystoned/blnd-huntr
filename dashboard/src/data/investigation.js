@@ -137,7 +137,7 @@ export const YHNF_PROFILE = {
         note: 'Round-trip: 699,990 BLND out Dec 2025, 700,000 BLND back Jan 2026',
     },
     findings: [
-        'Created 2025-04-15 — pre-positioned before treasury deployment',
+        'Created 2025-04-15 — pre-positioned before SDF pool deployment',
         'Funded by 4-signer controller multisig (376K BLND + 80K USDC)',
         '31 fills across the liquidation cascade — most of any single bot',
         'Post-exploit: distributing seized assets via claimable balances',
