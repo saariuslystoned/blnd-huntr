@@ -82,7 +82,8 @@ GBO7...2WXC invoked [Blend Pool] CCCC...GYFS submit(     # ← ATTACKER calls th
   │        { price: 10673728301028137, timestamp: 1771719300 }, # ← ⚠️ INFLATED: manipulation already locked in
   │        { price: 105742379403813,   timestamp: 1771719000 }, # ← normal baseline price
   │        { price: 105742642288368,   timestamp: 1771718700 }  # ← normal baseline price
-  │      ]                                                # ← TWAP uses 2 inflated + 2 normal = 50x effective boost
+  │      ]                                                # ← TWAP uses 2 inflated + 2 normal = ~51x effective boost
+                                                          # ← oracle posts every 5 min; price was inflated 5+ min
   │
   ├─ Invoked CAS3...OWMA transfer([Blend Pool] → GBO7...2WXC, 612492783064502)
   │    61,249,278.3064502 XLM debited from [Blend Pool]   # ← ⚠️ THE DRAIN: full pool XLM leaves
@@ -109,17 +110,37 @@ Execution Stats: 10,630,639 instructions | 12.96 MB memory | 1,275μs
 
 #### 🔴 The Suspicious Price Jump
 
-Look at the Reflector Oracle's `prices()` response for `CBLV...PNUR`:
+The Reflector Oracle posts a new price every **5 minutes** (300-second intervals). The exploit borrow transaction closed at **00:24:27 UTC**. Working back from that anchor:
 
-| Timestamp | Price | Interpretation |
-|-----------|-------|----------------|
-| 1771718700 | 105,742,642,288,368 | Normal range |
-| 1771719000 | 105,742,379,403,813 | Normal range |
-| **1771719300** | **10,673,728,301,028,137** | **⚠️ 100x JUMP** |
-| **1771719600** | **10,673,728,301,028,137** | **⚠️ Stays inflated** |
+| Unix Timestamp | UTC Time | USTRY Price (raw) | Status |
+|----------------|----------|-------------------|--------|
+| 1771718700 | 00:05:00 UTC | 105,742,642,288,368 | ✅ Normal |
+| 1771719000 | 00:10:00 UTC | 105,742,379,403,813 | ✅ Normal |
+| **1771719300** | **00:15:00 UTC** | **10,673,728,301,028,137** | **⚠️ 100x JUMP — manipulation captured** |
+| **1771719600** | **00:20:00 UTC** | **10,673,728,301,028,137** | **⚠️ Still inflated** |
 
-The price of `CBLV...PNUR` (USTRY) jumped **~100x** between timestamps 1771719000 and 1771719300 in the Reflector Oracle's feed. The oracle reported what the DEX said — the DEX itself was manipulated via thin USTRY liquidity. The oracle did not malfunction; it read manipulated market data.
+The price of USTRY jumped **~100x** at 00:15 UTC — over 9 minutes before the borrow. The oracle did not malfunction; it read the DEX price, which the attacker had already manipulated via thin USTRY liquidity. The oracle confirmed the inflation again at 00:20, and the attacker executed the borrow at 00:24:27 UTC.
 
+#### ⏱️ Attack Timeline
+
+```
+< 00:15:00 UTC   Attacker manipulates USTRY DEX pool price on Stellar
+                 (thin liquidity = small trade moves price dramatically)
+
+  00:15:00 UTC   Reflector Oracle posts → reads manipulated DEX price
+                 USTRY: ~1.06 USDC → ~106.7 USDC (100x inflated)
+                 [first inflated reading — TWAP clock starts]
+
+  00:20:00 UTC   Reflector Oracle posts again → price still inflated
+                 [second inflated reading — TWAP now has 2/4 periods inflated]
+                 TWAP effective multiplier: ~51x above normal
+
+  00:24:27 UTC   Attacker executes borrow on Blend Pool
+                 61,249,278 XLM borrowed against ~$159K of real USTRY collateral
+                 Pool drained instantly
+```
+
+> **Minimum manipulation window: 9+ minutes** (00:15 first inflation → 00:24:27 borrow). The attacker kept the USTRY DEX price inflated across two consecutive oracle windows and executed the borrow 4 min 27 sec after the final confirmation. This rules out flash-loan style atomicity — sustained DEX position required.
 
 ---
 
