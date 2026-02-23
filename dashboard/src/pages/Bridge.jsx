@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BRIDGE_BATCHES, BRIDGE_STATUS, BRIDGE_OUT_TXS, BRIDGE_CHAIN_SUMMARY, EVM_CHAINS } from '../data/investigation';
+import { BRIDGE_BATCHES, BRIDGE_STATUS, BRIDGE_OUT_TXS, BRIDGE_CHAIN_SUMMARY, EVM_CHAINS, XLM_FLOW_MAP } from '../data/investigation';
 import AddrChip from '../components/AddrChip';
 
 const CHAIN_COLORS = {
@@ -23,6 +23,9 @@ export default function Bridge() {
 
     const chains = ['all', 'Base', 'Ethereum', 'BSC'];
 
+    const { lastUpdate, source, xlmFrozen, xlmInIntermediaries, xlmConverted,
+        usdcBridgedOut, usdcFromXlm, totalOffChain, negotiations, negotiationsNote } = BRIDGE_STATUS;
+
     return (
         <section className="section active">
             <h1 className="section-title">Cross-Chain Tracking</h1>
@@ -38,13 +41,14 @@ export default function Bridge() {
                         LATEST INTEL — {BRIDGE_STATUS.lastUpdate}
                     </div>
                     <div className="alert-text">
-                        Source: <strong>{BRIDGE_STATUS.source}</strong> —{' '}
-                        <strong>{BRIDGE_STATUS.xlmFrozen}</strong> frozen,{' '}
-                        <strong>{BRIDGE_STATUS.xlmBridgedOut}</strong> XLM and{' '}
-                        <strong>{BRIDGE_STATUS.usdcBridgedOut}</strong> USDC were bridged out.{' '}
-                        {BRIDGE_STATUS.negotiations && (
+                        Source: <strong>{source}</strong> —{' '}
+                        <strong>{xlmFrozen}</strong> frozen in main wallet.{' '}
+                        Stream 1: <strong>{usdcBridgedOut}</strong> (direct borrow, immediately bridged).{' '}
+                        Stream 2: <strong>{xlmConverted}</strong> (via intermediaries).{' '}
+                        Total off-chain: <strong style={{ color: 'var(--red)' }}>{totalOffChain}</strong>.{' '}
+                        {negotiations && (
                             <span style={{ color: 'var(--green)', fontWeight: 700 }}>
-                                🤝 {BRIDGE_STATUS.negotiationsNote}
+                                🤝 {negotiationsNote}
                             </span>
                         )}
                     </div>
@@ -54,19 +58,29 @@ export default function Bridge() {
             {/* Summary Stats */}
             <div className="stats-grid">
                 <div className="stat-card red">
-                    <div className="stat-label">Total Bridged Out</div>
-                    <div className="stat-value">{BRIDGE_BATCHES.totalBridged}</div>
-                    <div className="stat-detail">USDC via Allbridge Core</div>
+                    <div className="stat-label">Total Off-Chain (Est)</div>
+                    <div className="stat-value">{totalOffChain}</div>
+                    <div className="stat-detail">Both streams combined</div>
                 </div>
                 <div className="stat-card cyan">
-                    <div className="stat-label">Bridge Batches</div>
-                    <div className="stat-value">{BRIDGE_OUT_TXS.length}</div>
-                    <div className="stat-detail">{BRIDGE_BATCHES.batchSize} per batch</div>
+                    <div className="stat-label">Stream 1 — Direct USDC Borrow</div>
+                    <div className="stat-value">{usdcBridgedOut.split(' ')[0]}</div>
+                    <div className="stat-detail">Bridged immediately post-exploit</div>
                 </div>
                 <div className="stat-card purple">
+                    <div className="stat-label">Stream 2 — XLM Conversion</div>
+                    <div className="stat-value">{usdcFromXlm.split(' ')[0]}</div>
+                    <div className="stat-detail">{xlmConverted}</div>
+                </div>
+                <div className="stat-card blue">
                     <div className="stat-label">XLM Frozen</div>
-                    <div className="stat-value">{BRIDGE_STATUS.xlmFrozen}</div>
-                    <div className="stat-detail">Remaining on Stellar</div>
+                    <div className="stat-value">{xlmFrozen.split(' ')[0]}</div>
+                    <div className="stat-detail">Main attacker wallet</div>
+                </div>
+                <div className="stat-card yellow">
+                    <div className="stat-label">Intermediary Wallets</div>
+                    <div className="stat-value">{xlmInIntermediaries.split(' ')[0]}</div>
+                    <div className="stat-detail">⚠️ Status TBD</div>
                 </div>
                 <div className="stat-card green">
                     <div className="stat-label">Negotiations</div>
@@ -130,6 +144,59 @@ export default function Bridge() {
                             </div>
                         </div>
                     ))}
+                </div>
+            </div>
+
+            {/* XLM Laundering Network */}
+            <div className="card">
+                <div className="card-header">
+                    <h3 className="card-title">🕸️ XLM Laundering Network</h3>
+                    <span className="card-badge critical">{XLM_FLOW_MAP.length} WALLETS</span>
+                </div>
+                <p className="trace-note" style={{ marginBottom: '16px' }}>
+                    16.18M XLM was fanned out to 6 intermediary wallets using a dust-triggered C2 pattern.
+                    Each withdrawal is preceded by a 0.001 XLM signal from a paired trigger address.
+                </p>
+                <div className="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Role</th>
+                                <th>Address</th>
+                                <th>Trigger</th>
+                                <th>Received</th>
+                                <th>Remaining</th>
+                                <th>Drained</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {XLM_FLOW_MAP.map((w, i) => (
+                                <tr key={w.address}>
+                                    <td className="mono">{i + 1}</td>
+                                    <td>
+                                        <span className={`tag ${w.role === 'Primary Swap Hub' ? 'red' :
+                                            w.role === 'Relay' ? 'orange' :
+                                                w.role === 'Distribution' ? 'yellow' :
+                                                    w.role === 'Funder/Ops' ? 'purple' : 'cyan'
+                                            }`}>{w.role}</span>
+                                    </td>
+                                    <td><AddrChip address={w.address} /></td>
+                                    <td className="mono" style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{w.trigger}</td>
+                                    <td className="mono" style={{ fontWeight: 600 }}>{w.received.toLocaleString()} XLM</td>
+                                    <td className="mono" style={{
+                                        fontWeight: 600,
+                                        color: w.remaining < 100 ? 'var(--green)' : 'var(--orange)'
+                                    }}>{w.remaining.toLocaleString()} XLM</td>
+                                    <td className="mono" style={{ color: 'var(--red)' }}>
+                                        {((1 - w.remaining / w.received) * 100).toFixed(0)}%
+                                    </td>
+                                    <td style={{ fontSize: '0.72rem', maxWidth: '200px' }}>{w.status}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
 

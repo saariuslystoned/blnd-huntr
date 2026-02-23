@@ -1,8 +1,16 @@
 # 🕵️ Blend Protocol Exploit — Investigation Tracker
 
 > **Status:** ACTIVE — Funds still moving  
-> **Last Updated:** February 22, 2026, 01:00 AM EST  
-> **Estimated Total Stolen:** ~$10M USD equivalent  
+> **Last Updated:** February 22, 2026, 09:03 PM EST  
+> **Exploit Ledger:** [61340408](https://stellar.expert/explorer/public/ledger/61340408) (closed 00:24:27 UTC)  
+> **Drained from Pool:** 61,249,278 XLM + ~$1M USDC (two separate assets)  
+> **Frozen:** ~48M XLM (main wallet + Swap Hub + Funder/Ops — confirmed by mootz12)  
+> **Stream 1 — Direct USDC:** ~$997.7K bridged immediately (Base $787K + ETH $172K + BSC $38.7K)  
+> **Stream 2 — XLM (13M moved):** $787K converted to USDC + 3.77M to Binance (KYC) + 3.97M to ChangeNow (no KYC!)  
+> **XLM Spot at Exploit Ledger:** $0.16065/XLM (DEX candle 00:24 UTC, confirmed on-chain)  
+> **DEX Effective Rate:** $0.1565/XLM avg (**2.6% slippage** — minimal price impact)  
+> **Total Off-Chain Gross Value (est):** ~$3M ($2M XLM at spot + $1M USDC)  
+> **Exchanges Used:** 🚨 Binance (3.77M XLM — **has KYC**) · ⚠️ ChangeNow (3.97M XLM — **no KYC**)  
 > **Recovered:** $0  
 > **Dashboard:** [www.ztripperz.com](https://www.ztripperz.com)
 
@@ -18,6 +26,7 @@ This workspace tracks the **February 2026 Blend Protocol (YieldBlox Pool) Exploi
 - [GCA34H — Blend Treasury Deep Dive](#gca34h--blend-treasury-deep-dive)
 - [SDF Funding Network](#sdf-funding-network)
 - [Stellar — Attacker Infrastructure](#stellar--attacker-infrastructure)
+- [XLM Laundering Network](#xlm-laundering-network)
 - [Cross-Chain Bridge (Allbridge)](#cross-chain-bridge-allbridge)
 - [EVM Chain #1 — Base ($787K)](#evm-chain-1--base-787k)
 - [EVM Chain #2 — Ethereum ($172K)](#evm-chain-2--ethereum-172k)
@@ -497,6 +506,18 @@ The SDF deployed ~$8–9M USD (as XLM) into the Blend treasury as the **primary 
 
 ## Stellar — Attacker Infrastructure
 
+> ### 🚨 CRITICAL KYC LEAD — BINANCE DEPOSIT ADDRESS IDENTIFIED
+>
+> **`GABFQIK63R2NETJM7T673EAMZN4RJLLGP3OFUEJU5SZVTGWUKULZJNL6`** has been confirmed by [stellar.expert](https://stellar.expert/explorer/public/account/GABFQIK63R2NETJM7T673EAMZN4RJLLGP3OFUEJU5SZVTGWUKULZJNL6) as the **Binance Stellar deposit hot wallet** (`#exchange`, `#memo-required`, `https://binance.com`).
+>
+> The attacker routed stolen XLM through `GDTSFMKTLD2W` (Relay intermediary, **fully drained — 3.51M XLM**) directly into this address. This means:
+> 1. **Binance has KYC on the depositing account.** A law enforcement subpoena or security team contact to Binance will reveal the attacker's identity.
+> 2. The same deposit address shows **pre-exploit activity dating back to December 29, 2024** — the attacker has an established Binance account, not a throwaway.
+> 3. USDC that flowed through this address was swept to `GC5LF63GRVIT5ZXXCXLPI3RX` (Binance's internal hot wallet / settlement address), confirming the funds were credited into the Binance system.
+>
+> **Recommended actions:** Contact Binance security team at security@binance.com with the transaction hashes involving `GABFQIK63R2N` and request an account freeze + identity disclosure under applicable law.
+
+
 ### Primary Attacker Wallet
 
 | Field | Value |
@@ -516,14 +537,6 @@ The SDF deployed ~$8–9M USD (as XLM) into the Blend treasury as the **primary 
 | ⚡ **MAIN EXPLOIT** | [`3e81a3f7b6e17cc22d0a1f33e9dcf90e5664b125b9e61f108b8d2f082f2d4657`](https://stellar.expert/explorer/public/tx/3e81a3f7b6e17cc22d0a1f33e9dcf90e5664b125b9e61f108b8d2f082f2d4657) | `submit(request_type=4)` → Borrowed **61,249,278.3 XLM** from Blend Pool |
 | **Bridge Txs** | Multiple `swap_and_bridge` calls | Batched ~50K USDC per call to EVM via Allbridge |
 
-### Stellar Intermediary Wallets
-
-The attacker distributed XLM across at least 3-4 relay wallets before converting to USDC and bridging. These relays send back 0.001 XLM as a confirmation signal.
-
-- `GC2XJK...FZIB` — Initial funder
-- `GDHRCQ...ETN3` — USDC relay
-- `GABFRFPYM2BXM4OM2ZA4YDBWY4CMPVESHQMKXSM47MWWJD4TW2KQDWWN` — Major USTRY/USDC trading counterparty
-
 ### Actual USTRY Trading History (From Attacker's Account)
 
 All executed trades were at **normal prices** (~1.058 USDC/USTRY):
@@ -540,6 +553,115 @@ All executed trades were at **normal prices** (~1.058 USDC/USTRY):
 | **Feb 22 00:22** | **DUMP** | **94,420 USTRY** | **1.063** |
 
 The massive dumps at 00:21-00:22 on Feb 22 are the attacker liquidating stolen USTRY back into USDC for bridging.
+
+---
+
+## XLM Laundering Network
+
+The attacker drained 61,249,278 XLM. Per mootz12 (Blend core team): **"48M XLM frozen, 13M XLM and 1M USDC were bridged out."**
+
+~48M XLM remains frozen across three wallets. The remaining ~13M was moved through 5 intermediary wallets to two exchanges (Binance and ChangeNow) and one DEX conversion pipeline. Each withdrawal was preceded by a 0.001 XLM dust payment from a paired trigger address (automated C2 pattern).
+
+### Intermediary Wallets (Full Trace)
+
+| # | Address | Role | Received | Sent To | Status |
+|---|---------|------|----------|---------|--------|
+| 1 | `GATDQL767ZM2JQTBEG4BQ5WKOQNGAGWZDUN4GYT2UINPEU3RT2UAMVZH` | **Swap Hub** | 8,001,000 XLM | ~5M → USDC ($787K), rest frozen | 🔒 ~2.5M FROZEN |
+| 2 | `GDBIXGZ3EKI3M4DBM65ADLHVNYIOG7JXGOHW5DHUZQAXPORY3QNO2PNY` | **⚠️ ChangeNow** (no KYC!) | 3,987,342 XLM | 3,965,831 → ChangeNow hot wallet | ⚠️ Gone |
+| 3 | `GDTSFMKTLD2WTQSOWK36QB4A5VTHI54Q67ZDSKAWULAKKN6QVX6LTHQC` | **Relay → Binance** | 3,546,827 XLM | 3,536,146 → Binance deposit | 🚨 KYC |
+| 4 | `GC2XJKN5VZEMM35F5LRSUP5CWVDZJVM37YKR7UYYXGN3TGKZXMP5FZIB` | **Funder/Ops** (Binance-created) | 450,490 XLM | 0 sent out | 🔒 FROZEN |
+| 5 | `GALFQWBGD472N3N7DO7LPT7BRTLHAVJDH4KCTTUVEOVUS4VJQ47PJNSH` | **Small → Binance** | 230,106 XLM | 233,610 → Binance deposit | 🚨 Drained |
+
+**Exchange destinations (confirmed via [stellar.expert](https://stellar.expert)):**
+- 🚨 **Binance** (`GABFQIK63R2NETJM7T673EAMZN4RJLLGP3OFUEJU5SZVTGWUKULZJNL6`): 3,769,756 XLM — `#exchange`, `#memo-required`, `binance.com` — **has KYC**
+- ⚠️ **ChangeNow** (`GDBIXGZ3EKI3M4DBM65ADLHVNYIOG7JXGOHW5DHUZQAXPORY3QNO2PNY`): 3,965,831 XLM — `#exchange`, `#memo-required`, `changenow.io` — **no KYC**
+
+
+
+### Swap Hub Pattern (`GATDQL767ZM2`)
+
+The Swap Hub received 8M XLM and ran a cycle: create throwaway account → load XLM → `path_payment_strict_send` (DEX swap to USDC) → `account_merge` throwaway → bridge USDC via Allbridge. Known USDC proceeds: $787,167 total across 3 self-swaps + 4 throwaway merges, plus 150,000 USDC returned to the main wallet.
+
+### Dust-Signal C2
+
+Each intermediary has a paired trigger address sending exactly 0.001 XLM as a "go" signal before batch withdrawals:
+
+| Trigger | Controls |
+|---------|----------|
+| `GATDIV4ROXRC` | `GATDQL767ZM2JQTBEG4BQ5WKOQNGAGWZDUN4GYT2UINPEU3RT2UAMVZH` (Swap Hub) |
+| `GDBIBJLV7KDB` | `GDBIXGZ3EKI3M4DBM65ADLHVNYIOG7JXGOHW5DHUZQAXPORY3QNO2PNY` (ChangeNow) |
+| `GDTS7EPASSTB` | `GDTSFMKTLD2WTQSOWK36QB4A5VTHI54Q67ZDSKAWULAKKN6QVX6LTHQC` (Relay) |
+| `GC2XUR73CEZL` | `GC2XJKN5VZEMM35F5LRSUP5CWVDZJVM37YKR7UYYXGN3TGKZXMP5FZIB` (Funder/Ops) |
+| `GALFMVJPW6AS` | `GALFQWBGD472N3N7DO7LPT7BRTLHAVJDH4KCTTUVEOVUS4VJQ47PJNSH` (Small) |
+
+
+
+### Net Extraction Summary
+
+The attacker drained **two separate assets** from Blend: 61,249,278 XLM and ~$1,000,000 USDC.
+These produced **two independent USDC bridge streams**:
+
+**Stream 1 — Direct USDC Borrow (~$997.7K)**
+The ~$1M USDC borrowed directly from the pool was immediately bridged off-chain via Allbridge Soroban calls directly from the main attacker wallet (`GBO7VUL2...C2WXC`). This is the bridge data we already have:
+
+| Chain | Amount | Status |
+|-------|--------|--------|
+| Base | ~$787,000 | ⚡ Active swapping (converted to ETH) |
+| Ethereum | ~$172,000 | 💤 Forwarded to accumulator |
+| BSC | ~$38,700 | 💤 Untouched |
+| **Stream 1 Total** | **~$997,700** | |
+
+**Stream 2 — XLM → USDC Conversion ($787K)**
+~5M XLM was routed through GATDQL767ZM2 (Primary Swap Hub) and 4 throwaway accounts, converted to USDC via `path_payment_strict_send`, then bridged via 16 Allbridge Soroban calls to Base chain.
+
+**On-chain confirmed spot price at ledger 61340408 (00:24:27 UTC): $0.16065/XLM**
+
+| Swap | XLM In | USDC Out | Rate | Time UTC |
+|------|--------|----------|------|----------|
+| GATDQL self #1 | 500,000 XLM | $79,122 | $0.15824 | 01:59 |
+| GATDQL self #2 | 1,000,000 XLM | $157,236 | $0.15724 | 02:18 |
+| GATDQL self #3 | 500,000 XLM | $76,692 | $0.15338 | 02:45 |
+| Throwaway accts (×4) | ~3,000,000 XLM | $474,117 | ~$0.1580 | 01:44–02:29 |
+| **Total** | **~5,000,000 XLM** | **$787,167** | **$0.1565 avg** | |
+
+> **Slippage:** $0.16065 spot → $0.1565 effective = **2.6% below spot** (minimal price impact)
+
+**Complete XLM Reconciliation (61,249,278 XLM — confirmed by mootz12: "48M frozen, 13M bridged out"):**
+
+| Category | Wallet | XLM | Value @ $0.16065 | Status |
+|----------|--------|-----|-------------------|--------|
+| 🔒 Frozen (main wallet) | `GBO7VUL2TOKPWFAWKATIW7K3QYA7WQ63VDY5CAE6AFUUX6BHZBOC2WXC` | 45,068,299 | $7,240,722 | 🔒 FROZEN |
+| 🔒 Frozen (Swap Hub) | `GATDQL767ZM2JQTBEG4BQ5WKOQNGAGWZDUN4GYT2UINPEU3RT2UAMVZH` | ~2,500,813 | $401,756 | 🔒 FROZEN |
+| 🔒 Frozen (Funder/Ops) | `GC2XJKN5VZEMM35F5LRSUP5CWVDZJVM37YKR7UYYXGN3TGKZXMP5FZIB` | 450,490 | $72,371 | 🔒 FROZEN |
+| **🔒 Total Frozen** | | **~48,019,602** | **$7,714,849** | **≈ 48M ✓** |
+| 💱 Converted to USDC | `GATDQL767ZM2JQTBEG4BQ5WKOQNGAGWZDUN4GYT2UINPEU3RT2UAMVZH` | ~5,000,000 | $787,167 realized | Bridged to Base |
+| 🚨 Binance (via Relay) | `GABFQIK63R2NETJM7T673EAMZN4RJLLGP3OFUEJU5SZVTGWUKULZJNL6` | 3,536,146 | $568,234 | **KYC** |
+| 🚨 Binance (via Small) | `GABFQIK63R2NETJM7T673EAMZN4RJLLGP3OFUEJU5SZVTGWUKULZJNL6` | 233,610 | $37,531 | **KYC** |
+| ⚠️ ChangeNow (no KYC!) | `GDBIXGZ3EKI3M4DBM65ADLHVNYIOG7JXGOHW5DHUZQAXPORY3QNO2PNY` | 3,965,831 | $637,111 | **NO KYC** |
+| **🚨 Total Moved** | | **~12,735,587** | **~$2,030,043** | **≈ 13M ✓** |
+| Fees/dust/residual | various | ~494,089 | ~$79,395 | |
+| **TOTAL** | | **61,249,278** | | **✓ Reconciled** |
+
+**Exchange breakdown:**
+- 🚨 **Binance**: 3,769,756 XLM ($605,765) — **has KYC, subpoena-able**
+- ⚠️ **ChangeNow**: 3,965,831 XLM ($637,111) — **no-KYC instant swap ([changenow.io](https://changenow.io))**, contact compliance team
+
+
+
+### USDC Flow Map (Stream 2)
+
+```
+GBO7VUL2 (main wallet)
+  └─ 8,001,000 XLM → GATDQL767ZM2 (Swap Hub)
+        ├─ path_payment [500K XLM → $79,122 USDC]
+        ├─ path_payment [1M XLM   → $157,236 USDC]
+        ├─ path_payment [500K XLM → $76,692 USDC]
+        ├─ 4 throwaway accounts  → $474,117 USDC (merged back)
+        ├─ 16× Allbridge swap_and_bridge → Base chain
+        └─ 150,000 USDC → GBO7VUL2 (returned to main)
+```
+
+
 
 ---
 

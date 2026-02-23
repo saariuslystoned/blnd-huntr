@@ -26,19 +26,29 @@ export default function Overview() {
 
             <div className="stats-grid">
                 <div className="stat-card red">
-                    <div className="stat-label">Total Stolen (Est)</div>
-                    <div className="stat-value red">{STATS.totalStolen}</div>
-                    <div className="stat-detail">USD Equivalent</div>
+                    <div className="stat-label">Drained from Pool</div>
+                    <div className="stat-value red">{STATS.drainedXlm}</div>
+                    <div className="stat-detail">+ {STATS.drainedUsdc}</div>
                 </div>
                 <div className="stat-card blue">
-                    <div className="stat-label">Stellar Retained</div>
-                    <div className="stat-value">{STATS.stellarRetained}</div>
-                    <div className="stat-detail">Waiting to be bridged</div>
+                    <div className="stat-label">Frozen (Main Wallet)</div>
+                    <div className="stat-value">{STATS.frozenXlm}</div>
+                    <div className="stat-detail">🔒 Locked on Stellar</div>
                 </div>
                 <div className="stat-card cyan">
-                    <div className="stat-label">Bridged to Base</div>
-                    <div className="stat-value">{STATS.bridgedToBase}</div>
-                    <div className="stat-detail">Converted to ETH</div>
+                    <div className="stat-label">Total Off-Chain (Est)</div>
+                    <div className="stat-value">{STATS.netExtraction}</div>
+                    <div className="stat-detail">$1M USDC + ~$1M from XLM → bridged</div>
+                </div>
+                <div className="stat-card orange">
+                    <div className="stat-label">XLM Conversion (Slippage)</div>
+                    <div className="stat-value orange">{STATS.slippageBurn}</div>
+                    <div className="stat-detail">{STATS.xlmConverted}</div>
+                </div>
+                <div className="stat-card yellow">
+                    <div className="stat-label">Intermediary XLM</div>
+                    <div className="stat-value">{STATS.intermediaryXlm}</div>
+                    <div className="stat-detail">⚠️ 6 wallets — status TBD</div>
                 </div>
                 <div className="stat-card green">
                     <div className="stat-label">Recovery Status</div>
