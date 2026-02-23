@@ -157,10 +157,14 @@ ATTACKER (GBO7VUL2TOKPWFAWKATIW7K3QYA7WQ63VDY5CAE6AFUUX6BHZBOC2WXC)
              ├─► G...GJKU — 1,461,895 XLM + 9,423 USDC seized (3 fills, GDQY3...BLEND)
              └─► 57 remaining fills across other positions
 
-POOL STATUS: Frozen ("on ice") — no withdrawals, no new borrows
-ATTACKER PROCEEDS:
-  ~61,249,278 XLM (still on Stellar, slowly bridging to EVM)
-  ~$1M USDC (from USTRY dump at inflated price + Allbridge bridge)
+POOL STATUS: Frozen ("on ice") — no withdrawals, no new borrows. Negotiations in progress.
+ATTACKER PROCEEDS (as of Feb 22, 2026):
+  ~48M XLM still frozen on Stellar (Main wallet 45.07M + Swap Hub 2.5M + Funder/Ops 450K)
+  ~3.77M XLM sent to Binance (KYC exchange)
+  ~3.97M XLM sent to ChangeNow (no-KYC)
+  ~5M XLM converted → $787K USDC, bridged to Base via Allbridge (16 calls)
+  ~$997.7K USDC bridged directly (Base $787K + ETH $172K + BSC $38.7K)
+  ~$3M total off-chain (estimated)
 ```
 
 ---
