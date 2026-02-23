@@ -145,12 +145,12 @@ export default function EvmChains() {
             {/* WHERE IS THE MONEY — Full Breakdown */}
             <div className="card" style={{ marginBottom: '24px', borderTop: '3px solid #ef4444' }}>
                 <div className="card-header">
-                    <h3 className="card-title">💰 Where Is the ~$3.4M?</h3>
+                    <h3 className="card-title">💰 Where Are the Stolen Funds?</h3>
                     <span className="card-badge critical">FULL ACCOUNTING</span>
                 </div>
                 <p className="trace-note" style={{ marginBottom: '16px' }}>
-                    The exploit extracted ~$3.4M total from Stellar. Only <strong>~$1.5M sits on EVM chains</strong> (below).
-                    The rest went to exchanges (likely gone) or remains frozen on Stellar.
+                    ~61M XLM and 1M USDC were stolen in the exploit. <strong>~48M XLM remains frozen on Stellar</strong> (~$7.5M).
+                    ~$3.4M was moved off-chain: ~$1.5M sits on EVM, ~$1.2M went to exchanges, the rest is gas/slippage.
                 </p>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px' }}>
                     <div style={{ background: 'var(--bg-tertiary)', borderRadius: '10px', padding: '16px', borderLeft: '4px solid #6366f1' }}>
@@ -176,8 +176,8 @@ export default function EvmChains() {
                     </div>
                     <div style={{ background: 'var(--bg-tertiary)', borderRadius: '10px', padding: '16px', borderLeft: '4px solid #22c55e' }}>
                         <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', marginBottom: '6px' }}>🔒 Frozen on Stellar</div>
-                        <div style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.4rem', color: '#22c55e' }}>~4.7M XLM</div>
-                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '6px' }}>~$752K at current prices</div>
+                        <div style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.4rem', color: '#22c55e' }}>~48M XLM</div>
+                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '6px' }}>~$7.5M at current prices</div>
                         <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.5 }}>
                             Frozen in exploiter wallets on Stellar<br />
                             <span style={{ color: '#22c55e', fontWeight: 600 }}>Potentially recoverable via negotiations</span>
