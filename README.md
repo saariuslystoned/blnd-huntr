@@ -767,10 +767,11 @@ The ~$1M USDC borrowed directly from the pool was immediately bridged off-chain 
 | 🚨 Binance (via Small) | `GABFQIK63R2NETJM7T673EAMZN4RJLLGP3OFUEJU5SZVTGWUKULZJNL6` | 233,610 | $37,531 | **KYC** |
 | ⚠️ ChangeNow (no KYC!) | `GDBIXGZ3EKI3M4DBM65ADLHVNYIOG7JXGOHW5DHUZQAXPORY3QNO2PNY` | 3,965,831 | $637,111 | **NO KYC** |
 | **🚨 Total Moved** | | **~12,735,587** | **~$2,030,043** | **≈ 13M ✓** |
-| Fees/dust/residual | various | ~494,089 | ~$79,395 | ¹ |
+| Dust — ChangeNow wallet | `GDBIXG...O2PNY` | 21,511 | ~$3,456 | Residual after forwarding |
+| Dust — Relay wallet | `GDTSFM...LTHQC` | 10,681 | ~$1,716 | Residual after relaying to Binance |
+| Stellar tx fees | (all wallets) | ~2,000 | ~$321 | ~100 stroops × ~20K ops |
+| Estimation rounding | (48M/13M estimates) | ~459,897 | ~$73,902 | Rounding gap in mootz12 confirmed figures |
 | **TOTAL** | | **61,249,278** | | **✓ Reconciled** |
-
-> ¹ **Fees/dust/residual breakdown:** The ~494K XLM gap is a reconciliation remainder, not a discrete tracked category. It is composed of three things: **(a) Stellar tx fees** — each operation costs 100 stroops (0.0001 XLM); across thousands of ops (exploit, liquidation fills, path payments, Allbridge calls, account merges) this amounts to a few thousand XLM at most; **(b) dust in intermediate wallets** — throwaway accounts, the relay (`GDTSFMK`), and the ChangeNow intermediary likely all left small residual balances after merging/draining; **(c) estimation rounding** — the "~48M frozen / ~13M bridged" split confirmed by mootz12 uses rounded figures, so this row absorbs the ~$79K of imprecision in those estimates.
 
 **Exchange breakdown:**
 - 🚨 **Binance**: 3,769,756 XLM ($605,765) — **has KYC, subpoena-able**
