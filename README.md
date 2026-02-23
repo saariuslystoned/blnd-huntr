@@ -671,15 +671,18 @@ amount = ((hi << 64) | lo) / 10**7  # → 50,000.0 USDC
 
 ---
 
-## EVM Chain #2 — Ethereum ($172K)
+## EVM Chain #2 — Ethereum ($886K)
 
 | Field | Value |
 |-------|-------|
 | **Address** | `0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482` |
-| **Total TXs** | 23 |
+| **Etherscan Label** | **YieldBlox Exploiter 2** |
+| **Balance** | ~$886,239 (92% of multichain total) |
+| **Total TXs** | 45 |
 | **Funded By** | Allbridge Core Bridge |
 | **Swaps** | 9x Uniswap V4 Universal Router (`0x66a9893cc07d91d95644aedd05d03f95e1dba8af`) |
-| **Downstream** | Bulk ETH forwarded to Accumulator Wallet #4 |
+| **Downstream** | Bulk ETH forwarded to Exploiter 3 (Accumulator) |
+| **🔴 ACTIVE** | 12+ Relay Protocol swaps — **Feb 23, 09:17–09:26 UTC** |
 
 ### Vanity Gas Ring #1 (`0x0b2...3eC6` pattern)
 
@@ -705,16 +708,18 @@ These fed dust into Wallet #4 (the accumulator):
 | `0x2D107786363ed945e0255e7f27d3233aAB476482` | $0 | 🚩 Fake_Phishing1701177 |
 | `0x2D1005b0Db4d4b5f25e4706dc8777f6f64d66482` | $0 | 🚩 Fake_Phishing1701177 |
 
-### 💰 THE ACCUMULATOR — Wallet #4 (CRITICAL TARGET)
+### 💰 THE ACCUMULATOR — Wallet #4 / YieldBlox Exploiter 3
 
 | Field | Value |
 |-------|-------|
 | **Address** | `0x0b2B16E1a9e2e9b15027ae46fa5ec547f5ef3eC6` |
-| **Balance** | **$591,808 in ETH** |
+| **Etherscan Label** | **YieldBlox Exploiter 3** |
+| **Balance** | **$565,483 in ETH** (100% on Ethereum) |
+| **Total TXs** | 6 |
+| **Funded By** | **YieldBlox Exploiter 2** (`0x2D1C...6482`) |
 | **Outgoing TXs** | **ZERO** |
 | **Token Holdings** | Only junk FlashLoan spam token ($0 value) |
-| **Status** | DORMANT — likely waiting for heat to die down |
-| **Likely Next Move** | Tornado Cash, cross-chain bridge, or CEX deposit |
+| **Status** | 💤 DORMANT — parked funds, no movement since deposit |
 
 ---
 
@@ -727,6 +732,124 @@ These fed dust into Wallet #4 (the accumulator):
 | **TXs** | 0 external, 1 internal (Allbridge incoming) |
 | **Funded By** | Allbridge Core Bridge (`0x3c4fa639...312f`) |
 | **Status** | **UNTOUCHED** — parked USDC, no swaps or transfers yet |
+
+---
+
+## 🚨 Etherscan-Labeled Exploiter Wallets (3 Confirmed)
+
+Etherscan has officially tagged **three** attacker wallets. All are EOAs (not multisigs):
+
+| Etherscan Label | Address | Balance | Chains | Funded By | Status |
+|-----------------|---------|---------|--------|-----------|--------|
+| **YieldBlox Exploiter 1** | `0xE69f6d77DB6Ff493FDD15D8A0B390c36E18E5b21` | **$710,177** | ETH ($686K) + Base ($24K) | **Binance 14** | ⚠️ Active 1 day ago |
+| **YieldBlox Exploiter 2** | `0x2D1CE29b4aF15fb6e76Ba9995BbE1421E8546482` | **$961,471** | ETH ($886K) + BNB ($38K) + Base ($36K) | Allbridge Core Bridge | 🔴 **Active — laundering** |
+| **YieldBlox Exploiter 3** | `0x0b2B16E1a9E2e9b15027AE46Fa5eC547f5ef3eC6` | **$565,483** | ETH only (100%) | Exploiter 2 | 💤 Dormant |
+| | | **$2,237,131** | | | **TOTAL EVM-side** |
+
+**Key findings:**
+- **Exploiter 1 was funded by Binance 14** — a major exchange hot wallet. This implies either a KYC'd withdrawal or a Binance bridge conversion. Potentially traceable.
+- **Exploiter 3 is a child wallet of Exploiter 2** — direct ETH transfer, used as a parking address.
+- All three received the same spam FlashLoan token airdrop ($0 value).
+
+---
+
+## 🔴 Active Fund Movement — Feb 23, 2026 (6 Hours Ago)
+
+**Exploiter 2 was actively moving funds THIS MORNING** (~09:17–09:26 UTC, Feb 23, 2026). This is the most recent attacker activity observed — and the picture is more complex than simple laundering.
+
+### Net Result: CONSOLIDATION, Not Exit
+
+The attacker pulled **~390 ETH (~$736K) INTO Exploiter 2 from Base** using **two bridge protocols simultaneously**, while only sending **10 ETH out** to Base. This suggests the attacker is **consolidating** on Ethereum mainnet — possibly preparing for a large single move.
+
+| Direction | Protocol | Source → Dest | # TXs | ETH Sent | ETH Received | USD Value |
+|-----------|----------|--------------|-------|----------|--------------|----------|
+| **IN** | Relay | Base → ETH | 12 | 240 ETH | ~239.94 ETH | ~$451,716 |
+| **IN** | Across | Base → ETH | 10 | 160 ETH | ~149.89 ETH | ~$282,659 |
+| **OUT** | Relay | ETH → Base | 1 | 10 ETH | 9.999987 ETH | ~$18,827 |
+| | | | **23** | | **~379.83 ETH net in** | **~$715,548** |
+
+### Relay Inflows (~240 ETH from Base)
+
+**Relay: Solver** (`0xf70da97812CB96acDF810712Aa562db8dfA3dbEF`) settled 12 cross-chain swaps, each originating as **20 ETH on Base** and arriving as ~19.99 ETH on Ethereum (after bridge fees), across consecutive blocks (24518643–24518683):
+
+| Block | TX Hash (truncated) | ETH | Direction |
+|-------|---------------------|-----|-----------|
+| 24518643 | `0x41ee47e7...` | ~19.99 | IN ← Relay: Solver |
+| 24518647 | `0x71e562df...` | ~19.99 | IN ← Relay: Solver |
+| 24518651 | `0x4b4a875d...` | ~19.99 | IN ← Relay: Solver |
+| 24518655 | `0x31228a0c...` | ~19.99 | IN ← Relay: Solver |
+| 24518659 | `0x2ca17c9c...` | ~19.99 | IN ← Relay: Solver |
+| 24518662 | `0x62eca5af...` | ~19.99 | IN ← Relay: Solver |
+| 24518665 | `0x64d3afe3...` | ~19.99 | IN ← Relay: Solver |
+| 24518669 | `0xae86b158...` | ~19.99 | IN ← Relay: Solver |
+| 24518672 | `0x823811dc...` | ~19.99 | IN ← Relay: Solver |
+| 24518677 | `0x807f32c8...` | ~19.99 | IN ← Relay: Solver |
+| 24518680 | `0xe4294cfe...` | ~19.99 | IN ← Relay: Solver |
+| 24518683 | `0x45fe0286...` | ~19.99 | IN ← Relay: Solver |
+
+These are cross-chain swap settlements — the attacker bridged assets from other chains (Base, BNB, etc.) and Relay's solver settled them as ETH on mainnet.
+
+### Across Protocol Inflows (~150 ETH from Base)
+
+**Across Protocol: Ethereum Spoke Pool V2** sent 10 internal ETH transfers from Base to Exploiter 2 on Ethereum, 1 hour before the Relay burst:
+- 7 txns × 10 ETH (→ ~9.99 ETH received each)
+- 1 txn × 20 ETH (→ ~19.98 ETH received)
+- 1 txn × 50 ETH (→ ~49.96 ETH received) — the single largest bridge tx
+- 1 txn × 10 ETH (→ ~9.99 ETH received)
+
+Across is a separate cross-chain bridge — the attacker used **two bridge protocols back-to-back** (Across first, then Relay) to drain funds from Base to Ethereum.
+
+### The 10 ETH Outbound (TX `0x931ca8a1...`)
+
+At 09:17:11 UTC, Exploiter 2 bridged **10 ETH** from Ethereum → Base via Relay, receiving **9.999987 ETH** on Base. This was sandwiched between the Across inflows (7 hrs ago) and the Relay inflows (6 hrs ago), suggesting the attacker was actively managing liquidity across both chains in the same session.
+
+### Why This Matters
+
+1. **The attacker is CONSOLIDATING, not scattering** — ~$717K net flowed INTO Exploiter 2. This changes the risk profile: a large outbound move may be imminent.
+2. **Using multiple bridge protocols** — Relay AND Across Protocol simultaneously, suggesting sophistication and urgency.
+3. **Ignoring the bounty deadline** — This activity occurred **~12 hours after** the Security Council sent the 10% white-hat bounty ultimatum. The attacker chose to manage funds instead of negotiate.
+4. **Automated execution** — 23 txns in ~10 minutes across consecutive blocks indicates a script or bot.
+5. **~19.99 ETH per batch** — The uniform size suggests deliberate transaction structuring, possibly to stay under certain monitoring thresholds.
+
+---
+
+## 📩 YieldBlox Security Council — Negotiation Attempt
+
+**Timeline:** Feb 22, 2026 — 21:35–22:06 UTC (Stellar) / ~21:51–22:01 UTC (Ethereum)
+
+The YieldBlox DAO Security Council (`GBCA...ZSS4`) attempted to contact the attacker via **two channels simultaneously**:
+
+### Channel 1: Stellar Data Entries
+The Council sent 10 XLM and set `manage_data` entries on the attacker's account pointing to the Ethereum IDM transactions:
+
+| Data Entry | Value |
+|-----------|-------|
+| `ethereum-idm-tx-hash-1` | `0x7979c9faa2eba7afa29702382205930f77a461174d4eeeb3382e22bb7177171e` |
+| `ethereum-idm-tx-hash-2` | `0x174c928e9246419b899ee0a81acfa53b283bdc8ba56bc4fd51f97d17e7488913` |
+| `ethereum-idm-tx-hash-3` | `0x465a92087d1e0ef62e91820e62ec9dac2f8d797df63f0513b8ff8cb260d346d4` |
+
+### Channel 2: Ethereum IDM (Inter-chain Data Messages)
+The Council's messenger wallet (`0x456c2F5F3536b1D9238F4654D5242B0dF8f978AF`, funded by Coinbase) sent 0 ETH IDM transactions to all 3 exploiter wallets:
+
+| TX Hash | To | Etherscan Label |
+|---------|-----|-----------------| 
+| `0x7979c9faa2...` | `0xE69f...5b21` | YieldBlox Exploiter 1 |
+| `0x174c928e92...` | `0x2D1C...6482` | YieldBlox Exploiter 2 |
+| `0x465a92087d...` | `0x0b2B...3eC6` | YieldBlox Exploiter 3 |
+
+**Message content (embedded in tx input data):**
+> The YieldBlox Security Council is reaching out in response to your exploit on the YieldBlox V2 Blend pool. We want to offer you a **10% white-hat bounty** on the total amount stolen. If you return **90% of the funds within 72 hours**, we will stop pursuing legal action. Your 3 Stellar accounts have been frozen by the Tier 1 Validators... they hold **48M XLM**. Please contact us securely & anonymously: **gm@script3.io**
+
+### Attacker Response
+**NONE.** As of Feb 23 16:00 UTC — no outbound transactions, no data entry responses, no messages from any of the 3 exploiter wallets back to the messenger address. The attacker's only response has been to **continue laundering** via Relay Protocol ~12 hours later.
+
+### Messenger Wallet
+| Field | Value |
+|-------|-------|
+| **Address** | `0x456c2F5F3536b1D9238F4654D5242B0dF8f978AF` |
+| **Balance** | 0.012 ETH (~$22) |
+| **Funded By** | Coinbase |
+| **Purpose** | Burner wallet — used exclusively to deliver the IDM negotiation messages |
 
 ---
 
@@ -786,10 +909,12 @@ RELAY_ENVELOPE:   GCPOK3AAEM2AQLIYQREROXZ7R6RN7CNKO5CTVX2VRWRDOTMMCZV7TWA2  [...
 SPOOF_ORIGIN:     GC7BKVSFWQPVSHINTTXEIVI6EK2Z2YW245RA7KRODJA4EN27H2CMPJL5  [...PJL5 — [Spoofing] tag; home_domain=lobstr.co; created KLDC]
 ```
 
-### EVM (Same address across Base/ETH/BSC)
+### EVM — Etherscan-Labeled Exploiter Wallets
 ```
-MAIN ATTACKER:    0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482
-ACCUMULATOR:      0x0b2B16E1a9e2e9b15027ae46fa5ec547f5ef3eC6   ← $591K PARKED
+EXPLOITER 1:      0xE69f6d77DB6Ff493FDD15D8A0B390c36E18E5b21   ← $710K — funded by Binance 14
+EXPLOITER 2:      0x2D1CE29b4aF15fb6e76Ba9995BbE1421E8546482   ← $961K — ACTIVE LAUNDERING via Relay
+EXPLOITER 3:      0x0b2B16E1a9E2e9b15027AE46Fa5eC547f5ef3eC6   ← $565K — DORMANT (child of Exploiter 2)
+MESSENGER:        0x456c2F5F3536b1D9238F4654D5242B0dF8f978AF   ← Security Council IDM sender (Coinbase-funded)
 ```
 
 ### Phishing Funders
