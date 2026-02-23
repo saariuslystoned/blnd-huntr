@@ -103,14 +103,14 @@ export const TIMELINE = [
     { time: 'Feb 22, 00:25–00:35 UTC', title: 'XLM → ChangeNow (3.97M)', desc: '3.97M XLM sent to ChangeNow no-KYC exchange in multiple batches.', severity: 'critical' },
     { time: 'Feb 22, 00:35 UTC', title: 'First Liquidation (Fill #1)', desc: 'GAPU4...XLIQ fills first auction, 11 min after exploit.', severity: 'warning' },
     { time: 'Feb 22, 01:08 UTC', title: 'YHNF Enters (Fill #3)', desc: 'GAIN2...YHNF begins liquidation fills 44 min after exploit.', severity: 'warning' },
-    { time: 'Feb 22, ~01:00–02:00 UTC', title: 'DEX Swap + Bridge (16 batches)', desc: '~5M XLM path_payment swapped to $787K USDC, bridged to Base via Allbridge.', severity: 'critical' },
+    { time: 'Feb 22, 00:34–01:41 UTC', title: 'DEX Swap + Bridge (15 batches)', desc: '~5M XLM path_payment swapped to 788,524 USDC on SDEX, then 15 Allbridge bridge calls to Base. Simultaneously: 4 batches (~$172K) to Ethereum, 1 batch ($38.7K) to BSC.', severity: 'critical' },
     { time: 'Feb 22, 02:23–02:25 UTC', title: '70.7M XLM Seized (Fills #12–18)', desc: 'XLIQ liquidates SXI3 (SDF position) — 4 mega-fills in 2 minutes.', severity: 'critical' },
     { time: 'Feb 22, 04:30 UTC', title: 'Cascade Winds Down (Fill #59)', desc: 'XLIQ executes second-to-last fill, 4 hours after exploit.', severity: 'info' },
-    { time: 'Feb 22, ~06:00 UTC', title: 'Base → ETH Accumulation', desc: 'Initial $787K swapped to ETH on Base, 300 ETH forwarded to Accumulator (0x0b2B...3eC6).', severity: 'warning' },
+    { time: 'Feb 22, 02:56–02:57 UTC', title: 'Accumulator Seeded: 300 ETH', desc: 'Exploiter 2 sent 100 ETH (02:56:35) + 200 ETH (02:57:47) to Exploiter 3 Accumulator (0x0b2b16e1...f3ec6). Funded from Ethereum Allbridge inflows — pre-dates the Feb 23 Relay/Across sweeps.', severity: 'warning' },
     { time: 'Feb 22, 11:47 UTC', title: 'Final Fill (#60)', desc: 'YHNF executes the last liquidation auction fill.', severity: 'info' },
     { time: 'Feb 22, ~12:00 UTC', title: '🔒 Stellar Wallets Frozen', desc: 'Attacker main wallet + Swap Hub + Funder frozen. ~48M XLM locked in place.', severity: 'info' },
     { time: 'Feb 22, 15:00–16:00 UTC', title: '🔴 Base → ETH Consolidation (~380 ETH net)', desc: 'Attacker drained Base holdings to Ethereum using two bridges back-to-back. Inbound: ~240 ETH via Relay (12 × 20 ETH) + ~150 ETH via Across (10 txns). Outbound: 10 ETH sent back to Base. Net: ~380 ETH (~$715K) consolidated on Ethereum.', severity: 'critical' },
-    { time: 'Feb 23, 2026', title: 'EVM Status', desc: 'Exploiter 2: 467 ETH ($881K) on ETH + 19 ETH ($36K) on Base + $38K USDC on BSC. Accumulator: 300 ETH ($565K). Base largely drained.', severity: 'warning' },
+    { time: 'Feb 23, 09:01–09:26 UTC', title: 'Base → ETH Final Consolidation (380 ETH net)', desc: 'Two bridge sweeps from Base: 150 ETH via Across (10 txns) at 09:01-09:13, then 240 ETH via Relay (12×20) at 09:17-09:26. 10 ETH returned as bridge change. Net: 380 ETH to Exploiter 2. Current: Exploiter 2 holds 467.29 ETH, Accumulator holds 300 ETH (zero outgoing), Base 19.23 ETH, BSC 38,746 USDC.', severity: 'warning' },
 ];
 
 export const TOP_FILLS = [
