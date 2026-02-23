@@ -23,8 +23,10 @@ export default function Bridge() {
 
     const chains = ['all', 'Base', 'Ethereum', 'BSC'];
 
-    const { lastUpdate, source, xlmFrozen, xlmInIntermediaries, xlmConverted,
-        usdcBridgedOut, usdcFromXlm, totalOffChain, negotiations, negotiationsNote } = BRIDGE_STATUS;
+    const { lastUpdate, source, xlmFrozen, xlmFrozenDetail, xlmToBinance, xlmToBinanceDetail,
+        xlmToChangeNow, xlmToChangeNowDetail, xlmConverted, xlmConvertedDetail,
+        usdcBridgedOut, usdcBridgedDetail, totalOffChain, totalOffChainDetail,
+        negotiations, negotiationsNote } = BRIDGE_STATUS;
 
     return (
         <section className="section active">
@@ -38,13 +40,13 @@ export default function Bridge() {
                 <div className="alert-icon">📡</div>
                 <div>
                     <div className="alert-title" style={{ color: 'var(--orange)' }}>
-                        LATEST INTEL — {BRIDGE_STATUS.lastUpdate}
+                        LATEST INTEL — {lastUpdate}
                     </div>
                     <div className="alert-text">
                         Source: <strong>{source}</strong> —{' '}
-                        <strong>{xlmFrozen}</strong> frozen in main wallet.{' '}
-                        Stream 1: <strong>{usdcBridgedOut}</strong> (direct borrow, immediately bridged).{' '}
-                        Stream 2: <strong>{xlmConverted}</strong> (via intermediaries).{' '}
+                        <strong>{xlmFrozen}</strong> frozen ({xlmFrozenDetail}).{' '}
+                        Stream 1: <strong>{usdcBridgedOut}</strong> USDC bridged directly.{' '}
+                        Stream 2: <strong>{xlmConverted}</strong>.{' '}
                         Total off-chain: <strong style={{ color: 'var(--red)' }}>{totalOffChain}</strong>.{' '}
                         {negotiations && (
                             <span style={{ color: 'var(--green)', fontWeight: 700 }}>
@@ -60,27 +62,32 @@ export default function Bridge() {
                 <div className="stat-card red">
                     <div className="stat-label">Total Off-Chain (Est)</div>
                     <div className="stat-value">{totalOffChain}</div>
-                    <div className="stat-detail">Both streams combined</div>
+                    <div className="stat-detail">{totalOffChainDetail}</div>
                 </div>
                 <div className="stat-card cyan">
-                    <div className="stat-label">Stream 1 — Direct USDC Borrow</div>
-                    <div className="stat-value">{usdcBridgedOut.split(' ')[0]}</div>
-                    <div className="stat-detail">Bridged immediately post-exploit</div>
+                    <div className="stat-label">Stream 1 — Direct USDC</div>
+                    <div className="stat-value">{usdcBridgedOut}</div>
+                    <div className="stat-detail">{usdcBridgedDetail}</div>
                 </div>
                 <div className="stat-card purple">
-                    <div className="stat-label">Stream 2 — XLM Conversion</div>
-                    <div className="stat-value">{usdcFromXlm.split(' ')[0]}</div>
-                    <div className="stat-detail">{xlmConverted}</div>
+                    <div className="stat-label">Stream 2 — XLM → USDC</div>
+                    <div className="stat-value">{xlmConverted}</div>
+                    <div className="stat-detail">{xlmConvertedDetail}</div>
                 </div>
                 <div className="stat-card blue">
-                    <div className="stat-label">XLM Frozen</div>
-                    <div className="stat-value">{xlmFrozen.split(' ')[0]}</div>
-                    <div className="stat-detail">Main attacker wallet</div>
+                    <div className="stat-label">🔒 XLM Frozen</div>
+                    <div className="stat-value">{xlmFrozen}</div>
+                    <div className="stat-detail">{xlmFrozenDetail}</div>
                 </div>
                 <div className="stat-card yellow">
-                    <div className="stat-label">Intermediary Wallets</div>
-                    <div className="stat-value">{xlmInIntermediaries.split(' ')[0]}</div>
-                    <div className="stat-detail">⚠️ Status TBD</div>
+                    <div className="stat-label">🚨 To Binance (KYC)</div>
+                    <div className="stat-value">{xlmToBinance}</div>
+                    <div className="stat-detail">{xlmToBinanceDetail}</div>
+                </div>
+                <div className="stat-card red">
+                    <div className="stat-label">⚠️ To ChangeNow (No KYC!)</div>
+                    <div className="stat-value">{xlmToChangeNow}</div>
+                    <div className="stat-detail">{xlmToChangeNowDetail}</div>
                 </div>
                 <div className="stat-card green">
                     <div className="stat-label">Negotiations</div>
@@ -154,8 +161,8 @@ export default function Bridge() {
                     <span className="card-badge critical">{XLM_FLOW_MAP.length} WALLETS</span>
                 </div>
                 <p className="trace-note" style={{ marginBottom: '16px' }}>
-                    16.18M XLM was fanned out to 6 intermediary wallets using a dust-triggered C2 pattern.
-                    Each withdrawal is preceded by a 0.001 XLM signal from a paired trigger address.
+                    ~13M XLM moved through 5 intermediary wallets to Binance (KYC), ChangeNow (no KYC), and USDC conversion.
+                    Each withdrawal preceded by a 0.001 XLM dust signal from a paired trigger address (C2 pattern).
                 </p>
                 <div className="table-wrapper">
                     <table>

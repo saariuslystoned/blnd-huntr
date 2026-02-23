@@ -31,24 +31,29 @@ export default function Overview() {
                     <div className="stat-detail">+ {STATS.drainedUsdc}</div>
                 </div>
                 <div className="stat-card blue">
-                    <div className="stat-label">Frozen (Main Wallet)</div>
+                    <div className="stat-label">Frozen</div>
                     <div className="stat-value">{STATS.frozenXlm}</div>
-                    <div className="stat-detail">🔒 Locked on Stellar</div>
+                    <div className="stat-detail">🔒 {STATS.frozenDetail}</div>
                 </div>
                 <div className="stat-card cyan">
                     <div className="stat-label">Total Off-Chain (Est)</div>
                     <div className="stat-value">{STATS.netExtraction}</div>
-                    <div className="stat-detail">$1M USDC + ~$1M from XLM → bridged</div>
+                    <div className="stat-detail">{STATS.netExtractionDetail}</div>
                 </div>
                 <div className="stat-card orange">
-                    <div className="stat-label">XLM Conversion (Slippage)</div>
-                    <div className="stat-value orange">{STATS.slippageBurn}</div>
-                    <div className="stat-detail">{STATS.xlmConverted}</div>
+                    <div className="stat-label">XLM → USDC Converted</div>
+                    <div className="stat-value orange">{STATS.xlmConverted}</div>
+                    <div className="stat-detail">Slippage: {STATS.slippage} ({STATS.slippageDetail})</div>
                 </div>
                 <div className="stat-card yellow">
-                    <div className="stat-label">Intermediary XLM</div>
-                    <div className="stat-value">{STATS.intermediaryXlm}</div>
-                    <div className="stat-detail">⚠️ 6 wallets — status TBD</div>
+                    <div className="stat-label">🚨 To Binance (KYC)</div>
+                    <div className="stat-value">{STATS.xlmToBinance}</div>
+                    <div className="stat-detail">{STATS.xlmToBinanceDetail}</div>
+                </div>
+                <div className="stat-card red">
+                    <div className="stat-label">⚠️ To ChangeNow (No KYC!)</div>
+                    <div className="stat-value red">{STATS.xlmToChangeNow}</div>
+                    <div className="stat-detail">{STATS.xlmToChangeNowDetail}</div>
                 </div>
                 <div className="stat-card green">
                     <div className="stat-label">Recovery Status</div>
