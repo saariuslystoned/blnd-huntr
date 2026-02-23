@@ -33,7 +33,6 @@ This workspace tracks the **February 2026 Blend Protocol (YieldBlox Pool) Exploi
 - [EVM Chain #3 — BSC ($38.7K)](#evm-chain-3--bsc-387k)
 - [The Phishing Network](#the-phishing-network)
 - [Complete Address Registry](#complete-address-registry)
-- [Agent Playbook](#agent-playbook)
 
 ---
 
@@ -759,19 +758,18 @@ The ~$1M USDC borrowed directly from the pool was immediately bridged off-chain 
 | Category | Wallet | XLM | Value @ $0.16065 | Status |
 |----------|--------|-----|-------------------|--------|
 | 🔒 Frozen (main wallet) | `GBO7VUL2TOKPWFAWKATIW7K3QYA7WQ63VDY5CAE6AFUUX6BHZBOC2WXC` | 45,068,299 | $7,240,722 | 🔒 FROZEN |
-| 🔒 Frozen (Swap Hub) | `GATDQL767ZM2JQTBEG4BQ5WKOQNGAGWZDUN4GYT2UINPEU3RT2UAMVZH` | ~2,500,813 | $401,756 | 🔒 FROZEN |
+| 🔒 Frozen (Swap Hub) | `GATDQL767ZM2JQTBEG4BQ5WKOQNGAGWZDUN4GYT2UINPEU3RT2UAMVZH` | 2,500,813 | $401,756 | 🔒 FROZEN |
 | 🔒 Frozen (Funder/Ops) | `GC2XJKN5VZEMM35F5LRSUP5CWVDZJVM37YKR7UYYXGN3TGKZXMP5FZIB` | 450,490 | $72,371 | 🔒 FROZEN |
-| **🔒 Total Frozen** | | **~48,019,602** | **$7,714,849** | **≈ 48M ✓** |
-| 💱 Converted to USDC | `GATDQL767ZM2JQTBEG4BQ5WKOQNGAGWZDUN4GYT2UINPEU3RT2UAMVZH` | ~5,000,000 | $787,167 realized | Bridged to Base |
+| **🔒 Total Frozen** | | **48,019,602** | **$7,714,849** | |
+| 💱 Converted to USDC | `GATDQL767ZM2JQTBEG4BQ5WKOQNGAGWZDUN4GYT2UINPEU3RT2UAMVZH` | ~5,000,187 | $803,705 realized | Bridged to Base |
 | 🚨 Binance (via Relay) | `GABFQIK63R2NETJM7T673EAMZN4RJLLGP3OFUEJU5SZVTGWUKULZJNL6` | 3,536,146 | $568,234 | **KYC** |
 | 🚨 Binance (via Small) | `GABFQIK63R2NETJM7T673EAMZN4RJLLGP3OFUEJU5SZVTGWUKULZJNL6` | 233,610 | $37,531 | **KYC** |
 | ⚠️ ChangeNow (no KYC!) | `GDBIXGZ3EKI3M4DBM65ADLHVNYIOG7JXGOHW5DHUZQAXPORY3QNO2PNY` | 3,965,831 | $637,111 | **NO KYC** |
-| **🚨 Total Moved** | | **~12,735,587** | **~$2,030,043** | **≈ 13M ✓** |
-| Dust — ChangeNow wallet | `GDBIXG...O2PNY` | 21,511 | ~$3,456 | Residual after forwarding |
-| Dust — Relay wallet | `GDTSFM...LTHQC` | 10,681 | ~$1,716 | Residual after relaying to Binance |
+| **🚨 Total Moved** | | **12,735,774** | **$2,046,581** | |
+| Dust — ChangeNow wallet | `GDBIXGZ3EKI3M4DBM65ADLHVNYIOG7JXGOHW5DHUZQAXPORY3QNO2PNY` | 21,511 | $3,456 | Residual after forwarding |
+| Dust — Relay wallet | `GDTSFMKTLD2WTQSOWK36QB4A5VTHI54Q67ZDSKAWULAKKN6QVX6LTHQC` | 10,681 | $1,716 | Residual after relaying to Binance |
 | Stellar tx fees | (all wallets) | ~2,000 | ~$321 | ~100 stroops × ~20K ops |
-| Estimation rounding | (48M/13M estimates) | ~459,897 | ~$73,902 | Rounding gap in mootz12 confirmed figures |
-| **TOTAL** | | **61,249,278** | | **✓ Reconciled** |
+| **TOTAL (tracked)** | | **~60,789,568** | | mootz12 confirmed ~61.25M; ~460K gap untracked |
 
 **Exchange breakdown:**
 - 🚨 **Binance**: 3,769,756 XLM ($605,765) — **has KYC, subpoena-able**
@@ -987,18 +985,3 @@ PHISH_1674496:    0x1ae0e997216f7a354eda202b5cb3352b9dafadff
 PHISH_1648144:    0x2393d38400cad1d0ffae85b37d76de05bb7eddc6
 ```
 
----
-
-## Agent Playbook
-
-### Priority Monitoring (Check These First)
-1. **🔴 Accumulator Wallet** — `0x0b2B16E1...3eC6` 
-2. **🟠 BSC USDC** — `0x2d1ce29b...6482` 
-3. **🟡 Stellar XLM** — `GBO7VUL2...2WXC` 
-
-### Tools & APIs
-- **Stellar:** `https://horizon.stellar.org/accounts/{address}/operations?limit=50&order=desc`
-- **Stellar Trades:** `https://horizon.stellar.org/accounts/{address}/trades?limit=50&order=desc`
-- **Etherscan:** `https://etherscan.io/address/{address}` and `/tokentxns?a={address}`
-- **BaseScan:** `https://basescan.org/address/{address}`
-- **BscScan:** `https://bscscan.com/address/{address}`
