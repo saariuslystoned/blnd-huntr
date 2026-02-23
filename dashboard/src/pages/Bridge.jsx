@@ -26,7 +26,7 @@ export default function Bridge() {
     const { lastUpdate, source, xlmFrozen, xlmFrozenDetail, xlmToBinance, xlmToBinanceDetail,
         xlmToChangeNow, xlmToChangeNowDetail, xlmConverted, xlmConvertedDetail,
         usdcBridgedOut, usdcBridgedDetail, totalOffChain, totalOffChainDetail,
-        negotiations, negotiationsNote } = BRIDGE_STATUS;
+        negotiations, negotiationsNote, negotiationAccount } = BRIDGE_STATUS;
 
     return (
         <section className="section active">
@@ -89,14 +89,62 @@ export default function Bridge() {
                     <div className="stat-value">{xlmToChangeNow}</div>
                     <div className="stat-detail">{xlmToChangeNowDetail}</div>
                 </div>
-                <div className="stat-card green">
-                    <div className="stat-label">Negotiations</div>
-                    <div className="stat-value" style={{ fontSize: '1.2rem' }}>IN PROGRESS</div>
-                    <div className="stat-detail">Per Blend core team</div>
+                <div className="stat-card red">
+                    <div className="stat-label">🤝 Negotiations</div>
+                    <div className="stat-value" style={{ fontSize: '1.1rem' }}>DECLINED</div>
+                    <div className="stat-detail">{negotiationsNote}</div>
+                    <a href={`https://stellar.expert/explorer/public/account/${negotiationAccount}`}
+                        target="_blank" rel="noopener noreferrer"
+                        style={{ fontSize: '0.68rem', color: 'var(--cyan)', marginTop: '6px', display: 'inline-block' }}
+                    >View on Stellar Expert →</a>
                 </div>
             </div>
 
-            {/* Destination Address */}
+            {/* WHERE THE ~$3.4M ACTUALLY IS */}
+            <div className="card" style={{ borderTop: '3px solid var(--red)' }}>
+                <div className="card-header">
+                    <h3 className="card-title">💰 Where Is the ~$3.4M?</h3>
+                    <span className="card-badge critical">3 BUCKETS</span>
+                </div>
+                <p className="trace-note" style={{ marginBottom: '16px' }}>
+                    The exploit extracted ~61.2M XLM from Stellar. Here's where the proceeds ended up across three distinct channels.
+                </p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '14px' }}>
+                    <div style={{ background: 'var(--bg-tertiary)', borderRadius: '10px', padding: '18px', borderLeft: '4px solid var(--purple)' }}>
+                        <div style={{ fontSize: '0.62rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', marginBottom: '6px' }}>⬡ Bridged to EVM (Trackable)</div>
+                        <div style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.3rem', color: 'var(--purple)' }}>1,414,244 USDC</div>
+                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '8px' }}>~$1.41M · now held as ETH + USDC</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                            788,524 USDC → Base (15 batches)<br />
+                            586,974 USDC → Ethereum (12 batches)<br />
+                            38,746 USDC → BSC (1 batch)<br />
+                            <span style={{ color: 'var(--cyan)', fontWeight: 600 }}>→ Swapped to 786.52 ETH + 38,746 USDC</span>
+                        </div>
+                    </div>
+                    <div style={{ background: 'var(--bg-tertiary)', borderRadius: '10px', padding: '18px', borderLeft: '4px solid var(--red)' }}>
+                        <div style={{ fontSize: '0.62rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', marginBottom: '6px' }}>🏦 XLM to Exchanges (Gone)</div>
+                        <div style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.3rem', color: 'var(--red)' }}>7.74M XLM</div>
+                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '8px' }}>~$1.21M · likely converted to fiat</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                            3.77M XLM → Binance (has KYC)<br />
+                            3.97M XLM → ChangeNow (no KYC!)<br />
+                            <span style={{ color: 'var(--red)', fontWeight: 600 }}>⚠ Likely unrecoverable</span>
+                        </div>
+                    </div>
+                    <div style={{ background: 'var(--bg-tertiary)', borderRadius: '10px', padding: '18px', borderLeft: '4px solid var(--green)' }}>
+                        <div style={{ fontSize: '0.62rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', marginBottom: '6px' }}>🔒 Frozen on Stellar</div>
+                        <div style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.3rem', color: 'var(--green)' }}>~48M XLM</div>
+                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '8px' }}>~$7.5M · frozen in exploiter wallets</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                            45.07M XLM — Main exploit wallet<br />
+                            2.5M XLM — Swap Hub (GATDQL)<br />
+                            450K XLM — Funder/Ops<br />
+                            <span style={{ color: 'var(--green)', fontWeight: 600 }}>✅ Potentially recoverable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className="card">
                 <div className="card-header">
                     <h3 className="card-title">🎯 EVM Destination (All Chains)</h3>

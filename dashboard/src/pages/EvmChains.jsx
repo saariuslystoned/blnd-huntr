@@ -142,12 +142,56 @@ export default function EvmChains() {
                 Single attacker address: <AddrChip address="0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482" />
             </p>
 
-            {/* Top-Level Summary Stats */}
+            {/* WHERE IS THE MONEY — Full Breakdown */}
+            <div className="card" style={{ marginBottom: '24px', borderTop: '3px solid #ef4444' }}>
+                <div className="card-header">
+                    <h3 className="card-title">💰 Where Is the ~$3.4M?</h3>
+                    <span className="card-badge critical">FULL ACCOUNTING</span>
+                </div>
+                <p className="trace-note" style={{ marginBottom: '16px' }}>
+                    The exploit extracted ~$3.4M total from Stellar. Only <strong>~$1.5M sits on EVM chains</strong> (below).
+                    The rest went to exchanges (likely gone) or remains frozen on Stellar.
+                </p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px' }}>
+                    <div style={{ background: 'var(--bg-tertiary)', borderRadius: '10px', padding: '16px', borderLeft: '4px solid #6366f1' }}>
+                        <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', marginBottom: '6px' }}>⬡ On EVM Chains (This Page)</div>
+                        <div style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.4rem', color: '#6366f1' }}>786.52 ETH + 38,746 USDC</div>
+                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '6px' }}>~$1.50M at current prices</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.5 }}>
+                            467.29 ETH — Exploiter 2 (Ethereum)<br />
+                            300.00 ETH — Accumulator (Ethereum)<br />
+                            19.23 ETH — Base (dust)<br />
+                            38,746 USDC — BSC (parked)
+                        </div>
+                    </div>
+                    <div style={{ background: 'var(--bg-tertiary)', borderRadius: '10px', padding: '16px', borderLeft: '4px solid #ef4444' }}>
+                        <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', marginBottom: '6px' }}>🏦 Sent to Exchanges (Gone)</div>
+                        <div style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.4rem', color: '#ef4444' }}>7.74M XLM</div>
+                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '6px' }}>~$1.21M at time of transfer</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.5 }}>
+                            3.77M XLM → Binance (has KYC)<br />
+                            3.97M XLM → ChangeNow (no KYC!)<br />
+                            <span style={{ color: 'var(--text-muted)' }}>Likely converted to fiat — unrecoverable</span>
+                        </div>
+                    </div>
+                    <div style={{ background: 'var(--bg-tertiary)', borderRadius: '10px', padding: '16px', borderLeft: '4px solid #22c55e' }}>
+                        <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', marginBottom: '6px' }}>🔒 Frozen on Stellar</div>
+                        <div style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1.4rem', color: '#22c55e' }}>~4.7M XLM</div>
+                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '6px' }}>~$752K at current prices</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.5 }}>
+                            Frozen in exploiter wallets on Stellar<br />
+                            <span style={{ color: '#22c55e', fontWeight: 600 }}>Potentially recoverable via negotiations</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* EVM Wallet Stats */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', marginBottom: '28px' }}>
-                <StatCard color="#ef4444" label="Ethereum — Exploiter 2" value="467.29 ETH" sub="~$863K · active" />
-                <StatCard color="#64748b" label="Ethereum — Accumulator" value="300.00 ETH" sub="~$554K · dormant" />
-                <StatCard color="#06b6d4" label="Base — Remaining" value="19.23 ETH" sub="~$35.5K · mostly drained" />
-                <StatCard color="#eab308" label="BSC — Parked USDC" value="38,746 USDC" sub="~$38.7K · untouched" />
+                <StatCard color="#ef4444" label="Ethereum — Exploiter 2" value="467.29 ETH" sub="~$868K · active" />
+                <StatCard color="#64748b" label="Ethereum — Accumulator" value="300.00 ETH" sub="~$557K · dormant" />
+                <StatCard color="#06b6d4" label="Base — Remaining" value="19.23 ETH" sub="~$36K · mostly drained" />
+                <StatCard color="#eab308" label="BSC — Parked USDC" value="38,746 USDC" sub="~$39K · untouched" />
             </div>
 
             {/* Tab Bar */}
@@ -172,209 +216,217 @@ export default function EvmChains() {
             </div>
 
             {/* ── FUND FLOW TIMELINE ── */}
-            {view === 'flow' && (
-                <div className="card">
-                    <div className="card-header">
-                        <h3 className="card-title">💸 Funds Flow — Stellar to EVM</h3>
-                        <span className="card-badge critical">8 STAGES</span>
-                    </div>
-                    <p className="trace-note" style={{ marginBottom: '24px' }}>
-                        End-to-end path of stolen funds from the Stellar exploit to current EVM holdings.
-                        Follow the arrows to understand how proceeds were laundered across chains.
-                    </p>
-                    <div style={{ position: 'relative', paddingLeft: '28px' }}>
-                        {/* Vertical timeline line */}
-                        <div style={{
-                            position: 'absolute', left: '10px', top: 0, bottom: 0,
-                            width: '2px', background: 'var(--border)',
-                        }} />
+            {
+                view === 'flow' && (
+                    <div className="card">
+                        <div className="card-header">
+                            <h3 className="card-title">💸 Funds Flow — Stellar to EVM</h3>
+                            <span className="card-badge critical">8 STAGES</span>
+                        </div>
+                        <p className="trace-note" style={{ marginBottom: '24px' }}>
+                            End-to-end path of stolen funds from the Stellar exploit to current EVM holdings.
+                            Follow the arrows to understand how proceeds were laundered across chains.
+                        </p>
+                        <div style={{ position: 'relative', paddingLeft: '28px' }}>
+                            {/* Vertical timeline line */}
+                            <div style={{
+                                position: 'absolute', left: '10px', top: 0, bottom: 0,
+                                width: '2px', background: 'var(--border)',
+                            }} />
 
-                        {EVM_FLOW_EVENTS.map((evt, i) => (
-                            <div key={i} style={{ position: 'relative', marginBottom: i < EVM_FLOW_EVENTS.length - 1 ? '24px' : 0 }}>
-                                {/* Timeline dot */}
-                                <div style={{
-                                    position: 'absolute', left: '-24px', top: '14px',
-                                    width: '14px', height: '14px', borderRadius: '50%',
-                                    background: evt.color, border: '2px solid var(--bg-primary)',
-                                    boxShadow: `0 0 8px ${evt.color}66`,
-                                }} />
+                            {EVM_FLOW_EVENTS.map((evt, i) => (
+                                <div key={i} style={{ position: 'relative', marginBottom: i < EVM_FLOW_EVENTS.length - 1 ? '24px' : 0 }}>
+                                    {/* Timeline dot */}
+                                    <div style={{
+                                        position: 'absolute', left: '-24px', top: '14px',
+                                        width: '14px', height: '14px', borderRadius: '50%',
+                                        background: evt.color, border: '2px solid var(--bg-primary)',
+                                        boxShadow: `0 0 8px ${evt.color}66`,
+                                    }} />
 
-                                <div style={{
-                                    background: 'var(--bg-secondary)', border: '1px solid var(--border)',
-                                    borderLeft: `3px solid ${evt.color}`,
-                                    borderRadius: '8px', padding: '14px 16px',
-                                }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '8px', marginBottom: '6px' }}>
-                                        <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>{evt.label}</div>
-                                        <div style={{ display: 'flex', gap: '6px', alignItems: 'center', flexWrap: 'wrap' }}>
-                                            {evt.chain && (
-                                                <span style={{
-                                                    fontSize: '0.65rem', fontWeight: 700,
-                                                    padding: '2px 7px', borderRadius: '4px',
-                                                    background: `${CHAIN_COLORS[evt.chain]}22`,
-                                                    color: CHAIN_COLORS[evt.chain],
-                                                    border: `1px solid ${CHAIN_COLORS[evt.chain]}44`,
-                                                }}>{evt.chain}</span>
-                                            )}
-                                            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'monospace' }}>{evt.time}</span>
+                                    <div style={{
+                                        background: 'var(--bg-secondary)', border: '1px solid var(--border)',
+                                        borderLeft: `3px solid ${evt.color}`,
+                                        borderRadius: '8px', padding: '14px 16px',
+                                    }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '8px', marginBottom: '6px' }}>
+                                            <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>{evt.label}</div>
+                                            <div style={{ display: 'flex', gap: '6px', alignItems: 'center', flexWrap: 'wrap' }}>
+                                                {evt.chain && (
+                                                    <span style={{
+                                                        fontSize: '0.65rem', fontWeight: 700,
+                                                        padding: '2px 7px', borderRadius: '4px',
+                                                        background: `${CHAIN_COLORS[evt.chain]}22`,
+                                                        color: CHAIN_COLORS[evt.chain],
+                                                        border: `1px solid ${CHAIN_COLORS[evt.chain]}44`,
+                                                    }}>{evt.chain}</span>
+                                                )}
+                                                <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'monospace' }}>{evt.time}</span>
+                                            </div>
                                         </div>
+                                        <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{evt.desc}</div>
+                                        {evt.amount && (
+                                            <div style={{
+                                                marginTop: '8px', display: 'inline-block',
+                                                fontFamily: 'monospace', fontWeight: 700, fontSize: '0.8rem',
+                                                color: evt.color, background: `${evt.color}18`,
+                                                padding: '3px 10px', borderRadius: '4px',
+                                            }}>→ {evt.amount}</div>
+                                        )}
                                     </div>
-                                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{evt.desc}</div>
-                                    {evt.amount && (
-                                        <div style={{
-                                            marginTop: '8px', display: 'inline-block',
-                                            fontFamily: 'monospace', fontWeight: 700, fontSize: '0.8rem',
-                                            color: evt.color, background: `${evt.color}18`,
-                                            padding: '3px 10px', borderRadius: '4px',
-                                        }}>→ {evt.amount}</div>
-                                    )}
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </div>
-            )}
+                )
+            }
 
             {/* ── ETHEREUM ── */}
-            {view === 'ethereum' && (
-                <>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', marginBottom: '24px' }}>
-                        <StatCard color="#ef4444" label="Exploiter 2" value="467.29 ETH" sub="~$863K · 45 TXs · ACTIVE" />
-                        <StatCard color="#64748b" label="Accumulator" value="300.00 ETH" sub="~$554K · 6 TXs · ZERO outgoing" />
-                        <StatCard color="#6366f1" label="Combined on Ethereum" value="767.29 ETH" sub="~$1.42M total" />
-                    </div>
+            {
+                view === 'ethereum' && (
+                    <>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', marginBottom: '24px' }}>
+                            <StatCard color="#ef4444" label="Exploiter 2" value="467.29 ETH" sub="~$868K · 45 TXs · ACTIVE" />
+                            <StatCard color="#64748b" label="Accumulator" value="300.00 ETH" sub="~$557K · 6 TXs · ZERO outgoing" />
+                            <StatCard color="#6366f1" label="Combined on Ethereum" value="767.29 ETH" sub="~$1.43M total" />
+                        </div>
 
-                    <WalletCard
-                        emoji="🔴"
-                        title="YieldBlox Exploiter 2"
-                        address={ethereum.exploiter2.address}
-                        statusText="ACTIVE"
-                        statusColor="#ef4444"
-                        fields={[
-                            { label: 'ETH Balance', value: '467.293506693636236063 ETH', highlight: true },
-                            { label: 'USD Value', value: '~$863,000', color: '#ef4444' },
-                            { label: 'Transactions', value: '45 total TXs' },
-                            { label: 'Funded By', value: 'Allbridge Core Bridge (Stellar)' },
-                            { label: 'Last Activity', value: 'Relay Protocol swaps — Feb 23 09:17 UTC' },
-                            { label: 'Spam Tokens', value: 'FlashLoan + ROBO ($0 value)' },
-                        ]}
-                    />
+                        <WalletCard
+                            emoji="🔴"
+                            title="YieldBlox Exploiter 2"
+                            address={ethereum.exploiter2.address}
+                            statusText="ACTIVE"
+                            statusColor="#ef4444"
+                            fields={[
+                                { label: 'ETH Balance', value: '467.293506693636236063 ETH', highlight: true },
+                                { label: 'USD Value', value: '~$868K', color: '#ef4444' },
+                                { label: 'Transactions', value: '45 total TXs' },
+                                { label: 'Funded By', value: 'Allbridge Core Bridge (Stellar)' },
+                                { label: 'Last Activity', value: 'Relay Protocol swaps — Feb 23 09:17 UTC' },
+                                { label: 'Spam Tokens', value: 'FlashLoan + ROBO ($0 value)' },
+                            ]}
+                        />
 
-                    <WalletCard
-                        emoji="💤"
-                        title="YieldBlox Exploiter 3 — Accumulator"
-                        address={ethereum.accumulator.address}
-                        statusText="DORMANT"
-                        statusColor="#64748b"
-                        fields={[
-                            { label: 'ETH Balance', value: '300.000000021 ETH', highlight: true },
-                            { label: 'USD Value', value: '~$554,000', color: '#64748b' },
-                            { label: 'Transactions', value: '6 total TXs' },
-                            { label: 'Outgoing TXs', value: 'ZERO — funds are parked', color: '#22c55e' },
-                            { label: 'Funded By', value: 'Exploiter 2 (200 ETH + 100 ETH)' },
-                            { label: 'Spam Tokens', value: 'FlashLoan ($0 value)' },
-                        ]}
-                    />
+                        <WalletCard
+                            emoji="💤"
+                            title="YieldBlox Exploiter 3 — Accumulator"
+                            address={ethereum.accumulator.address}
+                            statusText="DORMANT"
+                            statusColor="#64748b"
+                            fields={[
+                                { label: 'ETH Balance', value: '300.000000021 ETH', highlight: true },
+                                { label: 'USD Value', value: '~$557K', color: '#64748b' },
+                                { label: 'Transactions', value: '6 total TXs' },
+                                { label: 'Outgoing TXs', value: 'ZERO — funds are parked', color: '#22c55e' },
+                                { label: 'Funded By', value: 'Exploiter 2 (200 ETH + 100 ETH)' },
+                                { label: 'Spam Tokens', value: 'FlashLoan ($0 value)' },
+                            ]}
+                        />
 
-                    <div className="alert-banner" style={{ borderColor: '#6366f1', background: 'rgba(99,102,241,0.08)' }}>
-                        <div className="alert-icon">🧠</div>
-                        <div>
-                            <div className="alert-title" style={{ color: '#6366f1' }}>INTERPRETATION</div>
-                            <div className="alert-text">
-                                Exploiter 2 is the active laundering wallet — it receives from Base and BSC via Allbridge, swaps on Uniswap, and seeds the Accumulator.
-                                The Accumulator (Exploiter 3) is a "cold storage" park — 300 ETH placed there and not moved since. Combined: <strong>767 ETH (~$1.42M)</strong> on Ethereum.
+                        <div className="alert-banner" style={{ borderColor: '#6366f1', background: 'rgba(99,102,241,0.08)' }}>
+                            <div className="alert-icon">🧠</div>
+                            <div>
+                                <div className="alert-title" style={{ color: '#6366f1' }}>INTERPRETATION</div>
+                                <div className="alert-text">
+                                    Exploiter 2 is the active laundering wallet — it receives from Base and BSC via Allbridge, swaps on Uniswap, and seeds the Accumulator.
+                                    The Accumulator (Exploiter 3) is a "cold storage" park — 300 ETH placed there and not moved since. Combined: <strong>767 ETH (~$1.42M)</strong> on Ethereum.
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </>
-            )}
+                    </>
+                )
+            }
 
             {/* ── BASE ── */}
-            {view === 'base' && (
-                <>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', marginBottom: '24px' }}>
-                        <StatCard color="#06b6d4" label="Remaining Balance" value="19.23 ETH" sub="~$35,500 — dust" />
-                        <StatCard color="#ef4444" label="Bridged Out" value="~380 ETH" sub="Feb 22 · 15:00–16:00 UTC" />
-                        <StatCard color="#94a3b8" label="Original Arrival" value="~$787K USDC" sub="16 Allbridge batches of ~$50K" />
-                    </div>
-
-                    <WalletCard
-                        emoji="🔵"
-                        title="Attacker Wallet — Base (mostly drained)"
-                        address={base.attacker}
-                        statusText="DRAINED"
-                        statusColor="#06b6d4"
-                        fields={[
-                            { label: 'ETH Balance', value: '19.230867300554960522 ETH', highlight: true },
-                            { label: 'USD Value', value: '~$35,500' },
-                            { label: 'Transactions', value: '28 total TXs' },
-                            { label: 'Original USDC In', value: '~$787K via 16 Allbridge batches' },
-                            { label: 'Converted Via', value: 'UniswapX Priority Order → ETH' },
-                            { label: 'Drained Via', value: 'Relay (12×20 ETH) + Across (10 TXs)' },
-                            { label: 'Spam Tokens', value: '7 dust tokens ($0 value)' },
-                            { label: 'Drain Date', value: 'Feb 22 · 15:00–16:00 UTC' },
-                        ]}
-                    />
-
-                    <div className="card">
-                        <div className="card-header"><h3 className="card-title">Key Contracts Used on Base</h3></div>
-                        <div className="profile-field">
-                            <span className="field-label">UniswapX Priority Order Reactor</span>
-                            <AddrChip address="0x000000001ec5656dcdb24d90dfa42742738de729" />
+            {
+                view === 'base' && (
+                    <>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', marginBottom: '24px' }}>
+                            <StatCard color="#06b6d4" label="Remaining Balance" value="19.23 ETH" sub="~$36K — dust" />
+                            <StatCard color="#ef4444" label="Bridged Out" value="~380 ETH" sub="150 Across + 240 Relay" />
+                            <StatCard color="#94a3b8" label="Original Arrival" value="788,524 USDC" sub="15 Allbridge batches (exact)" />
                         </div>
-                        <div className="profile-field">
-                            <span className="field-label">Circle USDC (Base)</span>
-                            <AddrChip address="0x833589fcd6edb6e08f4c7c32d4f71b54bda02913" />
-                        </div>
-                        <div className="profile-field">
-                            <span className="field-label">Uniswap V4 Universal Router</span>
-                            <AddrChip address={base.router} />
-                        </div>
-                    </div>
-                </>
-            )}
 
-            {/* ── BSC ── */}
-            {view === 'bsc' && (
-                <>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', marginBottom: '24px' }}>
-                        <StatCard color="#eab308" label="Parked USDC" value="38,746.50" sub="Binance-Peg USDC · ~$38.7K" />
-                        <StatCard color="#94a3b8" label="BNB Balance" value="0.00184 BNB" sub="Dust only · ~$1.09" />
-                        <StatCard color="#22c55e" label="Outgoing Transactions" value="ZERO" sub="No activity since arrival" />
-                    </div>
+                        <WalletCard
+                            emoji="🔵"
+                            title="Attacker Wallet — Base (mostly drained)"
+                            address={base.attacker}
+                            statusText="DRAINED"
+                            statusColor="#06b6d4"
+                            fields={[
+                                { label: 'ETH Balance', value: '19.230867300554960522 ETH', highlight: true },
+                                { label: 'USD Value', value: '~$36K' },
+                                { label: 'Transactions', value: '28 total TXs' },
+                                { label: 'Original USDC In', value: '788,524.05 USDC via 15 Allbridge batches' },
+                                { label: 'Converted Via', value: 'UniswapX Priority Order → ETH' },
+                                { label: 'Drained Via', value: 'Relay (12×20 ETH) + Across (10 TXs)' },
+                                { label: 'Spam Tokens', value: '7 dust tokens ($0 value)' },
+                                { label: 'Drain Date', value: 'Feb 23 · 09:01–09:26 UTC' },
+                            ]}
+                        />
 
-                    <WalletCard
-                        emoji="🟡"
-                        title="USDC Holding Wallet — BSC (untouched)"
-                        address={bsc.wallet}
-                        statusText="UNTOUCHED"
-                        statusColor="#eab308"
-                        fields={[
-                            { label: 'USDC Balance', value: '38,746.50073 Binance-Peg USDC', highlight: true, color: '#eab308' },
-                            { label: 'USD Value', value: '~$38,700' },
-                            { label: 'BNB (gas dust)', value: '0.001840000039944935 BNB' },
-                            { label: 'External Transactions', value: '0' },
-                            { label: 'Internal Transactions', value: '1 (Allbridge Core Bridge incoming)' },
-                            { label: 'Token Transfers', value: '2' },
-                            { label: 'Funded By', value: 'Allbridge Core Bridge (Stellar)' },
-                            { label: 'Status', value: 'Parked — zero swaps, zero transfers' },
-                        ]}
-                    />
-
-                    <div className="alert-banner" style={{ borderColor: '#eab308', background: 'rgba(234,179,8,0.08)' }}>
-                        <div className="alert-icon">👁️</div>
-                        <div>
-                            <div className="alert-title" style={{ color: '#eab308' }}>MONITORING ACTIVE</div>
-                            <div className="alert-text">
-                                38,746 USDC landed on BSC via Allbridge and has not moved since arrival.
-                                Any outgoing transfer would appear immediately in BSC token transfer logs under this address.
-                                This is likely a "forgotten" or "backup" bag — worth ~$38.7K.
+                        <div className="card">
+                            <div className="card-header"><h3 className="card-title">Key Contracts Used on Base</h3></div>
+                            <div className="profile-field">
+                                <span className="field-label">UniswapX Priority Order Reactor</span>
+                                <AddrChip address="0x000000001ec5656dcdb24d90dfa42742738de729" />
+                            </div>
+                            <div className="profile-field">
+                                <span className="field-label">Circle USDC (Base)</span>
+                                <AddrChip address="0x833589fcd6edb6e08f4c7c32d4f71b54bda02913" />
+                            </div>
+                            <div className="profile-field">
+                                <span className="field-label">Uniswap V4 Universal Router</span>
+                                <AddrChip address={base.router} />
                             </div>
                         </div>
-                    </div>
-                </>
-            )}
+                    </>
+                )
+            }
 
-        </section>
+            {/* ── BSC ── */}
+            {
+                view === 'bsc' && (
+                    <>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', marginBottom: '24px' }}>
+                            <StatCard color="#eab308" label="Parked USDC" value="38,746.50" sub="Binance-Peg USDC · ~$38.7K" />
+                            <StatCard color="#94a3b8" label="BNB Balance" value="0.00184 BNB" sub="Dust only · ~$1.09" />
+                            <StatCard color="#22c55e" label="Outgoing Transactions" value="ZERO" sub="No activity since arrival" />
+                        </div>
+
+                        <WalletCard
+                            emoji="🟡"
+                            title="USDC Holding Wallet — BSC (untouched)"
+                            address={bsc.wallet}
+                            statusText="UNTOUCHED"
+                            statusColor="#eab308"
+                            fields={[
+                                { label: 'USDC Balance', value: '38,746.50073 Binance-Peg USDC', highlight: true, color: '#eab308' },
+                                { label: 'USD Value', value: '~$38,700' },
+                                { label: 'BNB (gas dust)', value: '0.001840000039944935 BNB' },
+                                { label: 'External Transactions', value: '0' },
+                                { label: 'Internal Transactions', value: '1 (Allbridge Core Bridge incoming)' },
+                                { label: 'Token Transfers', value: '2' },
+                                { label: 'Funded By', value: 'Allbridge Core Bridge (Stellar)' },
+                                { label: 'Status', value: 'Parked — zero swaps, zero transfers' },
+                            ]}
+                        />
+
+                        <div className="alert-banner" style={{ borderColor: '#eab308', background: 'rgba(234,179,8,0.08)' }}>
+                            <div className="alert-icon">👁️</div>
+                            <div>
+                                <div className="alert-title" style={{ color: '#eab308' }}>MONITORING ACTIVE</div>
+                                <div className="alert-text">
+                                    38,746 USDC landed on BSC via Allbridge and has not moved since arrival.
+                                    Any outgoing transfer would appear immediately in BSC token transfer logs under this address.
+                                    This is likely a "forgotten" or "backup" bag — worth ~$38.7K.
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )
+            }
+
+        </section >
     );
 }
