@@ -11,7 +11,6 @@ const NAV_SECTIONS = [
     {
         label: 'Infrastructure',
         items: [
-            { id: 'stellar', name: 'Stellar Network' },
             { id: 'bridge', name: 'Cross-Chain Bridge' },
         ],
     },

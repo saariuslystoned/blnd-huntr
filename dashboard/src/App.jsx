@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Overview from './pages/Overview';
 import Mechanics from './pages/Mechanics';
 import Liquidators from './pages/Liquidators';
-import Stellar from './pages/Stellar';
+
 import Bridge from './pages/Bridge';
 import Ethereum from './pages/Ethereum';
 import Base from './pages/Base';
@@ -18,7 +18,7 @@ const PAGES = {
     mechanics: Mechanics,
     auctions: Auctions,
     liquidators: Liquidators,
-    stellar: Stellar,
+
     bridge: Bridge,
     ethereum: Ethereum,
     base: Base,

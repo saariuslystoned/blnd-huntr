@@ -514,16 +514,16 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    padding: 20px 0;
+    gap: 8px;
+    padding: 12px 0;
     flex-wrap: wrap;
 }
 
 .flow-node {
-    padding: 16px 24px;
+    padding: 12px 16px;
     border-radius: var(--radius);
     text-align: center;
-    min-width: 140px;
+    min-width: 110px;
     border: 1px solid var(--border);
     transition: transform 0.2s;
 }
@@ -558,7 +558,7 @@ a:hover {
 .flow-value {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
 }
 
 .flow-arrow {
@@ -577,6 +577,73 @@ a:hover {
     50% {
         opacity: 1;
     }
+}
+
+/* ═══ Flow Phases ═══ */
+.flow-phase {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.flow-phase:last-of-type {
+    border-bottom: none;
+}
+
+.flow-phase-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    padding-left: 4px;
+}
+
+/* ═══ Flow Branches (vertical split) ═══ */
+.flow-branches {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.flow-branch {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+}
+
+.flow-branch-connector {
+    width: 4px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.flow-branch-connector.blue {
+    background: var(--blue);
+}
+
+.flow-branch-connector.yellow {
+    background: var(--yellow);
+}
+
+.flow-branch-connector.red {
+    background: var(--red);
+}
+
+.flow-branch-connector.purple {
+    background: var(--purple);
+}
+
+.flow-branch-connector.cyan {
+    background: var(--cyan);
+}
+
+.flow-detail {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 /* ═══ Impact Summary ═══ */
@@ -1083,6 +1150,10 @@ td {
 
     .flow-chain {
         flex-direction: column;
+    }
+
+    .flow-branches {
+        grid-template-columns: 1fr;
     }
 
     .flow-arrow span {

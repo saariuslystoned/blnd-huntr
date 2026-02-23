@@ -5,7 +5,6 @@ const PAGE_TITLES = {
     mechanics: 'Exploit Mechanics & Oracle Trace',
     auctions: 'Auction Fill Report (60 Fills)',
     liquidators: 'Liquidator Profiles',
-    stellar: 'Stellar Network Analysis',
     bridge: 'Cross-Chain Bridge Analytics',
     ethereum: 'Ethereum Accumulator Status',
     base: 'Base Network Activity',
