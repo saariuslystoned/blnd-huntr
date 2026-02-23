@@ -22,8 +22,9 @@ This workspace tracks the **February 2026 USTRY oracle manipulation** that drain
 
 - [Exploit Mechanics](#exploit-mechanics)
 - [Liquidation Cascade (Post-Exploit Auctions)](#liquidation-cascade-post-exploit-auctions)
-- [XLIQ Identity Deep Dive](#xliq-identity-deep-dive)
-- [GCA34H — Blend Treasury Deep Dive](#gca34h--blend-treasury-deep-dive)
+- [G...XLIQ — Liquidator Deep Dive](XLIQ.md)
+- [G...YHNF — Liquidator Deep Dive](YHNF.md)
+- [G...SXI3 — Blend Treasury Deep Dive](#gsxi3--blend-treasury-deep-dive)
 - [SDF Funding Network](#sdf-funding-network)
 - [Stellar — Attacker Infrastructure](#stellar--attacker-infrastructure)
 - [XLM Laundering Network](#xlm-laundering-network)
@@ -220,9 +221,9 @@ XLM price: **$0.1609** — taken directly from the Reflector Oracle in the explo
 
 | Filler | Fills | Priced Collateral (USD) | Share | BLND-USDC LP (units) | LP Share |
 |--------|-------|------------------------|-------|----------------------|----------|
-| **`...XLIQ`** | **19** | **$12,459,547** | **91.4%** | 1,447,148 | 33.0% |
-| **`...YHNF`** | **31** | **$901,336** | **6.6%** | 2,940,948 | 67.0% |
-| `...LEND` | 7 | $260,778 | 1.9% | — | — |
+| **`G...XLIQ`** | **19** | **$12,459,547** | **91.4%** | 1,447,148 | 33.0% |
+| **`G...YHNF`** | **31** | **$901,336** | **6.6%** | 2,940,948 | 67.0% |
+| `G...LEND` | 7 | $260,778 | 1.9% | — | — |
 | Others | 3 | $4,084 | 0.0% | — | — |
 | **XLIQ + YHNF combined** | **50** | **$13,360,884** | **98.1%** | 4,388,096 | 100% |
 
@@ -302,18 +303,15 @@ Liabilities paid for each fill: mix of CETES (~1.1M+), USDC (~1.7M+), USDGLO, EU
 
 ---
 
-## XLIQ Identity Deep Dive
+## G...XLIQ — Liquidator Deep Dive
 
-| Field | Value |
-|-------|-------|
-| **Address** | `GAPU4WSJMFW6Q4G5CLADCNWFIAOGTCC5XXY3DVUA23W7ZPUIYSSGXLIQ` |
-| **Created** | 2024-12-29T15:32:34Z |
-| **Home Domain** | `lobstr.co` (generic wallet — no identity info) |
-| **Multisig** | None |
-| **Creator** | `GCYVR6JS6DLRAFF2HEC6LN7J6H6JS2VMERCTGV64RESTZAJMOHB5RHU7` (~$1.8M whale, no public identity) |
-| **Op count** | ~11,375 (all `invoke_host_function` on Blend Pool) |
-| **Assets held** | XLM, USDC, CETES, USDGLO, PYUSD, **BLND** |
-| **Custom contract** | Deployed `CB5AKVUULR4AMVV4JRVBFDH2VDIO3XWBOZMSGS5Y4LCNP3UIZIYTMAYB` (private automation relay) |
+**19 fills | $12.46M collateral seized | First mover (11 min after exploit)**
+
+`GAPU4WSJMFW6Q4G5CLADCNWFIAOGTCC5XXY3DVUA23W7ZPUIYSSGXLIQ`
+
+XLIQ is a sophisticated, protocol-native Blend liquidation operator. Its capital chain traces back five hops through a [Spoofing]-tagged origin account. Conclusory link to YieldBlox DAO is unconfirmed but circumstantially strong — XLIQ holds BLND, deployed a custom relay contract, and was first to fill just 11 minutes post-exploit.
+
+→ **[Full identity and funding network deep dive: XLIQ.md](XLIQ.md)**
 
 ### Is XLIQ Affiliated with YieldBlox DAO?
 
@@ -463,19 +461,15 @@ StellarExpert's [Spoofing] tag is applied to accounts that impersonate known ent
 
 ---
 
-## YHNF Identity Deep Dive
+## G...YHNF — Liquidator Deep Dive
 
-| Field | Value |
-|-------|-------|
-| **Address** | `GAIN2HU2ITUZPLGNWSH7JXXROL7MYIWDYXCUQDMQVJXFBEBPETSZYHNF` |
-| **Created** | 2025-04-15T18:58:02Z |
-| **Home Domain** | None |
-| **Multisig** | None — single key, weight=1 |
-| **Creator** | `GBPUFOPDVPGM56MIO4KYSNV2N4XLYBZAXL6QMD75JWG7GC5L6ANFSYBL` (diversified DeFi portfolio; no public identity) |
-| **Current XLM balance** | **10,598,958 XLM** (liquidation proceeds from 31 fills) |
-| **Other assets** | BLND (103.51), CETES (43,514), EURC (6,783), PYUSD (240), USDC (222), USTRY (915) |
-| **Fills executed** | **31 fills** — most fills of any single liquidator |
-| **XLM seized from SXI3** | 1,507,194 XLM (fills #10, #11) |
+**31 fills | $901K collateral seized | 10.6M XLM held post-exploit**
+
+`GAIN2HU2ITUZPLGNWSH7JXXROL7MYIWDYXCUQDMQVJXFBEBPETSZYHNF`
+
+YHNF is a professional, protocol-connected Blend liquidation operator. It was seeded with BLND by a large protocol-level holder, received 80,000 USDC from a 4-signer controller on exploit day, and executed the most fills (31) of any single liquidator. Post-exploit it distributed proceeds via claimable balances back to its controller.
+
+→ **[Full identity and controller deep dive: YHNF.md](YHNF.md)**
 
 ### Controller: `GDDYERCLIKAEDJJQI6XWWPLTOZ7OPOH26LFLNUD43QP4UEH34YEOV4A7`
 
@@ -509,7 +503,7 @@ After completing its 31 fills, YHNF began creating **claimable balances** — di
 
 ---
 
-## GCA34H...SXI3 — Blend Treasury Deep Dive
+## G...SXI3 — Blend Treasury Deep Dive
 
 The largest liquidated position — `GCA34HBKNLWN3AOXWBRW5Y3HSGHCWF3UDBRJ5YHGU6HWGJZEPO2NSXI3` — was not a retail user. It is an institutional multisig account that functions as the **Blend Protocol's primary liquidity treasury**.
 
@@ -580,7 +574,7 @@ GDDUETSYDSHJMU5J73WHR4SQOAWRUM5SNLHXBQKM36EQ244GHSRS5AHF  [SDF Conduit]
                                           [Blend Primary Treasury — LIQUIDATED]
 ```
 
-### GDDUETSYD → GCA34H Direct XLM Wire History (Full Audit)
+### G...5AHF → G...SXI3 Direct XLM Wire History (Full Audit)
 
 > **511.8M XLM** confirmed across 17 wires from the SDF conduit alone.
 
@@ -726,7 +720,7 @@ The attacker drained 61,249,278 XLM. Per mootz12 (Blend core team): **"48M XLM f
 
 
 
-### Swap Hub Pattern (`GATDQL767ZM2`)
+### Swap Hub Pattern (`G...MVZH`)
 
 The Swap Hub received 8M XLM and ran a cycle: create throwaway account → load XLM → `path_payment_strict_send` (DEX swap to USDC) → `account_merge` throwaway → bridge USDC via Allbridge. Known USDC proceeds: $787,167 total across 3 self-swaps + 4 throwaway merges, plus 150,000 USDC returned to the main wallet.
 
