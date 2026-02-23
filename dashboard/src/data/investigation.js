@@ -13,6 +13,42 @@ export const EXPLOIT = {
     pool: 'CCCCIQSDILITHMM7PBSLVDT5MISSY7R26MNZXCX4H7J5JQ5FPIYOGYFS',
 };
 
+export const SDEX_MANIPULATION = {
+    burnerAccount: 'GCNF5GNRIT6VWYZ7LXUZ33Q3SR2NUGO32F5X65VVKAEWWIQCKGYN75HB',
+    triggerAccount: 'GDHRCQNC64UVL27EXSC6OG6I2FCT4NWM72KNHLHKEB3LK4MEEYYWETN3',
+    normalPrice: 1.06,
+    manipulatedPrice: 106.7372828,
+    inflationFactor: '100.7×',
+    attackCost: '~$4 (15 XLM + 1.24 USTRY)',
+    offerStillActive: true,
+    activeOfferId: '1824788980',
+    activeOfferRemaining: '1.1684 USTRY',
+    sellOfferTx: {
+        hash: '09e1a9d1197c9bf0af4e87da328c4f2d5eb49b487630aa61991fb5c1c4637cdb',
+        time: '2026-02-21T23:38:51Z',
+        action: 'manage_sell_offer — SELL 1.2185 USTRY @ 106.7372828 USDC',
+        link: 'https://stellar.expert/explorer/public/tx/09e1a9d1197c9bf0af4e87da328c4f2d5eb49b487630aa61991fb5c1c4637cdb',
+    },
+    priceSettingTx: {
+        hash: '60fe039e96e88402d175c8de68e80651874ab125880dd384a1636914ba95bef1',
+        time: '2026-02-22T00:10:21Z',
+        action: 'manage_buy_offer — bought 0.0501 USTRY with 108 USDC limit, crossed burner offer at 106.74',
+        link: 'https://stellar.expert/explorer/public/tx/60fe039e96e88402d175c8de68e80651874ab125880dd384a1636914ba95bef1',
+        filledAmount: '0.0501003 USTRY',
+        filledValue: '5.3475699 USDC',
+    },
+    burnerOps: [
+        { num: 1, time: '2026-02-21T23:35:54Z', tx: '4704f1ca552b78db0c96a011e3d0a3b28f32a19fc9753f6128d588d064604b76', op: 'create_account — 15 XLM from attacker' },
+        { num: 2, time: '2026-02-21T23:36:05Z', tx: 'c047a9d795a371ed7ae8b39a80f05df0d284364843eb3ea039b44c03bdd93536', op: 'change_trust — Added USDC trustline' },
+        { num: 3, time: '2026-02-21T23:36:28Z', tx: 'fe40fc21ac441bcade857ccfdc56e2a9696985d581c378be55bff6e2e3adc9e8', op: 'manage_sell_offer — Sold 1 XLM for USDC @ 0.161' },
+        { num: 4, time: '2026-02-21T23:36:50Z', tx: 'e66ba20df5a781f239132361aadee46f0b9a7457fb6b08915d773695b8accd24', op: 'change_trust — Added USTRY trustline' },
+        { num: 5, time: '2026-02-21T23:37:52Z', tx: 'aab3a6054bdf4687e49d68ee4353f0ab7eccfb5101876578ab6d526864d93a1d', op: 'payment — Received 1.237 USTRY from attacker' },
+        { num: 6, time: '2026-02-21T23:38:51Z', tx: '09e1a9d1197c9bf0af4e87da328c4f2d5eb49b487630aa61991fb5c1c4637cdb', op: '🔴 manage_sell_offer — SELL 1.2185 USTRY @ 106.7372828 USDC', critical: true },
+        { num: 7, time: '2026-02-21T23:39:31Z', tx: '3b504c319bdadf1e3ec49cc9d186083b1ef84c84af219bc0d4bab2bc700c3aa4', op: 'manage_buy_offer — Buy 0.0001 USDC for USTRY @ 1.057 (decoy)' },
+        { num: 8, time: '2026-02-22T00:11:16Z', tx: '16215fc1daa3bab99b0039d8eb37942a8db4a391c48768fb8cc81ccd8c1e2c9b', op: 'manage_buy_offer — Cancel buy offer (cleanup)' },
+    ],
+};
+
 export const STATS = {
     drainedXlm: '61,249,278 XLM',
     drainedUsdc: '~$1M USDC',
@@ -53,10 +89,16 @@ export const ORACLE_PRICES = [
 ];
 
 export const TIMELINE = [
-    { time: 'Feb 14, 2026', title: 'Attacker Wallet Created', desc: 'GB07V...2WXC created on Stellar, funded by GC2XJK...FZIB.', severity: 'info' },
-    { time: 'Feb 21, 06:14 UTC', title: 'Infrastructure Prep', desc: 'Test buys of USTRY at normal market prices (1.058).', severity: 'info' },
-    { time: 'Feb 22, 00:22 UTC', title: 'USTRY Dumping Phase', desc: 'Attacker liquidated ~135K USTRY for USDC prior to bridge.', severity: 'warning' },
-    { time: 'Feb 22, 00:24 UTC', title: '⚡ MAIN EXPLOIT EXECUTED', desc: 'Attacker borrowed 61.2M XLM against inflated USTRY collateral.', severity: 'critical' },
+    { time: 'Feb 14, 2026', title: 'Attacker Wallet Created', desc: 'GBO7V...2WXC created on Stellar, funded by GC2XJK...FZIB.', severity: 'info' },
+    { time: 'Feb 19–21', title: 'Orderbook Cleanup', desc: 'Small USTRY buys (50-55 USTRY each) at normal prices to drain sell-side liquidity from the SDEX.', severity: 'info' },
+    { time: 'Feb 21, 23:35 UTC', title: '🔴 Burner Account Created', desc: 'GCNF5...75HB created with 15 XLM. Single-purpose SDEX manipulation account.', severity: 'warning', tx: '4704f1ca552b78db0c96a011e3d0a3b28f32a19fc9753f6128d588d064604b76' },
+    { time: 'Feb 21, 23:38 UTC', title: '🔴 100× SELL OFFER PLACED', desc: 'Burner placed 1.2185 USTRY for sale at 106.74 USDC — 100.7× normal price on empty orderbook.', severity: 'critical', tx: '09e1a9d1197c9bf0af4e87da328c4f2d5eb49b487630aa61991fb5c1c4637cdb' },
+    { time: 'Feb 22, 00:04 UTC', title: 'Collateral Supplied', desc: 'Attacker supplies 50 USTRY as collateral to Blend Pool.', severity: 'warning' },
+    { time: 'Feb 22, 00:10 UTC', title: '🔴 PRICE-SETTING TRADE', desc: 'Trigger account GDHRCQNC... buys 0.05 USTRY against burner offer at 106.74 USDC. Oracle now reads inflated price.', severity: 'critical', tx: '60fe039e96e88402d175c8de68e80651874ab125880dd384a1636914ba95bef1' },
+    { time: 'Feb 22, 00:15 UTC', title: 'Oracle Window #1', desc: 'Reflector Oracle reads USTRY last traded price = 106.74 USDC ✅', severity: 'critical' },
+    { time: 'Feb 22, 00:20 UTC', title: 'Oracle Window #2 + Borrow', desc: 'Oracle confirms inflated price. Attacker withdraws 14K USDC, then supplies 13K more USTRY.', severity: 'critical' },
+    { time: 'Feb 22, 00:21–00:22 UTC', title: 'USTRY Dumping Phase', desc: 'Attacker dumps ~135K USTRY → 153K USDC at normal prices before main borrow.', severity: 'warning' },
+    { time: 'Feb 22, 00:24:27 UTC', title: '⚡ MAIN EXPLOIT EXECUTED', desc: 'submit(request_type=4) — Borrowed 61,249,278 XLM against inflated USTRY collateral.', severity: 'critical', tx: '3e81a3f7b6e17cc22d0a1f33e9dcf90e5664b125b9e61f108b8d2f082f2d4657' },
     { time: 'Feb 22, 00:25–00:30 UTC', title: 'XLM → Binance (3.77M)', desc: '3.54M XLM via relay account + 234K direct to Binance deposit address.', severity: 'warning' },
     { time: 'Feb 22, 00:25–00:35 UTC', title: 'XLM → ChangeNow (3.97M)', desc: '3.97M XLM sent to ChangeNow no-KYC exchange in multiple batches.', severity: 'critical' },
     { time: 'Feb 22, 00:35 UTC', title: 'First Liquidation (Fill #1)', desc: 'GAPU4...XLIQ fills first auction, 11 min after exploit.', severity: 'warning' },
@@ -308,6 +350,8 @@ export const EVM_CHAINS = {
 
 export const ADDRESSES = [
     { network: 'Stellar', label: 'Attacker', address: 'GBO7VUL2TOKPWFAWKATIW7K3QYA7WQ63VDY5CAE6AFUUX6BHZBOC2WXC', tag: 'attacker' },
+    { network: 'Stellar', label: 'SDEX Manipulator (Burner)', address: 'GCNF5GNRIT6VWYZ7LXUZ33Q3SR2NUGO32F5X65VVKAEWWIQCKGYN75HB', tag: 'attacker' },
+    { network: 'Stellar', label: 'Trade Trigger', address: 'GDHRCQNC64UVL27EXSC6OG6I2FCT4NWM72KNHLHKEB3LK4MEEYYWETN3', tag: 'attacker' },
     { network: 'Stellar', label: 'Attacker Funder', address: 'GC2XJKBYLJIQ3LIPITDM6I5WYMBXUCIEXBCMHHA5K7GKM5NLSO4SFZIB', tag: 'attacker' },
     { network: 'Stellar', label: 'Blend Pool', address: 'CCCCIQSDILITHMM7PBSLVDT5MISSY7R26MNZXCX4H7J5JQ5FPIYOGYFS', tag: 'protocol' },
     { network: 'Stellar', label: 'SDF Pool Position (SXI3)', address: 'GCA34HBKNLWN3AOXWBRW5Y3HSGHCWF3UDBRJ5YHGU6HWGJZEPO2NSXI3', tag: 'protocol' },

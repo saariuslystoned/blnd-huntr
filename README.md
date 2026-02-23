@@ -473,15 +473,67 @@ SDF deployed capital into `G...SXI3`, making it the largest single position in t
 ### Key Stellar Transactions
 
 | Label | TX Hash | What It Does |
-|-------|---------|--------------|
-| **Oracle Probe** | `dc4f41194b383f5aade3cdb4d249dfd4fd9b641ab1c7cfbc08a23a5ac29a4cda` | Created sell offer: 0.025 USTRY at 501 USDC/USTRY. **Never filled.** |
-| **Test Borrow** | *(needs identification)* | Small test borrow/repay cycle of 9.32 USDC |
-| ⚡ **MAIN EXPLOIT** | [`3e81a3f7b6e17cc22d0a1f33e9dcf90e5664b125b9e61f108b8d2f082f2d4657`](https://stellar.expert/explorer/public/tx/3e81a3f7b6e17cc22d0a1f33e9dcf90e5664b125b9e61f108b8d2f082f2d4657) | `submit(request_type=4)` → Borrowed **61,249,278.3 XLM** from Blend Pool |
-| **Bridge Txs** | Multiple `swap_and_bridge` calls | Batched ~50K USDC per call to EVM via Allbridge |
+|-------|---------|--------------| 
+| **Oracle Probe (main)** | [`dc4f41194b383f5aade3cdb4d249dfd4fd9b641ab1c7cfbc08a23a5ac29a4cda`](https://stellar.expert/explorer/public/tx/dc4f41194b383f5aade3cdb4d249dfd4fd9b641ab1c7cfbc08a23a5ac29a4cda) | Created sell offer: 0.025 USTRY at 501 USDC/USTRY. **Never filled.** |
+| **Oracle Probe (2nd)** | [`13f105857ca9988e6b596f0405bb1f11e79b1de6bbf6b1b16d4c8daea7208c83`](https://stellar.expert/explorer/public/tx/13f105857ca9988e6b596f0405bb1f11e79b1de6bbf6b1b16d4c8daea7208c83) | Feb 21 04:53 — Sell 0.5796 USTRY @ 496.06 USDC. Later cancelled. |
+| **Cancel Probe** | [`26b1b8dc0026ced416b27500f4cb9bfab4a6f558817da3c3a6354f45c9ca4698`](https://stellar.expert/explorer/public/tx/26b1b8dc0026ced416b27500f4cb9bfab4a6f558817da3c3a6354f45c9ca4698) | Feb 21 18:27 — Cancelled the 496 USDC offer (offer_id 1824691203) |
+| **Create Burner** | [`4704f1ca552b78db0c96a011e3d0a3b28f32a19fc9753f6128d588d064604b76`](https://stellar.expert/explorer/public/tx/4704f1ca552b78db0c96a011e3d0a3b28f32a19fc9753f6128d588d064604b76) | Feb 21 23:35 — Created SDEX manipulation account with 15 XLM |
+| **Fund Burner** | [`aab3a6054bdf4687e49d68ee4353f0ab7eccfb5101876578ab6d526864d93a1d`](https://stellar.expert/explorer/public/tx/aab3a6054bdf4687e49d68ee4353f0ab7eccfb5101876578ab6d526864d93a1d) | Feb 21 23:37 — Sent 1.237 USTRY to burner account |
+| ⚠️ **PATH TEST** | [`f6729b837ae09452345817ce4bdaec601219d2ae9492c3264bc383fb36212533`](https://stellar.expert/explorer/public/tx/f6729b837ae09452345817ce4bdaec601219d2ae9492c3264bc383fb36212533) | Feb 21 23:59 — path_payment: 0.0001 USTRY → XLM via LIBRE → SOLS |
+| **Supply Collateral** | [`a1577284fab9397211abe07e336e3885ff89e1f0d6dafbfff801b98560c5375b`](https://stellar.expert/explorer/public/tx/a1577284fab9397211abe07e336e3885ff89e1f0d6dafbfff801b98560c5375b) | Feb 22 00:04 — `submit()` to Blend Pool (USTRY collateral supply) |
+| **Blend Submit** | [`01c2ba7553c2e22d64adca8849a30f296c76fcd91f49a2eca383113d7d307b8b`](https://stellar.expert/explorer/public/tx/01c2ba7553c2e22d64adca8849a30f296c76fcd91f49a2eca383113d7d307b8b) | Feb 22 00:20 — `submit()` to Blend Pool (position update after oracle reads inflated price) |
+| **USTRY Dump 1** | [`dd0935766d9cc1caea8adcf5eaa8641fbc4b1b89edb88cc8cf0da823d8311890`](https://stellar.expert/explorer/public/tx/dd0935766d9cc1caea8adcf5eaa8641fbc4b1b89edb88cc8cf0da823d8311890) | Feb 22 00:21 — Buy 13,000 USDC worth of USTRY @ 1.059 (dumping stolen USTRY) |
+| **USTRY Dump 2** | [`311ee91e5ad3ae020dd2ffffee87d55acc8f4c944ed89e076b70e4642dc9287e`](https://stellar.expert/explorer/public/tx/311ee91e5ad3ae020dd2ffffee87d55acc8f4c944ed89e076b70e4642dc9287e) | Feb 22 00:22 — Buy 140,000 USDC worth of USTRY @ 1.063 (bulk dump) |
+| ⚡ **MAIN EXPLOIT** | [`3e81a3f7b6e17cc22d0a1f33e9dcf90e5664b125b9e61f108b8d2f082f2d4657`](https://stellar.expert/explorer/public/tx/3e81a3f7b6e17cc22d0a1f33e9dcf90e5664b125b9e61f108b8d2f082f2d4657) | Feb 22 00:24:27 — `submit(request_type=4)` → Borrowed **61,249,278.3 XLM** from Blend Pool |
+| **Bridge Txs** | Multiple `swap_and_bridge` calls | Feb 22 00:28+ — Batched ~50K USDC per call to EVM via Allbridge |
 
-### Actual USTRY Trading History (From Attacker's Account)
+### 🔴 SDEX Manipulation Account (THE SMOKING GUN)
 
-All executed trades were at **normal prices** (~1.058 USDC/USTRY):
+The attacker used a **single-purpose burner account** to place the 100x price manipulation offer on the Stellar DEX. This account had only **8 operations** in its entire lifetime:
+
+| Field | Value |
+|-------|-------|
+| **Burner Address** | `GCNF5GNRIT6VWYZ7LXUZ33Q3SR2NUGO32F5X65VVKAEWWIQCKGYN75HB` |
+| **Created** | Feb 21, 2026 23:35:54 UTC |
+| **Funded by** | Attacker main account (`GBO7VUL...`) with 15 XLM |
+| **Purpose** | Place inflated USTRY sell offer for oracle to read |
+| **Cost of attack** | ~15 XLM + 1.24 USTRY ≈ **~$4 total** |
+
+**Complete burner account operation sequence:**
+
+| # | Time (UTC) | TX Hash | Operation |
+|---|-----------|---------|-----------|
+| 1 | Feb 21 23:35:54 | [`4704f1ca...604b76`](https://stellar.expert/explorer/public/tx/4704f1ca552b78db0c96a011e3d0a3b28f32a19fc9753f6128d588d064604b76) | `create_account` — 15 XLM from attacker |
+| 2 | Feb 21 23:36:05 | [`c047a9d7...d93536`](https://stellar.expert/explorer/public/tx/c047a9d795a371ed7ae8b39a80f05df0d284364843eb3ea039b44c03bdd93536) | `change_trust` — Added USDC trustline |
+| 3 | Feb 21 23:36:28 | [`fe40fc21...adc9e8`](https://stellar.expert/explorer/public/tx/fe40fc21ac441bcade857ccfdc56e2a9696985d581c378be55bff6e2e3adc9e8) | `manage_sell_offer` — Sold 1 XLM for USDC @ 0.161 (seed funds) |
+| 4 | Feb 21 23:36:50 | [`e66ba20d...accd24`](https://stellar.expert/explorer/public/tx/e66ba20df5a781f239132361aadee46f0b9a7457fb6b08915d773695b8accd24) | `change_trust` — Added USTRY trustline |
+| 5 | Feb 21 23:37:52 | [`aab3a605...d93a1d`](https://stellar.expert/explorer/public/tx/aab3a6054bdf4687e49d68ee4353f0ab7eccfb5101876578ab6d526864d93a1d) | `payment` — Received **1.237 USTRY** from attacker |
+| 6 | **Feb 21 23:38:51** | [**`09e1a9d1...637cdb`**](https://stellar.expert/explorer/public/tx/09e1a9d1197c9bf0af4e87da328c4f2d5eb49b487630aa61991fb5c1c4637cdb) | **🔴 `manage_sell_offer` — SELL 1.2185 USTRY @ 106.7372828 USDC** |
+| 7 | Feb 21 23:39:31 | [`3b504c31...0c3aa4`](https://stellar.expert/explorer/public/tx/3b504c319bdadf1e3ec49cc9d186083b1ef84c84af219bc0d4bab2bc700c3aa4) | `manage_buy_offer` — Buy 0.0001 USDC for USTRY @ 1.057 (normal-price decoy) |
+| 8 | Feb 22 00:11:16 | [`16215fc1...1e2c9b`](https://stellar.expert/explorer/public/tx/16215fc1daa3bab99b0039d8eb37942a8db4a391c48768fb8cc81ccd8c1e2c9b) | `manage_buy_offer` — Cancel buy offer (amount=0, cleanup) |
+
+> **TX #6 placed the inflated offer.** But placing an order alone doesn't move the oracle — a trade must execute. At **00:10:21 UTC**, a second attacker-controlled account (`GDHRCQNC...`) bought 0.05 USTRY against this offer at the 106.7 price (TX below). **That trade is what the Reflector Oracle read as the market price** at 00:15 and 00:20 UTC.
+>
+> **Total cost to manipulate a $4.7M exploit: ~$4.**
+
+### 🔴 Trade Trigger Account (THE PRICE-SETTING TRADE)
+
+A second attacker-controlled account executed the actual trade that moved the oracle price:
+
+| Field | Value |
+|-------|-------|
+| **Trigger Address** | `GDHRCQNC64UVL27EXSC6OG6I2FCT4NWM72KNHLHKEB3LK4MEEYYWETN3` |
+| **Price-Setting TX** | [`60fe039e96e88402d175c8de68e80651874ab125880dd384a1636914ba95bef1`](https://stellar.expert/explorer/public/tx/60fe039e96e88402d175c8de68e80651874ab125880dd384a1636914ba95bef1) |
+| **Time** | Feb 22, 2026 00:10:21 UTC |
+| **Action** | `manage_buy_offer` — bought 0.0501 USTRY with 108 USDC limit → crossed burner's 106.7 sell offer |
+| **Result** | 0.0501 USTRY traded at 106.74 USDC — **Oracle now reads this as the market price** |
+| **Evidence of attacker control** | Same account was running identical micro-trade patterns on XCHF minutes earlier (23:41-23:47 UTC) |
+
+**The 106.7 sell offer is still active** on the SDEX right now (offer_id `1824788980`, 1.1684 USTRY remaining).
+
+### Actual USTRY Trading History (From Attacker's Main Account)
+
+All executed trades on the main account were at **normal prices** (~1.058 USDC/USTRY). The 100x manipulation was done from the burner account above:
 
 | Date | Action | Amount | Price |
 |------|--------|--------|-------|
@@ -873,6 +925,8 @@ The attacker is NOT a solo operator. Gas funding came from **Etherscan-flagged p
 ### Stellar — Attacker
 ```
 ATTACKER:         GBO7VUL2TOKPWFAWKATIW7K3QYA7WQ63VDY5CAE6AFUUX6BHZBOC2WXC
+SDEX MANIPULATOR: GCNF5GNRIT6VWYZ7LXUZ33Q3SR2NUGO32F5X65VVKAEWWIQCKGYN75HB  [Burner — placed 100x USTRY offer]
+TRADE TRIGGER:    GDHRCQNC64UVL27EXSC6OG6I2FCT4NWM72KNHLHKEB3LK4MEEYYWETN3  [Triggered the trade that set oracle price]
 USTRY ISSUER:     GCRYUGD5NVARGXT56XEZI5CIFCQETYHAPQQTHO2O3IQZTHDH4LATMYWC
 COUNTERPARTY:     GABFRFPYM2BXM4OM2ZA4YDBWY4CMPVESHQMKXSM47MWWJD4TW2KQDWWN
 ```
