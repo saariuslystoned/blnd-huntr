@@ -53,55 +53,56 @@ The attacker called `submit` on the Blend Pool contract with `request_type: 4` (
 #### Soroban Execution Trace (from StellarExpert)
 
 ```
-GBO7...2WXC invoked [Blend Pool] CCCC...GYFS submit(
+GBO7...2WXC invoked [Blend Pool] CCCC...GYFS submit(     # ← ATTACKER calls the pool directly
     from: GBO7...2WXC,
     to:   GBO7...2WXC,
     requests: [{
-        address: CAS3...OWMA,
-        amount:  612492783064502,
-        request_type: 4  (Borrow)
+        address: CAS3...OWMA,                             # ← native XLM (Stellar Asset Contract)
+        amount:  612492783064502,                         # ← 61,249,278 XLM at 7 decimals (~$9M)
+        request_type: 4  (Borrow)                         # ← type 4 = BORROW (not repay/withdraw)
     }]
 )
 
   ├─ Invoked CD74...MXXR decimals() → 7
   ├─ Invoked CD74...MXXR lastprice("Stellar", CAS3...OWMA)
-  │    → { price: 1609348, timestamp: 1771719600 }
+  │    → { price: 1609348, timestamp: 1771719600 }        # ← wrapper oracle: XLM price = ~0.161
   │
   ├─ Invoked [Reflector Oracle] CALI...LE6M last_timestamp() → 1771719600
   ├─ Invoked [Reflector Oracle] CALI...LE6M price(["Stellar", CAS3...OWMA], 1771719600)
-  │    → { price: 16093480931573, timestamp: 1771719600 }
+  │    → { price: 16093480931573, timestamp: 1771719600 } # ← Reflector raw: same price, different scale (7 extra decimals)
   │
   ├─ Invoked CD74...MXXR lastprice("Stellar", CCW6...MI75)
-  │    → { price: 10000000, timestamp: 1771719867 }
+  │    → { price: 10000000, timestamp: 1771719867 }       # ← USDC priced at 1.0 (normal)
   │
   ├─ Invoked CD74...MXXR lastprice("Stellar", CBLV...PNUR)
-  │    → { price: 1067372830, timestamp: 1771719600 }
+  │    → { price: 1067372830, timestamp: 1771719600 }     # ← USTRY collateral — wrapper sees ~106.7 USDC
   │
   ├─ Invoked [Reflector Oracle] CALI...LE6M prices(["Stellar", CBLV...PNUR], 4)
   │    → [
-  │        { price: 10673728301028137, timestamp: 1771719600 },
-  │        { price: 10673728301028137, timestamp: 1771719300 },
-  │        { price: 105742379403813,   timestamp: 1771719000 },
-  │        { price: 105742642288368,   timestamp: 1771718700 }
-  │      ]
+  │        { price: 10673728301028137, timestamp: 1771719600 }, # ← ⚠️ INFLATED: ~101x normal
+  │        { price: 10673728301028137, timestamp: 1771719300 }, # ← ⚠️ INFLATED: manipulation already locked in
+  │        { price: 105742379403813,   timestamp: 1771719000 }, # ← normal baseline price
+  │        { price: 105742642288368,   timestamp: 1771718700 }  # ← normal baseline price
+  │      ]                                                # ← TWAP uses 2 inflated + 2 normal = 50x effective boost
   │
   ├─ Invoked CAS3...OWMA transfer([Blend Pool] → GBO7...2WXC, 612492783064502)
-  │    61,249,278.3064502 XLM debited from [Blend Pool]
-  │    61,249,278.3064502 XLM credited to GBO7...2WXC
+  │    61,249,278.3064502 XLM debited from [Blend Pool]   # ← ⚠️ THE DRAIN: full pool XLM leaves
+  │    61,249,278.3064502 XLM credited to GBO7...2WXC     # ← lands directly in attacker wallet
   │
   ├─ Event: "borrow" [612492783064502, 610846237149994]
   ├─ Event: "transfer" native 612492783064502
   │
   └─ State Updates:
        Positions[GBO7...2WXC] = {
-           collateral: { 5: 1498761336572 },
-           liabilities: { 0: 610846237149994, 1: 8622715615541 },
+           collateral: { 5: 1498761336572 },              # ← ~149.9M raw USTRY collateral (inflated value)
+           liabilities: { 0: 610846237149994,             # ← XLM liability: 61,084,623 XLM owed (never repaid)
+                          1: 8622715615541 },             # ← second liability (USDC borrow)
            supply: {}
        }
-       ResData[CAS3...OWMA] = {
+       ResData[CAS3...OWMA] = {                           # ← pool resource state after the drain
            b_rate: 1000429719154, b_supply: 11591145734561893,
            backstop_credit: 596293422, d_rate: 1002695516178,
-           d_supply: 693631184442089, ir_mod: 1000000
+           d_supply: 693631184442089, ir_mod: 1000000     # ← ir_mod=1000000 means interest rate unaffected (instant borrow)
        }
 
 Execution Stats: 10,630,639 instructions | 12.96 MB memory | 1,275μs
