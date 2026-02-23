@@ -6,9 +6,17 @@ export default function Overview() {
         <section className="section active">
             <div className="hero-header">
                 <div className="hero-tag">Active Forensic Track</div>
-                <h1 className="section-title">Blend Protocol Exploit</h1>
+                <h1 className="section-title">Blend Protocol — USTRY Oracle Exploit</h1>
                 <p className="section-subtitle">
-                    Cross-chain investigation into the February 22, 2026 oracle manipulation.
+                    On-chain investigation into the <strong>February 2026 USTRY oracle manipulation</strong> that
+                    drained the Blend Protocol (YieldBlox Pool) on the Stellar network.
+                </p>
+                <p className="section-subtitle" style={{ marginTop: '8px', opacity: 0.85, fontSize: '0.92em' }}>
+                    <strong>Blend and the Reflector Oracle both functioned exactly as designed.</strong> The attacker
+                    exploited the thin on-chain liquidity of USTRY — a low-volume asset — to artificially inflate its
+                    DEX price, which the oracle read as the real market price. With USTRY collateral valued at an
+                    inflated rate, the attacker borrowed ~61.2M XLM against it and walked away. The Blend protocol
+                    and community were the target; no code was broken.
                 </p>
             </div>
 
