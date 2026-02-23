@@ -7,7 +7,6 @@ const DISPLAY_ORDER = [
     { key: 'yhnf', label: 'YHNF (Liquidator)', highlight: ['XLM', 'USDC', 'BLND'] },
     { key: 'blendTreasury', label: 'Blend Treasury (SXI3)', highlight: ['XLM'] },
     { key: 'sdfConduit', label: 'SDF Conduit', highlight: ['XLM'] },
-    { key: 'attackerFunder', label: 'Attacker Funder', highlight: ['XLM'] },
 ];
 
 function BalanceRow({ label, balances, highlights }) {
