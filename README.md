@@ -179,13 +179,20 @@ ATTACKER (GBO7VUL2TOKPWFAWKATIW7K3QYA7WQ63VDY5CAE6AFUUX6BHZBOC2WXC)
              └─► 57 remaining fills across other positions
 
 POOL STATUS: Frozen ("on ice") — no withdrawals, no new borrows. Negotiations in progress.
-ATTACKER PROCEEDS (as of Feb 22, 2026):
+ATTACKER PROCEEDS (as of Feb 23, 2026 — live Etherscan verified):
   ~48M XLM still frozen on Stellar (Main wallet 45.07M + Swap Hub 2.5M + Funder/Ops 450K)
   ~3.77M XLM sent to Binance (KYC exchange)
   ~3.97M XLM sent to ChangeNow (no-KYC)
   ~5M XLM converted → $787K USDC, bridged to Base via Allbridge (16 calls)
   ~$997.7K USDC bridged directly (Base $787K + ETH $172K + BSC $38.7K)
-  ~$3M total off-chain (estimated)
+
+  EVM STATUS (Feb 23, live):
+    YieldBlox Exploiter 2 (0x2d1c...6482): 467 ETH ($881K) on Ethereum + 19 ETH ($36K) on Base
+    YieldBlox Exploiter 3 / Accumulator  (0x0b2B...3eC6): 300 ETH ($565K) on Ethereum — dormant
+    BSC wallet: 38,746 USDC ($39K) — untouched
+    Base was drained: ~380 ETH bridged to Ethereum via Relay + Across on Feb 22 (~15:00–16:00 UTC)
+
+  ~$1.52M confirmed on EVM (verified on-chain)
 ```
 
 ---
