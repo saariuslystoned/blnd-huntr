@@ -204,6 +204,20 @@ The oracle manipulation and resulting bad debt triggered a cascade of Blend liqu
 | **Fills by `GDQY3...BLEND`** | 7 |
 | **Fills by `GALB7...CASH`, `GCBYM...M3L`, `GASND...QXJ`** | 1 each |
 
+### Collateral Captured by Filler
+
+XLM price: **$0.1609** — taken directly from the Reflector Oracle in the exploit transaction. Stablecoins at $1. BLND-USDC LP has no reliable on-chain price and is tracked separately.
+
+| Filler | Fills | Priced Collateral (USD) | Share | BLND-USDC LP (units) | LP Share |
+|--------|-------|------------------------|-------|----------------------|----------|
+| **`...XLIQ`** | **19** | **$12,459,547** | **91.4%** | 1,447,148 | 33.0% |
+| **`...YHNF`** | **31** | **$901,336** | **6.6%** | 2,940,948 | 67.0% |
+| `...LEND` | 7 | $260,778 | 1.9% | — | — |
+| Others | 3 | $4,084 | 0.0% | — | — |
+| **XLIQ + YHNF combined** | **50** | **$13,360,884** | **98.1%** | 4,388,096 | 100% |
+
+**XLIQ and YHNF together captured over 98% of all measurable liquidation value across 60 fills.** Even excluding the unpriced BLND-USDC LP tokens entirely, the 98.1% figure holds. The minimum defensible floor is **>90%**.
+
 ### Top 3 Liquidated Positions (by XLM seized)
 
 | Rank | Liquidated Account | Fills | XLM Collateral | Other Collateral |
