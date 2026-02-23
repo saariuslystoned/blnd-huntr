@@ -1,4 +1,4 @@
-# 🕵️ Blend Protocol Exploit — Investigation Tracker
+# 🕵️ USTRY Oracle Manipulation — Blend Pool Investigation
 
 > **Status:** ACTIVE — Funds still moving  
 > **Last Updated:** February 22, 2026, 09:03 PM EST  
@@ -14,7 +14,7 @@
 > **Recovered:** $0  
 > **Dashboard:** [www.ztripperz.com](https://www.ztripperz.com)
 
-This workspace tracks the **February 2026 Blend Protocol (YieldBlox Pool) Exploit** on the Stellar network. The attacker manipulated an oracle price feed to borrow ~61.2 Million XLM against inflated USTRY collateral, then began laundering proceeds across multiple EVM chains.
+This workspace tracks the **February 2026 USTRY oracle manipulation** that drained the Blend Protocol (YieldBlox Pool) on the Stellar network. **Blend and the Reflector Oracle both functioned exactly as designed.** The attacker exploited the thin on-chain liquidity of USTRY — a low-volume asset — to artificially inflate its DEX price, which the oracle read as the real market price. With USTRY collateral suddenly valued at an inflated rate, the attacker borrowed ~61.2 million XLM against it and walked away. The Blend protocol and community were the target; no code was broken.
 
 ---
 
@@ -118,7 +118,7 @@ Look at the Reflector Oracle's `prices()` response for `CBLV...PNUR`:
 | **1771719300** | **10,673,728,301,028,137** | **⚠️ 100x JUMP** |
 | **1771719600** | **10,673,728,301,028,137** | **⚠️ Stays inflated** |
 
-The price of `CBLV...PNUR` jumped **~100x** between timestamps 1771719000 and 1771719300 in the Reflector Oracle. This is the manipulation window — the attacker inflated this asset's oracle price, then borrowed XLM against it.
+The price of `CBLV...PNUR` (USTRY) jumped **~100x** between timestamps 1771719000 and 1771719300 in the Reflector Oracle's feed. The oracle reported what the DEX said — the DEX itself was manipulated via thin USTRY liquidity. The oracle did not malfunction; it read manipulated market data.
 
 
 ---
@@ -129,8 +129,8 @@ The price of `CBLV...PNUR` jumped **~100x** between timestamps 1771719000 and 17
 ATTACKER (GBO7VUL2TOKPWFAWKATIW7K3QYA7WQ63VDY5CAE6AFUUX6BHZBOC2WXC)
   │
   ├─ supplies ~150K USTRY as collateral (real value ~$159K)
-  ├─ manipulates Reflector oracle → USTRY appears 100× inflated (~$15M)
-  └─ borrows 61,249,278 XLM against fake collateral value (never repaid)
+  ├─ manipulates USTRY DEX pool → Reflector Oracle reads inflated market price (~100× above real)
+  └─ borrows 61,249,278 XLM against the inflated collateral value (never repaid)
        │
        ├─► POOL BAD DEBT: ~61M XLM shortfall created instantly
        │
