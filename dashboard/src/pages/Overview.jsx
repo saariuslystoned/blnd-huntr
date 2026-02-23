@@ -76,24 +76,117 @@ export default function Overview() {
                 <div className="card">
                     <div className="card-header">
                         <h3 className="card-title">Exploit Flow</h3>
+                        <span className="card-badge red">Full Path</span>
                     </div>
-                    <div className="flow-chain">
-                        <div className="flow-node stellar">
-                            <div className="flow-label">Stellar Drain</div>
-                            <div className="flow-value">61.2M XLM</div>
-                        </div>
-                        <div className="flow-arrow"><span>→</span></div>
-                        <div className="flow-node bridge">
-                            <div className="flow-label">Allbridge</div>
-                            <div className="flow-value">USDC</div>
-                        </div>
-                        <div className="flow-arrow"><span>→</span></div>
-                        <div className="flow-node danger">
-                            <div className="flow-label">EVM Chains</div>
-                            <div className="flow-value">~$1M</div>
+
+                    {/* Phase 1: The Exploit */}
+                    <div className="flow-phase">
+                        <div className="flow-phase-label">① Oracle Manipulation</div>
+                        <div className="flow-chain">
+                            <div className="flow-node" style={{ background: 'var(--orange-bg)', borderColor: 'var(--orange)' }}>
+                                <div className="flow-label">USTRY Liquidity</div>
+                                <div className="flow-value">Thin Market</div>
+                            </div>
+                            <div className="flow-arrow"><span>→</span></div>
+                            <div className="flow-node" style={{ background: 'var(--red-bg)', borderColor: 'var(--red)' }}>
+                                <div className="flow-label">DEX Price Inflated</div>
+                                <div className="flow-value">100×</div>
+                            </div>
+                            <div className="flow-arrow"><span>→</span></div>
+                            <div className="flow-node" style={{ background: 'var(--purple-bg)', borderColor: 'var(--purple)' }}>
+                                <div className="flow-label">Oracle Reads Price</div>
+                                <div className="flow-value">Reflector</div>
+                            </div>
                         </div>
                     </div>
+
+                    {/* Phase 2: The Borrow */}
+                    <div className="flow-phase">
+                        <div className="flow-phase-label">② Collateral Borrow</div>
+                        <div className="flow-chain">
+                            <div className="flow-node" style={{ background: 'var(--orange-bg)', borderColor: 'var(--orange)' }}>
+                                <div className="flow-label">Deposit ~150K USTRY</div>
+                                <div className="flow-value">$159K Real</div>
+                            </div>
+                            <div className="flow-arrow"><span>→</span></div>
+                            <div className="flow-node stellar">
+                                <div className="flow-label">Blend Pool</div>
+                                <div className="flow-value">Borrow</div>
+                            </div>
+                            <div className="flow-arrow"><span>→</span></div>
+                            <div className="flow-node danger">
+                                <div className="flow-label">Attacker Receives</div>
+                                <div className="flow-value" style={{ color: 'var(--red)' }}>61.2M XLM</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Phase 3: The Exit Channels */}
+                    <div className="flow-phase">
+                        <div className="flow-phase-label">③ Exit Channels</div>
+                        <div className="flow-branches">
+                            <div className="flow-branch">
+                                <div className="flow-branch-connector blue" />
+                                <div className="flow-node stellar" style={{ width: '100%' }}>
+                                    <div className="flow-label">🔒 Frozen on Stellar</div>
+                                    <div className="flow-value">~48M XLM</div>
+                                    <div className="flow-detail">Main wallet + Swap Hub + Funder</div>
+                                </div>
+                            </div>
+                            <div className="flow-branch">
+                                <div className="flow-branch-connector yellow" />
+                                <div className="flow-node" style={{ width: '100%', background: 'var(--yellow-bg)', borderColor: 'var(--yellow)' }}>
+                                    <div className="flow-label">🚨 Binance (KYC)</div>
+                                    <div className="flow-value">3.77M XLM</div>
+                                    <div className="flow-detail">Relay 3.54M + Small 234K</div>
+                                </div>
+                            </div>
+                            <div className="flow-branch">
+                                <div className="flow-branch-connector red" />
+                                <div className="flow-node danger" style={{ width: '100%' }}>
+                                    <div className="flow-label">⚠️ ChangeNow (No KYC)</div>
+                                    <div className="flow-value" style={{ color: 'var(--red)' }}>3.97M XLM</div>
+                                    <div className="flow-detail">Instant swap, no identity</div>
+                                </div>
+                            </div>
+                            <div className="flow-branch">
+                                <div className="flow-branch-connector purple" />
+                                <div className="flow-node bridge" style={{ width: '100%' }}>
+                                    <div className="flow-label">DEX Swap → Allbridge</div>
+                                    <div className="flow-value">~5M XLM → $787K</div>
+                                    <div className="flow-detail">16 batches via path_payment</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Phase 4: EVM Destinations */}
+                    <div className="flow-phase">
+                        <div className="flow-phase-label">④ EVM Destinations</div>
+                        <div className="flow-chain">
+                            <div className="flow-node" style={{ background: 'var(--cyan-bg)', borderColor: 'var(--cyan)' }}>
+                                <div className="flow-label">Base</div>
+                                <div className="flow-value">~$787K</div>
+                                <div className="flow-detail">16 batches, swapping</div>
+                            </div>
+                            <div className="flow-arrow"><span>→</span></div>
+                            <div className="flow-node" style={{ background: 'var(--purple-bg)', borderColor: 'var(--purple)' }}>
+                                <div className="flow-label">Ethereum</div>
+                                <div className="flow-value">~$172K</div>
+                                <div className="flow-detail">→ Accumulator $591K</div>
+                            </div>
+                            <div className="flow-arrow"><span>→</span></div>
+                            <div className="flow-node" style={{ background: 'var(--orange-bg)', borderColor: 'var(--orange)' }}>
+                                <div className="flow-label">BSC</div>
+                                <div className="flow-value">~$38.7K</div>
+                                <div className="flow-detail">Untouched</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Collateral Impact */}
                     <div className="impact-summary">
+                        <div className="flow-phase-label" style={{ marginBottom: '8px' }}>Pool Impact</div>
                         <div className="impact-row">
                             <span className="impact-label">Backstop Wiped</span>
                             <span className="impact-value red">{STATS.backstopWiped}</span>

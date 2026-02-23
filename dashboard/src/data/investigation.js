@@ -53,14 +53,21 @@ export const ORACLE_PRICES = [
 ];
 
 export const TIMELINE = [
+    { time: 'Feb 14, 2026', title: 'Attacker Wallet Created', desc: 'GB07V...2WXC created on Stellar, funded by GC2XJK...FZIB.', severity: 'info' },
     { time: 'Feb 21, 06:14 UTC', title: 'Infrastructure Prep', desc: 'Test buys of USTRY at normal market prices (1.058).', severity: 'info' },
     { time: 'Feb 22, 00:22 UTC', title: 'USTRY Dumping Phase', desc: 'Attacker liquidated ~135K USTRY for USDC prior to bridge.', severity: 'warning' },
     { time: 'Feb 22, 00:24 UTC', title: '⚡ MAIN EXPLOIT EXECUTED', desc: 'Attacker borrowed 61.2M XLM against inflated USTRY collateral.', severity: 'critical' },
+    { time: 'Feb 22, 00:25–00:30 UTC', title: 'XLM → Binance (3.77M)', desc: '3.54M XLM via relay account + 234K direct to Binance deposit address.', severity: 'warning' },
+    { time: 'Feb 22, 00:25–00:35 UTC', title: 'XLM → ChangeNow (3.97M)', desc: '3.97M XLM sent to ChangeNow no-KYC exchange in multiple batches.', severity: 'critical' },
     { time: 'Feb 22, 00:35 UTC', title: 'First Liquidation (Fill #1)', desc: 'GAPU4...XLIQ fills first auction, 11 min after exploit.', severity: 'warning' },
     { time: 'Feb 22, 01:08 UTC', title: 'YHNF Enters (Fill #3)', desc: 'GAIN2...YHNF begins liquidation fills 44 min after exploit.', severity: 'warning' },
+    { time: 'Feb 22, ~01:00–02:00 UTC', title: 'DEX Swap + Bridge (16 batches)', desc: '~5M XLM path_payment swapped to $787K USDC, bridged to Base via Allbridge.', severity: 'critical' },
     { time: 'Feb 22, 02:23–02:25 UTC', title: '70.7M XLM Seized (Fills #12–18)', desc: 'XLIQ liquidates SXI3 treasury — 4 mega-fills in 2 minutes.', severity: 'critical' },
     { time: 'Feb 22, 04:30 UTC', title: 'Cascade Winds Down (Fill #59)', desc: 'XLIQ executes second-to-last fill, 4 hours after exploit.', severity: 'info' },
+    { time: 'Feb 22, ~06:00 UTC', title: 'Base → ETH Accumulation', desc: '$787K bridged from Base to Ethereum. Accumulator wallet 0x0b2B...3eC6 now holds $591K ETH.', severity: 'warning' },
     { time: 'Feb 22, 11:47 UTC', title: 'Final Fill (#60)', desc: 'YHNF executes the last liquidation auction fill.', severity: 'info' },
+    { time: 'Feb 22, ~12:00 UTC', title: '🔒 Stellar Wallets Frozen', desc: 'Attacker main wallet + Swap Hub + Funder frozen. ~48M XLM locked in place.', severity: 'info' },
+    { time: 'Feb 23, 2026', title: 'Accumulator Dormant', desc: '0x0b2B...3eC6 holds $591K ETH on Ethereum. No outgoing transactions detected.', severity: 'warning' },
 ];
 
 export const TOP_FILLS = [
