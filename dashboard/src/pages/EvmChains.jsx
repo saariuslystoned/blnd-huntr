@@ -28,12 +28,12 @@ const EVM_FLOW_EVENTS = [
         amount: '~420 ETH generated (18 swap batches)',
     },
     {
-        time: 'Feb 22 · 00:34 UTC (direct)',
-        label: '🌉 Stellar → Ethereum (4 batches)',
-        desc: 'Separate, parallel Allbridge bridge calls sent direct from Stellar → Ethereum mainnet. Processed concurrently with Base bridge.',
+        time: 'Feb 22 · 01:47–02:54 UTC',
+        label: '🌉 Stellar → Ethereum (12 batches)',
+        desc: '12 Allbridge batches direct from Stellar → Ethereum mainnet. Window: 01:47–02:54 UTC. USDC swapped to ETH on Ethereum, funding the Accumulator transfer at 02:56 UTC.',
         color: '#6366f1',
         chain: 'Ethereum',
-        amount: '~$172K USDC received',
+        amount: '586,974.40 USDC received (exact, 12 batches)',
     },
     {
         time: 'Feb 22 · 00:34 UTC (direct)',
