@@ -109,7 +109,7 @@ export const TIMELINE = [
     { time: 'Feb 22, ~06:00 UTC', title: 'Base → ETH Accumulation', desc: 'Initial $787K swapped to ETH on Base, 300 ETH forwarded to Accumulator (0x0b2B...3eC6).', severity: 'warning' },
     { time: 'Feb 22, 11:47 UTC', title: 'Final Fill (#60)', desc: 'YHNF executes the last liquidation auction fill.', severity: 'info' },
     { time: 'Feb 22, ~12:00 UTC', title: '🔒 Stellar Wallets Frozen', desc: 'Attacker main wallet + Swap Hub + Funder frozen. ~48M XLM locked in place.', severity: 'info' },
-    { time: 'Feb 22, 15:00–16:00 UTC', title: '🔴 Base → ETH Consolidation (~380 ETH)', desc: 'Attacker bridges ~240 ETH via Relay (12×20 ETH) + ~150 ETH via Across (7×10 + 1×20 + 1×50 + 1×10) from Base to Ethereum. Net inflow: ~380 ETH ($715K).', severity: 'critical' },
+    { time: 'Feb 22, 15:00–16:00 UTC', title: '🔴 Base → ETH Consolidation (~380 ETH net)', desc: 'IN: ~240 ETH via Relay (12×20) + ~150 ETH via Across (7×10 + 1×20 + 1×50 + 1×10). OUT: 10 ETH back to Base via Relay. Net inflow: ~380 ETH ($715K).', severity: 'critical' },
     { time: 'Feb 23, 2026', title: 'EVM Status', desc: 'Exploiter 2: 467 ETH ($881K) on ETH + 19 ETH ($36K) on Base + $38K USDC on BSC. Accumulator: 300 ETH ($565K). Base largely drained.', severity: 'warning' },
 ];
 
