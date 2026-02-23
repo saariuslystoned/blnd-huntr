@@ -62,7 +62,7 @@ export const TIMELINE = [
     { time: 'Feb 22, 00:35 UTC', title: 'First Liquidation (Fill #1)', desc: 'GAPU4...XLIQ fills first auction, 11 min after exploit.', severity: 'warning' },
     { time: 'Feb 22, 01:08 UTC', title: 'YHNF Enters (Fill #3)', desc: 'GAIN2...YHNF begins liquidation fills 44 min after exploit.', severity: 'warning' },
     { time: 'Feb 22, ~01:00–02:00 UTC', title: 'DEX Swap + Bridge (16 batches)', desc: '~5M XLM path_payment swapped to $787K USDC, bridged to Base via Allbridge.', severity: 'critical' },
-    { time: 'Feb 22, 02:23–02:25 UTC', title: '70.7M XLM Seized (Fills #12–18)', desc: 'XLIQ liquidates SXI3 treasury — 4 mega-fills in 2 minutes.', severity: 'critical' },
+    { time: 'Feb 22, 02:23–02:25 UTC', title: '70.7M XLM Seized (Fills #12–18)', desc: 'XLIQ liquidates SXI3 (SDF position) — 4 mega-fills in 2 minutes.', severity: 'critical' },
     { time: 'Feb 22, 04:30 UTC', title: 'Cascade Winds Down (Fill #59)', desc: 'XLIQ executes second-to-last fill, 4 hours after exploit.', severity: 'info' },
     { time: 'Feb 22, ~06:00 UTC', title: 'Base → ETH Accumulation', desc: '$787K bridged from Base to Ethereum. Accumulator wallet 0x0b2B...3eC6 now holds $591K ETH.', severity: 'warning' },
     { time: 'Feb 22, 11:47 UTC', title: 'Final Fill (#60)', desc: 'YHNF executes the last liquidation auction fill.', severity: 'info' },
@@ -78,7 +78,7 @@ export const TOP_FILLS = [
 ];
 
 export const LIQUIDATED_POSITIONS = [
-    { rank: 1, account: 'GCA34HBKNLWN3AOXWBRW5Y3HSGHCWF3UDBRJ5YHGU6HWGJZEPO2NSXI3', short: 'GCA34H...SXI3', label: 'Blend Treasury', fills: 9, xlm: '77,848,371.53', pctTotal: '93.6%' },
+    { rank: 1, account: 'GCA34HBKNLWN3AOXWBRW5Y3HSGHCWF3UDBRJ5YHGU6HWGJZEPO2NSXI3', short: 'GCA34H...SXI3', label: 'SDF Pool Position', fills: 9, xlm: '77,848,371.53', pctTotal: '93.6%' },
     { rank: 2, account: 'GBCRDN4B6KY456PNKGPTB7OJXEHOBMMZ6EQ23TIRBMIXZUUJODL5RDYM', short: 'GBCRD...RDYM', label: '', fills: 1, xlm: '2,742,538.99', pctTotal: '3.3%' },
     { rank: 3, account: 'GA2GD7P5MQU2FLF5NP26UJ3KAY5XX42OTJLCG455NUEKPRHLKLJCGJKU', short: 'GA2GD...GJKU', label: '', fills: 3, xlm: '1,461,895.35', pctTotal: '1.8%' },
 ];
@@ -310,7 +310,7 @@ export const ADDRESSES = [
     { network: 'Stellar', label: 'Attacker', address: 'GBO7VUL2TOKPWFAWKATIW7K3QYA7WQ63VDY5CAE6AFUUX6BHZBOC2WXC', tag: 'attacker' },
     { network: 'Stellar', label: 'Attacker Funder', address: 'GC2XJKBYLJIQ3LIPITDM6I5WYMBXUCIEXBCMHHA5K7GKM5NLSO4SFZIB', tag: 'attacker' },
     { network: 'Stellar', label: 'Blend Pool', address: 'CCCCIQSDILITHMM7PBSLVDT5MISSY7R26MNZXCX4H7J5JQ5FPIYOGYFS', tag: 'protocol' },
-    { network: 'Stellar', label: 'Blend Treasury (SXI3)', address: 'GCA34HBKNLWN3AOXWBRW5Y3HSGHCWF3UDBRJ5YHGU6HWGJZEPO2NSXI3', tag: 'protocol' },
+    { network: 'Stellar', label: 'SDF Pool Position (SXI3)', address: 'GCA34HBKNLWN3AOXWBRW5Y3HSGHCWF3UDBRJ5YHGU6HWGJZEPO2NSXI3', tag: 'protocol' },
     { network: 'Stellar', label: 'SDF Conduit', address: 'GDDUETSYDSHJMU5J73WHR4SQOAWRUM5SNLHXBQKM36EQ244GHSRS5AHF', tag: 'sdf' },
     { network: 'Stellar', label: 'Liquidator XLIQ', address: 'GAPU4WSJMFW6Q4G5CLADCNWFIAOGTCC5XXY3DVUA23W7ZPUIYSSGXLIQ', tag: 'liquidator' },
     { network: 'Stellar', label: 'Liquidator YHNF', address: 'GAIN2HU2ITUZPLGNWSH7JXXROL7MYIWDYXCUQDMQVJXFBEBPETSZYHNF', tag: 'liquidator' },

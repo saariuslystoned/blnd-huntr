@@ -5,7 +5,7 @@ const DISPLAY_ORDER = [
     { key: 'attacker', label: 'Attacker', highlight: ['XLM', 'USDC', 'USTRY'] },
     { key: 'xliq', label: 'XLIQ (Liquidator)', highlight: ['XLM', 'USDC', 'BLND'] },
     { key: 'yhnf', label: 'YHNF (Liquidator)', highlight: ['XLM', 'USDC', 'BLND'] },
-    { key: 'blendTreasury', label: 'Blend Treasury (SXI3)', highlight: ['XLM'] },
+    { key: 'blendTreasury', label: 'SDF Pool Position (SXI3)', highlight: ['XLM'] },
     { key: 'sdfConduit', label: 'SDF Conduit', highlight: ['XLM'] },
 ];
 

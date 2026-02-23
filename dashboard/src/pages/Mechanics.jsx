@@ -62,7 +62,7 @@ export default function Mechanics() {
 
             <div className="card">
                 <div className="card-header">
-                    <h3 className="card-title">Top 4 Fills (SXI3 Treasury)</h3>
+                    <h3 className="card-title">Top 4 Fills (SXI3 — SDF Position)</h3>
                     <span className="card-badge">70.7M XLM in 2 min</span>
                 </div>
                 <div className="table-wrapper">

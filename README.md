@@ -24,7 +24,7 @@ This workspace tracks the **February 2026 USTRY oracle manipulation** that drain
 - [Liquidation Cascade (Post-Exploit Auctions)](#liquidation-cascade-post-exploit-auctions)
 - [G...XLIQ — Liquidator Deep Dive](XLIQ.md)
 - [G...YHNF — Liquidator Deep Dive](YHNF.md)
-- [G...SXI3 — Blend Treasury Deep Dive](#gsxi3--blend-treasury-deep-dive)
+- [G...SXI3 — SDF Pool Position Deep Dive](#gsxi3--sdf-pool-position-deep-dive)
 - [SDF Funding Network](#sdf-funding-network)
 - [Stellar — Attacker Infrastructure](#stellar--attacker-infrastructure)
 - [XLM Laundering Network](#xlm-laundering-network)
@@ -303,9 +303,9 @@ Liabilities paid for each fill: mix of CETES (~1.1M+), USDC (~1.7M+), USDGLO, EU
 
 ---
 
-## G...SXI3 — Blend Treasury Deep Dive
+## G...SXI3 — SDF Pool Position Deep Dive
 
-The largest liquidated position — `GCA34HBKNLWN3AOXWBRW5Y3HSGHCWF3UDBRJ5YHGU6HWGJZEPO2NSXI3` — was not a retail user. It is an institutional multisig account that functions as the **Blend Protocol's primary liquidity treasury**.
+The largest liquidated position — `GCA34HBKNLWN3AOXWBRW5Y3HSGHCWF3UDBRJ5YHGU6HWGJZEPO2NSXI3` — was not a retail user. It is an institutional multisig account that represents **SDF's own liquidity position** in the Blend pool. SDF managed these funds directly — Blend is an open-source protocol with no protocol-level treasury.
 
 | Field | Value |
 |-------|-------|
@@ -314,21 +314,21 @@ The largest liquidated position — `GCA34HBKNLWN3AOXWBRW5Y3HSGHCWF3UDBRJ5YHGU6H
 | **Home Domain** | None |
 | **Multisig** | ✅ 11 signers — thresholds Low:1 / Med:4 / High:6; self=weight 200 |
 | **Created by** | `GCAI54XEZIEABT7KBVQ2BR7RNWYCFBA3DMFHW6U4KWRJAX4IJTHZQSRR` (holds 36,702 BLND) |
-| **Current Holdings** | ~$11M+: 11.1M USDC, 1.8M CETES, 919K XLM, 37.9K EURC, 27.8K USDGLO |
+| **Current Holdings** | ~$11.5M: 11.1M USDC, 1.86M CETES, 919K XLM, 37.9K EURC, 27.8K USDGLO |
 | **Liquidated for** | ~70.68M XLM collateral (fills #12–18, 2-minute window) |
 
-**Why this is the Blend Protocol Treasury:**
-1. Created by a BLND-holding insider account (`G...QSRR`)
-2. SDF directly funded it with ~511.8M XLM across 17 wires
-3. 11-signer institutional multisig — matches a protocol treasury governance structure
-4. $11M in stablecoins + yield assets (USDC, CETES, EURC) — a lending pool reserve
-5. Held the largest Blend pool collateral position by far
+**Why this is SDF's pool position (not a protocol treasury):**
+1. Blend is an open-source protocol — it has no treasury. Script3 built it; SDF funded this position directly.
+2. SDF funded it with ~511.8M XLM across 17 wires via the SDF Conduit
+3. 11-signer institutional multisig — matches SDF's internal governance structure
+4. $11M in stablecoins + yield assets (USDC, CETES, EURC) — SDF's LP reserves
+5. Held the largest Blend pool collateral position by far (~77.8M XLM liquidated)
 
 ---
 
 ## SDF Funding Network
 
-On-chain investigation reveals that the liquidated Blend treasury (`G...SXI3`) was funded by a network of accounts traceable directly to the **Stellar Development Foundation (SDF)**.
+On-chain investigation reveals that the liquidated SDF pool position (`G...SXI3`) was funded by a network of accounts traceable directly to the **Stellar Development Foundation (SDF)**.
 
 ### SDF Confirmation
 
@@ -415,7 +415,7 @@ GDDUETSYDSHJMU5J73WHR4SQOAWRUM5SNLHXBQKM36EQ244GHSRS5AHF  [SDF Conduit]
 | 2 untraced accounts (GDHMJXMH..., GDBKXCOA...) | 6,250,827 XLM | 1.2% |
 | **Grand Total into G...SXI3** | **538,549,678 XLM** | 100% |
 
-**98.8% of all XLM ever deposited into the Blend treasury came from the SDF network.** The ~70.68M XLM that was liquidated in the exploit is the pool's outstanding collateral position at exploit time — the rest had been lent, earned yield, or cycled back through the protocol over 10 months of operation.
+**98.8% of all XLM ever deposited into SDF's pool position came from the SDF network.** The ~70.68M XLM that was liquidated in the exploit is the pool's outstanding collateral position at exploit time — the rest had been lent, earned yield, or cycled back through the protocol over 10 months of operation.
 
 ### Key Accounts in the Funding Network
 
@@ -449,10 +449,10 @@ This is the standard Soroban-native token pattern: the issuer account is rendere
 
 ### Significance
 
-The SDF-linked accounts deployed capital into the Blend treasury, making `G...SXI3` the largest single position in the pool by a wide margin — **77.85M XLM** of collateral. When the oracle exploit hit:
+SDF deployed capital into `G...SXI3`, making it the largest single position in the pool by a wide margin — **77.85M XLM** of collateral. When the oracle exploit hit:
 
 - `G...SXI3` was forcibly liquidated across 9 fills, yielding the overwhelming majority of all seized collateral
-- `G...XLIQ` captured **76.4M XLM** total across all 60 fills (91.4% of all priced collateral at $0.1609 = **~$12.3M**) — with the SDF treasury position as its primary source
+- `G...XLIQ` captured **76.4M XLM** total across all 60 fills (91.4% of all priced collateral at $0.1609 = **~$12.3M**) — with the SDF position as its primary source
 - The exploit was not just a DeFi hack — it was a precision strike on an institutional liquidity position, with two pre-positioned bots (XLIQ + YHNF) ready to sweep the resulting auctions
 
 ---
