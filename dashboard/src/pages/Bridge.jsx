@@ -278,22 +278,7 @@ export default function Bridge() {
                 </div>
             </div>
 
-            {/* Allbridge Decoder Reference */}
-            <div className="card">
-                <div className="card-header">
-                    <h3 className="card-title">Allbridge XDR Decoder Reference</h3>
-                </div>
-                <div className="oracle-trace">
-                    <span className="invoke">Param 5</span> → Amount (U128): e.g., 50,000 USDC (7 decimal places)
-                    <span className="invoke">Param 6</span> → Destination Address (Bytes): last 20 bytes = EVM address
-                    <span className="invoke">Param 7</span> → Chain ID (U32): <span className="highlight">9</span> = Base, <span className="highlight">1</span> = Ethereum, <span className="highlight">2</span> = BSC
-                    <span className="invoke">Param 8</span> → Token Address (Bytes): last 20 bytes = EVM token contract
-                </div>
-                <div className="conclusion-box" style={{ marginTop: '16px' }}>
-                    <strong>How to decode new bridge TXs:</strong> When new <code>swap_and_bridge</code> calls appear on the attacker wallet,
-                    run <code>python scripts/decode_allbridge.py</code> with the base64 XDR parameters to extract destination chain, address, and amount.
-                </div>
-            </div>
+
         </section>
     );
 }

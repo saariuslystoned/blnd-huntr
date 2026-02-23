@@ -4,12 +4,8 @@ import Header from './components/Header';
 import Overview from './pages/Overview';
 import Mechanics from './pages/Mechanics';
 import Liquidators from './pages/Liquidators';
-
 import Bridge from './pages/Bridge';
-import Ethereum from './pages/Ethereum';
-import Base from './pages/Base';
-import BSC from './pages/BSC';
-
+import EvmChains from './pages/EvmChains';
 import Registry from './pages/Registry';
 import Auctions from './pages/Auctions';
 
@@ -18,12 +14,8 @@ const PAGES = {
     mechanics: Mechanics,
     auctions: Auctions,
     liquidators: Liquidators,
-
     bridge: Bridge,
-    ethereum: Ethereum,
-    base: Base,
-    bsc: BSC,
-
+    evm: EvmChains,
     registry: Registry,
 };
 

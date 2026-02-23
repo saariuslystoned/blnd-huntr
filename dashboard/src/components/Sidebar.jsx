@@ -17,9 +17,7 @@ const NAV_SECTIONS = [
     {
         label: 'EVM Chains',
         items: [
-            { id: 'ethereum', name: 'Ethereum', badge: 'DRMNT' },
-            { id: 'base', name: 'Base' },
-            { id: 'bsc', name: 'BSC' },
+            { id: 'evm', name: 'EVM Chains', badge: '3' },
         ],
     },
     {
