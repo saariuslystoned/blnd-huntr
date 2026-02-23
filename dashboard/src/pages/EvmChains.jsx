@@ -150,7 +150,7 @@ export default function EvmChains() {
                 </div>
                 <p className="trace-note" style={{ marginBottom: '16px' }}>
                     ~61M XLM and 1M USDC were stolen in the exploit. <strong>~48M XLM remains frozen on Stellar</strong> (~$7.5M).
-                    ~$3.4M was moved off-chain: ~$1.5M sits on EVM, ~$1.2M went to exchanges, the rest is gas/slippage.
+                    Of the funds that moved: 1.41M USDC was bridged to EVM, and 7.74M XLM was sent to exchanges.
                 </p>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px' }}>
                     <div style={{ background: 'var(--bg-tertiary)', borderRadius: '10px', padding: '16px', borderLeft: '4px solid #6366f1' }}>
