@@ -1,6 +1,20 @@
 // All hardcoded investigation data — single source of truth.
 // Update numbers here and all components reflect changes.
 
+export const ANNOUNCEMENT = {
+    date: 'Feb 23, 2026',
+    source: 'Script3 (Blend team) — Discord',
+    headline: '✅ Suppliers Will Be FULLY COMPENSATED',
+    body: 'Script3 is coordinating remediation for users affected by the oracle manipulation attack on the community-managed YieldBlox DAO Blend V2 Pool. All XLM, USDC, and IQ depositors in the YieldBlox lending pool will be fully compensated for any losses from bad debt incurred by the pool.',
+    details: [
+        'All XLM, USDC, and IQ depositors in the YieldBlox Lending Pool — fully compensated.',
+        'Wallets depositing into the YieldBlox Lending Pool — fully compensated.',
+        'Protocols integrated with the YieldBlox Lending Pool — compensated through the protocol team.',
+    ],
+    exclusions: 'Does NOT apply to users affected by liquidations or backstop depositors. More info to come.',
+    contact: 'Blend Discord or @Script3 on X',
+};
+
 export const EXPLOIT = {
     date: '2026-02-22',
     time: '00:24:27 UTC',

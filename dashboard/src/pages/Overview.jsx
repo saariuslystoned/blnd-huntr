@@ -1,4 +1,4 @@
-import { STATS, TIMELINE } from '../data/investigation';
+import { STATS, TIMELINE, ANNOUNCEMENT } from '../data/investigation';
 import LiveBalances from '../components/LiveBalances';
 
 export default function Overview() {
@@ -18,6 +18,32 @@ export default function Overview() {
                     inflated rate, the attacker borrowed ~61.2M XLM against it and walked away. The Blend protocol
                     and community were the target; no code was broken.
                 </p>
+            </div>
+
+            {/* COMPENSATION ANNOUNCEMENT */}
+            <div style={{
+                background: 'linear-gradient(135deg, rgba(34,197,94,0.15), rgba(16,185,129,0.08))',
+                border: '1px solid #22c55e',
+                borderLeft: '5px solid #22c55e',
+                borderRadius: '10px',
+                padding: '18px 22px',
+                marginBottom: '20px',
+                display: 'flex',
+                gap: '16px',
+                alignItems: 'flex-start',
+            }}>
+                <div style={{ fontSize: '1.8rem', lineHeight: 1 }}>✅</div>
+                <div>
+                    <div style={{ fontWeight: 700, fontSize: '1.05rem', color: '#22c55e', marginBottom: '6px' }}>
+                        {ANNOUNCEMENT.headline}
+                    </div>
+                    <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '8px' }}>
+                        {ANNOUNCEMENT.body}
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                        ⚠️ <em>{ANNOUNCEMENT.exclusions}</em> &nbsp;·&nbsp; {ANNOUNCEMENT.source} &nbsp;·&nbsp; {ANNOUNCEMENT.date}
+                    </div>
+                </div>
             </div>
 
             <div className="alert-banner">
@@ -193,11 +219,11 @@ export default function Overview() {
                         </div>
                         <div className="impact-row">
                             <span className="impact-label">XLM Supplier Haircut</span>
-                            <span className="impact-value red">{STATS.bXlmHaircut}</span>
+                            <span className="impact-value" style={{ color: '#22c55e' }}>{STATS.bXlmHaircut} — ✅ BEING COMPENSATED</span>
                         </div>
                         <div className="impact-row">
                             <span className="impact-label">USDC Supplier Haircut</span>
-                            <span className="impact-value orange">{STATS.bUsdcHaircut}</span>
+                            <span className="impact-value" style={{ color: '#22c55e' }}>{STATS.bUsdcHaircut} — ✅ BEING COMPENSATED</span>
                         </div>
                         <div className="impact-row">
                             <span className="impact-label">Liquidation Fills</span>
