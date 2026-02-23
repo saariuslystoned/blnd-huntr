@@ -17,7 +17,7 @@ export const STATS = {
     drainedXlm: '61,249,278 XLM',
     drainedUsdc: '~$1M USDC',
     frozenXlm: '~48M XLM',
-    frozenDetail: 'Main wallet + Swap Hub + Funder/Ops (confirmed mootz12)',
+    frozenDetail: 'Main wallet + Swap Hub + Funder/Ops',
     netExtraction: '~$3M',
     netExtractionDetail: '$1M USDC + ~$2M XLM at spot → bridged',
     xlmConverted: '~5M XLM → $787K',
@@ -71,14 +71,14 @@ export const TOP_FILLS = [
 ];
 
 export const LIQUIDATED_POSITIONS = [
-    { rank: 1, account: 'GCA34HBKNLWN3AOXWBRW5Y3HSGHCWF3UDBRJ5YHGU6HWGJZEPO2NSXI3', short: 'GCA34H...SXI3', label: 'Blend Treasury (SDF-funded)', fills: 9, xlm: '77,848,371.53', pctTotal: '93.6%' },
+    { rank: 1, account: 'GCA34HBKNLWN3AOXWBRW5Y3HSGHCWF3UDBRJ5YHGU6HWGJZEPO2NSXI3', short: 'GCA34H...SXI3', label: 'Blend Treasury', fills: 9, xlm: '77,848,371.53', pctTotal: '93.6%' },
     { rank: 2, account: 'GBCRDN4B6KY456PNKGPTB7OJXEHOBMMZ6EQ23TIRBMIXZUUJODL5RDYM', short: 'GBCRD...RDYM', label: '', fills: 1, xlm: '2,742,538.99', pctTotal: '3.3%' },
     { rank: 3, account: 'GA2GD7P5MQU2FLF5NP26UJ3KAY5XX42OTJLCG455NUEKPRHLKLJCGJKU', short: 'GA2GD...GJKU', label: '', fills: 3, xlm: '1,461,895.35', pctTotal: '1.8%' },
 ];
 
 export const LIQUIDATORS = [
-    { account: 'GAPU4WSJMFW6Q4G5CLADCNWFIAOGTCC5XXY3DVUA23W7ZPUIYSSGXLIQ', short: 'GAPU4...XLIQ', fills: 19, role: 'First mover; 70.7M XLM from SXI3' },
-    { account: 'GAIN2HU2ITUZPLGNWSH7JXXROL7MYIWDYXCUQDMQVJXFBEBPETSZYHNF', short: 'GAIN2...YHNF', fills: 31, role: 'Most fills overall; bulk of smaller positions' },
+    { account: 'GAPU4WSJMFW6Q4G5CLADCNWFIAOGTCC5XXY3DVUA23W7ZPUIYSSGXLIQ', short: 'GAPU4...XLIQ', fills: 19, role: 'First fill 11 min post-exploit; seized 76.3M XLM from SXI3' },
+    { account: 'GAIN2HU2ITUZPLGNWSH7JXXROL7MYIWDYXCUQDMQVJXFBEBPETSZYHNF', short: 'GAIN2...YHNF', fills: 31, role: 'Most fills; 1.5M XLM from SXI3 + bulk of smaller positions' },
     { account: 'GDQY3T2ZJXVGV23R32AIHKPC2RLMMYSEK3EGRZ4MA2CYEGXHE63BLEND', short: 'GDQY3...BLEND', fills: 7, role: 'Third most active' },
     { account: 'GALB73DWWDC2EWEIUX6CUCZ2DGR7HSYFQIYDM4DCX6USS5GZNMZ3CASH', short: 'GALB7...CASH', fills: 1, role: 'Interest auction only' },
     { account: 'GCBYMMOSIINFRGFEJKEUGNCUNAOUQYZ6DOQXA47P76UGCUQSXVNWWM3L', short: 'GCBYM...M3L', fills: 1, role: 'Single liquidation' },
@@ -91,18 +91,18 @@ export const XLIQ_PROFILE = {
     homeDomain: 'lobstr.co',
     multisig: 'None',
     creator: 'GCYVR6JS6DLRAFF2HEC6LN7J6H6JS2VMERCTGV64RESTZAJMOHB5RHU7',
-    creatorLabel: '~$1.8M whale, no public identity',
+    creatorLabel: 'Created by G...RHU7 (~$1.8M balance)',
     opCount: '~11,375',
     assets: ['XLM', 'USDC', 'CETES', 'USDGLO', 'PYUSD', 'BLND'],
     contract: 'CB5AKVUULR4AMVV4JRVBFDH2VDIO3XWBOZMSGS5Y4LCNP3UIZIYTMAYB',
     findings: [
-        'No on-chain tag — no federation address, no StellarExpert directory label',
-        'Matches official blend-capital/liquidation-bot GitHub profile',
-        'Holds BLND tokens — retail liquidators don\'t typically hold protocol tokens',
-        'Custom automation contract (CB5AKVUU...) — serious custom infrastructure',
-        'First mover (Fill #1, 11 min after exploit) — pre-positioned monitoring',
+        'No on-chain tag or federation address',
+        'Holds BLND tokens and runs a custom automation contract (CB5AKVUU...)',
+        'First fill 11 min after exploit — pre-positioned monitoring',
+        'Seized 76.3M XLM from SXI3 at ~55% discount ($5.5M paid for $12.3M collateral)',
+        'Capital chain traces back 5 hops to a [Spoofing]-tagged origin account',
     ],
-    conclusion: 'Sophisticated, protocol-native Blend liquidation operator. Could be a Blend/Script3 team member\'s bot, a DAO treasury operator, or a professional MEV firm.',
+    conclusion: 'Sophisticated Blend liquidation operator with custom infrastructure and pre-positioned capital. See XLIQ.md for full funding network analysis.',
 };
 
 export const YHNF_PROFILE = {
@@ -111,7 +111,7 @@ export const YHNF_PROFILE = {
     homeDomain: 'None',
     multisig: 'None — single key, weight=1',
     creator: 'GBPUFOPDVPGM56MIO4KYSNV2N4XLYBZAXL6QMD75JWG7GC5L6ANFSYBL',
-    creatorLabel: 'Diversified DeFi portfolio; no public identity',
+    creatorLabel: 'Created by G...SYBL (diversified DeFi portfolio)',
     xlmBalance: '10,598,958 XLM',
     fills: 31,
     xlmFromSxi3: '1,507,194.95 XLM',
@@ -120,8 +120,7 @@ export const YHNF_PROFILE = {
         address: 'GDDYERCLIKAEDJJQI6XWWPLTOZ7OPOH26LFLNUD43QP4UEH34YEOV4A7',
         type: '4-signer multisig (weights 8/8/8/1)',
         actions: [
-            '100,000 BLND sent (2025-08-20)',
-            '276,632 BLND sent (2025-08-27)',
+            '376,632 BLND sent (Aug 2025)',
             '80,000 USDC sent on exploit day (2026-02-22)',
         ],
     },
@@ -131,13 +130,12 @@ export const YHNF_PROFILE = {
         note: 'Round-trip: 699,990 BLND out Dec 2025, 700,000 BLND back Jan 2026',
     },
     findings: [
-        'Created 2025-04-15 — 8 days before Blend Treasury (G...SXI3)',
-        'Seeded with BLND by protocol-level BLND whale',
-        'Controller wired 80K USDC on exploit day',
-        'Clusters with GASND...QXJ (fill #56) as co-operator',
-        'Post-exploit: creating claimable balances to distribute seized assets',
+        'Created 2025-04-15 — pre-positioned before treasury deployment',
+        'Funded by 4-signer controller multisig (376K BLND + 80K USDC)',
+        '31 fills across the liquidation cascade — most of any single bot',
+        'Post-exploit: distributing seized assets via claimable balances',
     ],
-    conclusion: 'Professional, protocol-connected Blend liquidation operator. No direct link to SDF or attacker. Second-largest beneficiary of the liquidation cascade.',
+    conclusion: 'Professional Blend liquidation operator. No direct link to the attacker. See YHNF.md for full controller and funding analysis.',
 };
 
 export const BRIDGE_BATCHES = {
@@ -149,7 +147,7 @@ export const BRIDGE_BATCHES = {
 
 export const BRIDGE_STATUS = {
     lastUpdate: 'Feb 22, 2026 ~9:07 PM EST',
-    source: 'mootz12 (Blend core team): "48M frozen, 13M bridged out"',
+    source: '"48M frozen, 13M bridged out"',
     xlmFrozen: '~48M XLM',
     xlmFrozenDetail: 'Main 45.07M + Swap Hub 2.5M + Funder/Ops 450K',
     xlmToBinance: '3.77M XLM',

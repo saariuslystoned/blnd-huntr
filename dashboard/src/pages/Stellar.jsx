@@ -56,11 +56,11 @@ export default function Stellar() {
 
             <div className="card">
                 <div className="card-header">
-                    <h3 className="card-title">SDF Funding Network (G...SXI3)</h3>
+                    <h3 className="card-title">Blend Treasury Funding (G...SXI3)</h3>
                 </div>
                 <p className="trace-note">
-                    98.8% of all XLM ever deposited into the Blend treasury came from the SDF network.
-                    511.8M XLM wired directly from the SDF conduit (G...SAHF). The final 120M XLM arrived 9 days before the exploit.
+                    The Blend treasury held the largest collateral position in the pool.
+                    511.8M XLM was wired from the SDF conduit across 17 transactions over 10 months.
                 </p>
                 <div className="stats-grid" style={{ marginTop: '16px' }}>
                     <div className="stat-card blue">
@@ -71,7 +71,7 @@ export default function Stellar() {
                     <div className="stat-card cyan">
                         <div className="stat-label">Total Inflow</div>
                         <div className="stat-value">538.5M XLM</div>
-                        <div className="stat-detail">98.8% SDF-sourced</div>
+                        <div className="stat-detail">Largest pool position</div>
                     </div>
                 </div>
             </div>

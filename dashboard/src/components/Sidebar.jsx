@@ -68,8 +68,8 @@ export default function Sidebar({ activeSection, onNavigate, isOpen, onClose }) 
                 </nav>
 
                 <div className="sidebar-footer">
-                    v2.0.0-react<br />
-                    Updated Feb 22, 2026
+                    v2.1.0-react<br />
+                    Updated Feb 23, 2026
                 </div>
             </aside>
             {isOpen && <div className="sidebar-overlay" onClick={onClose}></div>}
