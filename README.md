@@ -999,9 +999,3 @@ PHISH_1648144:    0x2393d38400cad1d0ffae85b37d76de05bb7eddc6
 - **Etherscan:** `https://etherscan.io/address/{address}` and `/tokentxns?a={address}`
 - **BaseScan:** `https://basescan.org/address/{address}`
 - **BscScan:** `https://bscscan.com/address/{address}`
-
-### Decoding Allbridge Parameters
-When new `swap_and_bridge` TXs appear, use the Python script above to decode the XDR parameters. The key fields are:
-- **Chain ID 9** = Base
-- **Chain ID 1** = Ethereum (likely)
-- **Chain ID 2** = BSC (likely)
