@@ -106,10 +106,11 @@ export const TIMELINE = [
     { time: 'Feb 22, ~01:00–02:00 UTC', title: 'DEX Swap + Bridge (16 batches)', desc: '~5M XLM path_payment swapped to $787K USDC, bridged to Base via Allbridge.', severity: 'critical' },
     { time: 'Feb 22, 02:23–02:25 UTC', title: '70.7M XLM Seized (Fills #12–18)', desc: 'XLIQ liquidates SXI3 (SDF position) — 4 mega-fills in 2 minutes.', severity: 'critical' },
     { time: 'Feb 22, 04:30 UTC', title: 'Cascade Winds Down (Fill #59)', desc: 'XLIQ executes second-to-last fill, 4 hours after exploit.', severity: 'info' },
-    { time: 'Feb 22, ~06:00 UTC', title: 'Base → ETH Accumulation', desc: '$787K bridged from Base to Ethereum. Accumulator wallet 0x0b2B...3eC6 now holds $591K ETH.', severity: 'warning' },
+    { time: 'Feb 22, ~06:00 UTC', title: 'Base → ETH Accumulation', desc: 'Initial $787K swapped to ETH on Base, 300 ETH forwarded to Accumulator (0x0b2B...3eC6).', severity: 'warning' },
     { time: 'Feb 22, 11:47 UTC', title: 'Final Fill (#60)', desc: 'YHNF executes the last liquidation auction fill.', severity: 'info' },
     { time: 'Feb 22, ~12:00 UTC', title: '🔒 Stellar Wallets Frozen', desc: 'Attacker main wallet + Swap Hub + Funder frozen. ~48M XLM locked in place.', severity: 'info' },
-    { time: 'Feb 23, 2026', title: 'Accumulator Dormant', desc: '0x0b2B...3eC6 holds $591K ETH on Ethereum. No outgoing transactions detected.', severity: 'warning' },
+    { time: 'Feb 22, 15:00–16:00 UTC', title: '🔴 Base → ETH Consolidation (~380 ETH)', desc: 'Attacker bridges ~240 ETH via Relay (12×20 ETH) + ~150 ETH via Across (7×10 + 1×20 + 1×50 + 1×10) from Base to Ethereum. Net inflow: ~380 ETH ($715K).', severity: 'critical' },
+    { time: 'Feb 23, 2026', title: 'EVM Status', desc: 'Exploiter 2: 467 ETH ($881K) on ETH + 19 ETH ($36K) on Base + $38K USDC on BSC. Accumulator: 300 ETH ($565K). Base largely drained.', severity: 'warning' },
 ];
 
 export const TOP_FILLS = [
@@ -315,31 +316,42 @@ export const BRIDGE_OUT_TXS = [
 ];
 
 export const BRIDGE_CHAIN_SUMMARY = [
-    { chain: 'Base', chainId: 9, totalBridged: '~$787,000', batches: 16, destAddress: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', destStatus: 'ACTIVE Swapping', swapRouter: 'UniswapX Priority Orders', note: 'Swapping USDC → ETH/WETH via UniswapX' },
-    { chain: 'Ethereum', chainId: 1, totalBridged: '~$172,000', batches: 4, destAddress: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', destStatus: 'SWAPPED → Accumulator', swapRouter: 'Uniswap V4 Router', note: 'Swapped to ETH, forwarded to accumulator 0x0b2B...3eC6 ($591K parked)' },
+    { chain: 'Base', chainId: 9, totalBridged: '~$787,000', batches: 16, destAddress: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', destStatus: 'DRAINED → ETH', swapRouter: 'UniswapX → Relay/Across', note: 'Swapped USDC→ETH, then bridged ~380 ETH to Ethereum. Only ~19 ETH ($36K) remains on Base.' },
+    { chain: 'Ethereum', chainId: 1, totalBridged: '~$172,000 + ~$715K bridged from Base', batches: 4, destAddress: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', destStatus: 'CONSOLIDATED', swapRouter: 'Uniswap V4 + Relay + Across', note: 'Exploiter 2 holds 467 ETH ($881K). Accumulator holds 300 ETH ($565K). Total ~$1.45M on Ethereum.' },
     { chain: 'BSC', chainId: 2, totalBridged: '~$38,700', batches: 1, destAddress: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482', destStatus: 'UNTOUCHED', swapRouter: 'None', note: '38,746.50 Binance-Peg USDC parked, zero activity' },
 ];
 
 export const EVM_CHAINS = {
     ethereum: {
+        exploiter2: {
+            address: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482',
+            label: 'YieldBlox Exploiter 2',
+            balance: '467.29 ETH ($881,252)',
+            status: 'CONSOLIDATED',
+            txCount: 45,
+            note: 'Received ~380 ETH from Base via Relay (12×20) + Across (10 txns). Active 8hrs ago.',
+        },
         accumulator: {
             address: '0x0b2B16E1a9e2e9b15027ae46fa5ec547f5ef3eC6',
-            balance: '$591,808 ETH',
+            label: 'YieldBlox Exploiter 3',
+            balance: '300.00 ETH ($564,681)',
             status: 'DORMANT',
-            outgoingTxs: 'ZERO',
+            txCount: 6,
+            note: 'Funded with 200+100 ETH from Exploiter 2. Zero outgoing.',
         },
         vanityRing: [
             { address: '0x0B2bC...3EC6', funder: 'Phishing #1064860' },
             { address: '0x0b208...3eC6', funder: 'Phishing #1701177' },
             { address: '0x0b2ce...3eC6', funder: 'Phishing #1674496' },
         ],
-        totalValue: '~$172K',
+        totalValue: '~$1.45M (767 ETH across 2 wallets)',
     },
     base: {
         attacker: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482',
-        balance: '~$787,000',
-        status: 'ACTIVE Swapping',
+        balance: '19.23 ETH ($36,268)',
+        status: 'DRAINED — bridged to ETH',
         router: '0x66a9893cc07d91d95644aedd05d03f95e1dba8af',
+        note: '~380 ETH bridged out via Relay + Across. Only ~19 ETH remains.',
     },
     bsc: {
         wallet: '0x2d1ce29b4af15fb6e76ba9995bbe1421e8546482',
