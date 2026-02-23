@@ -108,17 +108,6 @@ GBO7...2WXC invoked [Blend Pool] CCCC...GYFS submit(     # ← ATTACKER calls th
 Execution Stats: 10,630,639 instructions | 12.96 MB memory | 1,275μs
 ```
 
-#### Key Oracle Contracts
-
-| Contract | Role |
-|----------|------|
-| `CCCC...GYFS` | **Blend Pool** — the lending pool that was drained |
-| `CD74...MXXR` | **Price Wrapper** — calls Reflector Oracle, provides `lastprice()` |
-| `CALI...LE6M` | **Reflector Oracle** — the actual price feed source |
-| `CAS3...OWMA` | **XLM SAC** (Stellar Asset Contract for native XLM) |
-| `CCW6...MI75` | Likely **USDC** SAC (price = 10000000 = 1.0 at 7 decimals) |
-| `CBLV...PNUR` | Likely **USTRY** or another collateral asset |
-
 #### 🔴 The Suspicious Price Jump
 
 Look at the Reflector Oracle's `prices()` response for `CBLV...PNUR`:
@@ -132,9 +121,6 @@ Look at the Reflector Oracle's `prices()` response for `CBLV...PNUR`:
 
 The price of `CBLV...PNUR` jumped **~100x** between timestamps 1771719000 and 1771719300 in the Reflector Oracle. This is the manipulation window — the attacker inflated this asset's oracle price, then borrowed XLM against it.
 
-### 📝 Side Note: The 501x USTRY Offer
-
-Early investigation focused on offer `1824517774` — a sell offer for 0.025 USTRY at 501 USDC/USTRY. This offer was **never filled** (confirmed via Horizon API: zero trades). Its exact role in the oracle manipulation is unclear — it may have been a test, a decoy, or part of an unrelated strategy. The real price inflation appears in the Reflector Oracle data above.
 
 ---
 
