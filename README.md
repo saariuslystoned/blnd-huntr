@@ -485,7 +485,7 @@ YHNF was created **2025-04-15** — 8 days before `G...SXI3` (the Blend Treasury
 
 ### Post-Exploit Activity
 
-After the liquidations completed, YHNF began creating **claimable balances** — distributing its seized assets (CETES, XLM, etc.) to other accounts. The controller multisig `G...V4A7` is the likely recipient.
+After completing its 31 fills, YHNF began creating **claimable balances** — distributing its seized collateral (XLM, CETES, USDC, EURC, USDGLO) to the controller multisig `G...V4A7`. This is consistent with a bot returning profits to its operator wallet via Stellar's native claimable balance mechanism rather than a direct transfer, which avoids triggering on-chain payment alerts.
 
 ---
 
@@ -635,25 +635,15 @@ This is the standard Soroban-native token pattern: the issuer account is rendere
 
 ### Significance
 
-The SDF deployed ~$8–9M USD (as XLM) into the Blend treasury as the **primary liquidity backbone** of the pool. When the oracle exploit hit:
-- The SDF-backed position (`G...SXI3`) was the largest in the pool and therefore took the largest liquidation
-- `G...XLIQ` walked away with **~70.68M XLM** (worth ~$10M) — capital that originated as SDF development funds
-- The exploit was not just a DeFi hack — it was a direct hit on an SDF-funded institutional liquidity program
+The SDF-linked accounts deployed capital into the Blend treasury, making `G...SXI3` the largest single position in the pool by a wide margin — **77.85M XLM** of collateral. When the oracle exploit hit:
+
+- `G...SXI3` was forcibly liquidated across 9 fills, yielding the overwhelming majority of all seized collateral
+- `G...XLIQ` captured **76.4M XLM** total across all 60 fills (91.4% of all priced collateral at $0.1609 = **~$12.3M**) — with the SDF treasury position as its primary source
+- The exploit was not just a DeFi hack — it was a precision strike on an institutional liquidity position, with two pre-positioned bots (XLIQ + YHNF) ready to sweep the resulting auctions
 
 ---
 
 ## Stellar — Attacker Infrastructure
-
-> ### 🚨 CRITICAL KYC LEAD — BINANCE DEPOSIT ADDRESS IDENTIFIED
->
-> **`GABFQIK63R2NETJM7T673EAMZN4RJLLGP3OFUEJU5SZVTGWUKULZJNL6`** has been confirmed by [stellar.expert](https://stellar.expert/explorer/public/account/GABFQIK63R2NETJM7T673EAMZN4RJLLGP3OFUEJU5SZVTGWUKULZJNL6) as the **Binance Stellar deposit hot wallet** (`#exchange`, `#memo-required`, `https://binance.com`).
->
-> The attacker routed stolen XLM through `GDTSFMKTLD2W` (Relay intermediary, **fully drained — 3.51M XLM**) directly into this address. This means:
-> 1. **Binance has KYC on the depositing account.** A law enforcement subpoena or security team contact to Binance will reveal the attacker's identity.
-> 2. The same deposit address shows **pre-exploit activity dating back to December 29, 2024** — the attacker has an established Binance account, not a throwaway.
-> 3. USDC that flowed through this address was swept to `GC5LF63GRVIT5ZXXCXLPI3RX` (Binance's internal hot wallet / settlement address), confirming the funds were credited into the Binance system.
->
-> **Recommended actions:** Contact Binance security team at security@binance.com with the transaction hashes involving `GABFQIK63R2N` and request an account freeze + identity disclosure under applicable law.
 
 
 ### Primary Attacker Wallet
