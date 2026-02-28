@@ -11,3 +11,7 @@ dist/
 # IDE
 .vscode/
 .idea/
+
+# Investigation (private)
+scripts/
+deep-dives/
