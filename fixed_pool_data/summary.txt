@@ -1,0 +1,29 @@
+Blend Fixed Pool - Full Position Extract
+Contract: CAJJZSGMMM3PD7N33TAPHGBUGTB43OC73HVIK2L2G6BNGGGYOSSYBXBD
+Date: 2026-02-28 10:33:54
+Source: Stellar Hubble BigQuery (crypto-stellar.crypto_stellar.contract_data)
+
+Total Position entries (all time): 28688
+Unique addresses: 28688
+Entries with non-zero balances: 25422
+Addresses with non-zero balances: 25422
+
+Note: Values are raw b-token/d-token amounts (internal shares).
+Multiply by reserve bRate/dRate to get actual token amounts.
+
+Raw b-token totals per reserve:
+
+  XLM:
+    collateral: 4,372,118,421,734,479
+    liabilities: 7,228,716,458,058
+    supply: 215,171,506,744
+
+  USDC:
+    collateral: 264,977,242,468,342
+    liabilities: 243,868,967,970,249
+    supply: 97,184,844,801,854
+
+  EURC:
+    collateral: 15,958,599,842,584
+    liabilities: 13,053,842,840,717
+    supply: 1,136,514,667,001

@@ -1,0 +1,12 @@
+Blend Fixed Pool TVL Calculation
+Contract: CAJJZSGMMM3PD7N33TAPHGBUGTB43OC73HVIK2L2G6BNGGGYOSSYBXBD
+Date: 2026-02-28 11:21:56
+Source: Stellar Hubble BigQuery
+
+Prices: XLM=$0.15127, USDC=$1.0, EURC=$1.04
+
+XLM: 437,246,149.35 deposited ($66,142,225.01), 723,626.15 borrowed ($109,462.93)
+USDC: 39,746,873.92 deposited ($39,746,873.92), 28,009,083.90 borrowed ($28,009,083.90)
+EURC: 1,948,968.10 deposited ($2,026,926.82), 1,575,970.54 borrowed ($1,639,009.36)
+
+TOTAL TVL: $107,916,025.76
